@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITN Mass Campaign 2026/2027</title>
+
+<style>
+
+:root{
+    --blue:#4FA9D9;
+    --text:#1f2937;
+    --border:#e5e7eb;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f6f8fb;
+}
+
+/* APP WRAPPER */
+.app{
+    max-width:430px;
+    margin:auto;
+    background:#fff;
+    min-height:100vh;
+    position:relative;
+    overflow:hidden;
+}
+
+/* 🔵 LEFT BLUE LINE */
+.app::before{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    width:4px;
+    background:var(--blue);
+    z-index:0;
+}
+
+/* 🔵 RIGHT BLUE LINE */
+.app::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    width:4px;
+    background:var(--blue);
+    z-index:0;
+}
+
+/* CONTENT ABOVE LINES */
+.header, .partners, .banner, .menu, .footer{
+    position:relative;
+    z-index:1;
+}
+
+/* HEADER */
+.header{
+    width:100%;
+    background:var(--blue);
+    text-align:center;
+    padding:18px 10px;
+    color:#fff;
+}
+
+.header h1{
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+.header img{
+    width:75px;
+    height:75px;
+    object-fit:contain;
+    display:block;
+    margin:8px auto;
+}
+
+.header h2{
+    font-size:13px;
+    font-weight:600;
+    line-height:1.4;
+}
+
+/* PARTNERS */
+.partners{
+    padding:12px 8px;
+    background:#fff;
+}
+
+.partners-title{
+    text-align:center;
+    color:var(--blue);
+    font-weight:700;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.partner-grid{
+    display:flex;
+    gap:6px;
+}
+
+.partner{
+    flex:1;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:10px;
+    text-align:center;
+    padding:8px;
+}
+
+.partner img{
+    width:35px;
+    height:35px;
+    object-fit:contain;
+}
+
+.partner span{
+    font-size:10px;
+    display:block;
+    margin-top:4px;
+    color:#333;
+}
+
+/* BANNER */
+.banner{
+    padding:10px;
+    background:#fff;
+}
+
+.banner img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-radius:12px;
+    border:1px solid var(--border);
+}
+
+/* MENU */
+.menu{
+    padding:10px;
+    background:#fff;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:8px;
+}
+
+/* BLUE CARDS */
+.card{
+    background:var(--blue);
+    border-radius:10px;
+    min-height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:11px;
+    font-weight:700;
+    color:#fff;
+    padding:6px;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+    cursor:pointer;
+}
+
+.card:active{
+    transform:scale(.96);
+}
+
+/* FOOTER */
+.footer{
+    width:100%;
+    background:var(--blue);
+    text-align:center;
+    padding:14px 10px;
+    color:#fff;
+    font-size:12px;
+    font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <h1>ITN MASS CAMPAIGN 2026/2027</h1>
+
+        <img src="MoH.png" alt="MOH Logo">
+
+        <h2>MINISTRY OF HEALTH</h2>
+        <h2>NATIONAL MALARIA CONTROL PROGRAMME</h2>
+        <h2>SIERRA LEONE</h2>
+
+    </div>
+
+    <!-- PARTNERS -->
+    <div class="partners">
+
+        <div class="partners-title">IMPLEMENTING PARTNERS</div>
+
+        <div class="partner-grid">
+
+            <div class="partner">
+                <img src="global.png">
+                <span>Global Fund</span>
+            </div>
+
+            <div class="partner">
+                <img src="world.png">
+                <span>World Vision</span>
+            </div>
+
+            <div class="partner">
+                <img src="who.png">
+                <span>WHO</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BANNER -->
+    <div class="banner">
+        <img src="IMAGE.png" alt="Campaign Banner">
+    </div>
+
+    <!-- MENU -->
+    <div class="menu">
+
+        <div class="grid">
+
+            <div class="card">Registration</div>
+            <div class="card">Distribution</div>
+            <div class="card">Records</div>
+
+            <div class="card">Dashboard</div>
+            <div class="card">Attendance</div>
+            <div class="card">Stock Mgmt</div>
+
+            <div class="card">Reconciliation</div>
+            <div class="card">Device Tracking</div>
+            <div class="card">Monitoring</div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        Powered by Informatics Consultancy Firm-SL © 2026
+    </div>
+
+</div>
+
+</body>
+</html>
