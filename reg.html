@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Household Registration</title>
+
+<style>
+
+:root{
+    --blue:#4FA9D9;
+    --border:#e5e7eb;
+    --text:#1f2937;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f6f8fb;
+}
+
+/* APP */
+.app{
+    max-width:430px;
+    margin:auto;
+    background:#fff;
+    min-height:100vh;
+    position:relative;
+}
+
+/* SIDE LINES */
+.app::before,
+.app::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:4px;
+    background:var(--blue);
+}
+
+.app::before{ left:0; }
+.app::after{ right:0; }
+
+.content{
+    position:relative;
+    z-index:1;
+}
+
+/* HEADER RESTORED */
+.header{
+    background:var(--blue);
+    color:#fff;
+    text-align:center;
+    padding:16px 10px;
+}
+
+.header h1{
+    font-size:16px;
+}
+
+.header h2{
+    font-size:12px;
+    font-weight:600;
+    margin-top:3px;
+}
+
+/* FORM */
+.form{
+    padding:12px;
+}
+
+label{
+    font-size:12px;
+    font-weight:700;
+    margin-top:10px;
+    display:block;
+    color:var(--text);
+}
+
+select, input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:13px;
+}
+
+/* BUTTON */
+.btn{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+}
+
+/* GPS BUTTON */
+.gps-btn{
+    width:100%;
+    margin-top:8px;
+    padding:10px;
+    background:#fff;
+    border:1px solid var(--blue);
+    color:var(--blue);
+    border-radius:8px;
+    font-weight:700;
+}
+
+/* FOOTER */
+.footer{
+    background:var(--blue);
+    color:#fff;
+    text-align:center;
+    padding:12px;
+    font-size:12px;
+    font-weight:600;
+    margin-top:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="content">
+
+<!-- HEADER -->
+<div class="header">
+    <h1>HOUSEHOLD REGISTRATION</h1>
+    <h2>ITN MASS CAMPAIGN 2026/2027</h2>
+</div>
+
+<!-- FORM -->
+<div class="form">
+
+    <!-- DISTRICT -->
+    <label>District</label>
+    <select id="district" onchange="loadChiefdoms()">
+        <option value="">Select District</option>
+        <option value="Western Area">Western Area</option>
+        <option value="Bo">Bo</option>
+        <option value="Kenema">Kenema</option>
+    </select>
+
+    <!-- CHIEFDOM -->
+    <label>Chiefdom</label>
+    <select id="chiefdom" onchange="loadPHUs()">
+        <option value="">Select Chiefdom</option>
+    </select>
+
+    <!-- PHU -->
+    <label>PHU</label>
+    <select id="phu">
+        <option value="">Select PHU</option>
+    </select>
+
+    <label>Household Head</label>
+    <input type="text" id="hh_head" placeholder="Full Name">
+
+    <label>Telephone</label>
+    <input type="tel" id="phone" placeholder="07XXXXXXXX">
+
+    <label>Number of People</label>
+    <input type="number" id="members">
+
+    <label>GPS</label>
+    <input type="text" id="gps" readonly>
+
+    <button class="gps-btn" onclick="getGPS()">📍 Capture GPS</button>
+
+    <button class="btn" onclick="saveData()">Submit</button>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    Powered by Informatics Consultancy Firm-SL © 2026
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================
+   CASCADING DATA
+========================= */
+
+const data = {
+    "Western Area": {
+        "Western Urban": ["Cline Town PHU", "Congo Cross PHU"],
+        "Western Rural": ["Waterloo PHU", "Rokupr PHU"]
+    },
+    "Bo": {
+        "Bo Central": ["Bo Government Hospital PHU", "Koribondo PHU"],
+        "Bumpe Ngao": ["Bumpe PHU", "Sumbuya PHU"]
+    },
+    "Kenema": {
+        "Kenema City": ["Kenema Government Hospital PHU", "Largo PHU"],
+        "Nomo": ["Nomo PHU", "Tongo PHU"]
+    }
+};
+
+/* LOAD CHIEFDOMS */
+function loadChiefdoms(){
+    let district = document.getElementById("district").value;
+    let chiefdomSelect = document.getElementById("chiefdom");
+    let phuSelect = document.getElementById("phu");
+
+    chiefdomSelect.innerHTML = '<option value="">Select Chiefdom</option>';
+    phuSelect.innerHTML = '<option value="">Select PHU</option>';
+
+    if(data[district]){
+        Object.keys(data[district]).forEach(chiefdom=>{
+            let opt = document.createElement("option");
+            opt.value = chiefdom;
+            opt.textContent = chiefdom;
+            chiefdomSelect.appendChild(opt);
+        });
+    }
+}
+
+/* LOAD PHUs */
+function loadPHUs(){
+    let district = document.getElementById("district").value;
+    let chiefdom = document.getElementById("chiefdom").value;
+    let phuSelect = document.getElementById("phu");
+
+    phuSelect.innerHTML = '<option value="">Select PHU</option>';
+
+    if(data[district] && data[district][chiefdom]){
+        data[district][chiefdom].forEach(phu=>{
+            let opt = document.createElement("option");
+            opt.value = phu;
+            opt.textContent = phu;
+            phuSelect.appendChild(opt);
+        });
+    }
+}
+
+/* GPS */
+function getGPS(){
+    navigator.geolocation.getCurrentPosition(pos=>{
+        document.getElementById("gps").value =
+        pos.coords.latitude + ", " + pos.coords.longitude;
+    });
+}
+
+/* SAVE */
+function saveData(){
+
+    let record = {
+        district: district.value,
+        chiefdom: chiefdom.value,
+        phu: phu.value,
+        household_head: hh_head.value,
+        phone: phone.value,
+        members: members.value,
+        gps: gps.value
+    };
+
+    let all = JSON.parse(localStorage.getItem("households") || "[]");
+    all.push(record);
+    localStorage.setItem("households", JSON.stringify(all));
+
+    alert("Saved Successfully!");
+}
+
+</script>
+
+</body>
+</html>
