@@ -24,7 +24,7 @@ body{
     background:#f6f8fb;
 }
 
-/* APP WRAPPER */
+/* APP CONTAINER */
 .app{
     max-width:430px;
     margin:auto;
@@ -34,29 +34,20 @@ body{
     overflow:hidden;
 }
 
-/* 🔵 LEFT BLUE LINE */
-.app::before{
-    content:"";
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    width:4px;
-    background:var(--blue);
-    z-index:0;
-}
-
-/* 🔵 RIGHT BLUE LINE */
+/* LEFT + RIGHT BLUE LINES */
+.app::before,
 .app::after{
     content:"";
     position:absolute;
     top:0;
     bottom:0;
-    right:0;
     width:4px;
     background:var(--blue);
     z-index:0;
 }
+
+.app::before{ left:0; }
+.app::after{ right:0; }
 
 /* CONTENT ABOVE LINES */
 .header, .partners, .banner, .menu, .footer{
@@ -123,14 +114,6 @@ body{
 .partner img{
     width:35px;
     height:35px;
-    object-fit:contain;
-}
-
-.partner span{
-    font-size:10px;
-    display:block;
-    margin-top:4px;
-    color:#333;
 }
 
 /* BANNER */
@@ -171,8 +154,6 @@ body{
     font-size:11px;
     font-weight:700;
     color:#fff;
-    padding:6px;
-    box-shadow:0 2px 6px rgba(0,0,0,.08);
     cursor:pointer;
 }
 
@@ -191,6 +172,51 @@ body{
     font-weight:600;
 }
 
+/* IFRAME MODAL */
+.iframe-container{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.iframe-box{
+    width:95%;
+    height:90%;
+    background:#fff;
+    border-radius:10px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+}
+
+.iframe-header{
+    background:var(--blue);
+    color:#fff;
+    padding:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+}
+
+.iframe-box iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.close-btn{
+    cursor:pointer;
+    font-weight:bold;
+}
+
 </style>
 </head>
 
@@ -200,46 +226,27 @@ body{
 
     <!-- HEADER -->
     <div class="header">
-
         <h1>ITN MASS CAMPAIGN 2026/2027</h1>
-
-        <img src="moh_logo.png" alt="MOH Logo">
-
+        <img src="MoH.png">
         <h2>MINISTRY OF HEALTH</h2>
         <h2>NATIONAL MALARIA CONTROL PROGRAMME</h2>
         <h2>SIERRA LEONE</h2>
-
     </div>
 
     <!-- PARTNERS -->
     <div class="partners">
-
         <div class="partners-title">IMPLEMENTING PARTNERS</div>
 
         <div class="partner-grid">
-
-            <div class="partner">
-                <img src="global_fund.png">
-                <span>Global Fund</span>
-            </div>
-
-            <div class="partner">
-                <img src="world-vision-logo.png">
-                <span>World Vision</span>
-            </div>
-
-            <div class="partner">
-                <img src="who.png">
-                <span>WHO</span>
-            </div>
-
+            <div class="partner"><img src="global.png"></div>
+            <div class="partner"><img src="world.png"></div>
+            <div class="partner"><img src="who.png"></div>
         </div>
-
     </div>
 
     <!-- BANNER -->
     <div class="banner">
-        <img src="World Malaria Day pic.png" alt="Campaign Banner">
+        <img src="IMAGE.png">
     </div>
 
     <!-- MENU -->
@@ -247,7 +254,7 @@ body{
 
         <div class="grid">
 
-            <div class="card">Registration</div>
+            <div class="card" onclick="openPage('reg.html')">Registration</div>
             <div class="card">Distribution</div>
             <div class="card">Records</div>
 
@@ -269,6 +276,36 @@ body{
     </div>
 
 </div>
+
+<!-- IFRAME MODAL -->
+<div class="iframe-container" id="iframeBox">
+
+    <div class="iframe-box">
+
+        <div class="iframe-header">
+            <span>Registration</span>
+            <span class="close-btn" onclick="closeFrame()">✖</span>
+        </div>
+
+        <iframe id="frame"></iframe>
+
+    </div>
+
+</div>
+
+<script>
+
+function openPage(page){
+    document.getElementById("frame").src = page;
+    document.getElementById("iframeBox").style.display = "flex";
+}
+
+function closeFrame(){
+    document.getElementById("iframeBox").style.display = "none";
+    document.getElementById("frame").src = "";
+}
+
+</script>
 
 </body>
 </html>
