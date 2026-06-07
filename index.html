@@ -34,18 +34,37 @@ body{
 .header{
     text-align:center;
     padding:30px;
+    background:white;
+}
+
+.header img{
+    width:80px;
+    margin-bottom:10px;
+}
+
+.header h1{
+    font-size:28px;
+    color:#0f4c81;
+    margin-bottom:10px;
 }
 
 .header h2{
-    color:#0f4c81;
+    font-size:22px;
     margin-bottom:8px;
 }
 
 .header h3{
-    color:#333;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.header h4{
+    font-size:16px;
+    color:#555;
 }
 
 .main{
+    background:white;
     padding:40px 20px;
 }
 
@@ -88,6 +107,7 @@ input{
     border-radius:8px;
     font-size:16px;
     font-weight:bold;
+    transition:.3s;
 }
 
 .login-btn{
@@ -99,23 +119,100 @@ input{
     background:#0d47a1;
 }
 
-#iframeContainer{
-    display:none;
-    width:100%;
+.scan-btn{
+    background:#26a69a;
+    color:white;
+    margin-top:10px;
+}
+
+.scan-btn:hover{
+    background:#00897b;
+}
+
+.action-buttons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:30px;
+}
+
+.action-card{
+    background:white;
+    border-radius:12px;
+    padding:30px 15px;
+    text-align:center;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.action-card:hover{
+    transform:translateY(-5px);
+}
+
+.connectivity{
+    border-top:5px solid #2196f3;
+}
+
+.tracking{
+    border-top:5px solid #4caf50;
+}
+
+.provision{
+    border-top:5px solid #ff9800;
+}
+
+.partners{
+    background:white;
     padding:20px;
 }
 
-iframe{
-    width:100%;
-    height:700px;
-    border:none;
-    border-radius:10px;
+.partners-title{
+    text-align:center;
+    font-size:22px;
+    color:#0f4c81;
+    margin-bottom:20px;
+    font-weight:bold;
 }
 
-.error{
-    color:red;
+.partner-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.partner{
+    background:#f5f8fc;
+    border-radius:10px;
+    padding:20px;
     text-align:center;
-    margin-top:10px;
+    border:1px solid #ddd;
+}
+
+.partner img{
+    width:70px;
+    margin-bottom:10px;
+}
+
+.footer{
+    text-align:center;
+    background:#0f4c81;
+    color:white;
+    padding:15px;
+    font-weight:bold;
+}
+
+@media(max-width:768px){
+
+.action-buttons{
+    grid-template-columns:1fr;
+}
+
+.partner-grid{
+    grid-template-columns:1fr;
+}
+
 }
 </style>
 
@@ -124,109 +221,101 @@ iframe{
 
 <div class="container">
 
-    <!-- HEADER -->
     <div class="header">
+
+        <!-- Ministry Logo -->
+        <img src="moh_logo.png" alt="MOH Logo">
+
         <h2>INSECTICIDE TREATED NET MASS CAMPAIGN 2027</h2>
-        <h3>MINISTRY OF HEALTH - SIERRA LEONE</h3>
+
+        <h2>MINISTRY OF HEALTH</h2>
+
+        <h3>NATIONAL MALARIA CONTROL PROGRAMME</h3>
+
+        <h4>SIERRA LEONE</h4>
+
     </div>
 
-    <!-- LOGIN SECTION -->
-    <div class="main" id="loginSection">
+    <div class="main">
 
         <div class="login-card">
 
             <div class="login-top">
-                <img src="ICF-SL Logo.png" alt="logo">
+                <img src="ICF-SL Logo.jpg" alt="ICF Logo">
             </div>
 
             <div class="form-group">
-                <input type="text" id="username" placeholder="Username">
+                <input type="text" placeholder="Username">
             </div>
 
             <div class="form-group">
-                <input type="password" id="password" placeholder="Password">
+                <input type="password" placeholder="Password">
             </div>
 
             <div class="form-group">
-                <button class="btn login-btn" onclick="loginUser()">LOGIN</button>
+                <button class="btn login-btn">
+                    LOGIN
+                </button>
             </div>
 
-            <div class="error" id="errorMsg"></div>
+            <div class="form-group">
+                <button class="btn scan-btn">
+                    SCAN USER ID CARD
+                </button>
+            </div>
+
+        </div>
+
+        <div class="action-buttons">
+
+            <div class="action-card connectivity">
+                INTERNET CONNECTIVITY
+            </div>
+
+            <div class="action-card tracking">
+                DEVICE TRACKING
+            </div>
+
+            <div class="action-card provision">
+                PROVISION
+            </div>
 
         </div>
 
     </div>
 
-    <!-- IFRAME SECTION -->
-    <div id="iframeContainer">
-        <iframe id="contentFrame"></iframe>
+    <div class="partners">
+
+        <div class="partners-title">
+            IMPLEMENTING PARTNERS
+        </div>
+
+        <div class="partner-grid">
+
+            <div class="partner">
+                <img src="global_fund.png" alt="">
+                <h5>GLOBAL FUND</h5>
+            </div>
+
+            <div class="partner">
+                <img src="world-vision-logo.png" alt="">
+                <h5>WORLD VISION</h5>
+            </div>
+
+            <div class="partner">
+                <img src="who.png" alt="">
+                <h5>WORLD HEALTH ORGANIZATION</h5>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Powered by ICF-SL @ 2026
     </div>
 
 </div>
-
-<script>
-
-async function loginUser(){
-
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const errorMsg = document.getElementById("errorMsg");
-
-    errorMsg.innerText = "";
-
-    if(!username || !password){
-        errorMsg.innerText = "Please enter username and password";
-        return;
-    }
-
-    try{
-
-        const response = await fetch("credential.csv");
-        const csvData = await response.text();
-
-        const rows = csvData.split("\n");
-
-        let isValid = false;
-
-        for(let i = 1; i < rows.length; i++){
-
-            const cols = rows[i].split(",");
-
-            if(cols.length >= 2){
-
-                const csvUser = cols[0].trim();
-                const csvPass = cols[1].trim();
-
-                if(username === csvUser && password === csvPass){
-                    isValid = true;
-                    break;
-                }
-            }
-        }
-
-        if(isValid){
-
-            // Hide login
-            document.getElementById("loginSection").style.display = "none";
-
-            // Show iframe
-            document.getElementById("iframeContainer").style.display = "block";
-
-            // Load reg.html inside iframe
-            document.getElementById("contentFrame").src = "reg.html";
-
-        } else {
-            errorMsg.innerText = "Invalid username or password";
-        }
-
-    } catch(error){
-        console.error(error);
-        errorMsg.innerText = "Cannot load credential.csv (use Live Server)";
-    }
-
-}
-
-</script>
 
 </body>
 </html>
