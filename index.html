@@ -10,7 +10,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Segoe UI,sans-serif;
+    font-family:Segoe UI, sans-serif;
 }
 
 body{
@@ -25,7 +25,7 @@ body{
 .container{
     width:100%;
     max-width:900px;
-    background:#fff;
+    background:white;
     border-radius:20px;
     overflow:hidden;
     box-shadow:0 10px 30px rgba(0,0,0,.25);
@@ -34,6 +34,7 @@ body{
 .header{
     text-align:center;
     padding:30px;
+    background:white;
 }
 
 .header img{
@@ -41,25 +42,34 @@ body{
     margin-bottom:10px;
 }
 
-.header h2{
+.header h1{
+    font-size:28px;
     color:#0f4c81;
+    margin-bottom:10px;
+}
+
+.header h2{
+    font-size:22px;
     margin-bottom:8px;
 }
 
 .header h3{
+    font-size:18px;
     margin-bottom:8px;
 }
 
 .header h4{
+    font-size:16px;
     color:#555;
 }
 
 .main{
-    padding:30px 20px;
+    background:white;
+    padding:40px 20px;
 }
 
 .login-card{
-    max-width:450px;
+    max-width:400px;
     margin:auto;
     background:white;
     border-radius:15px;
@@ -78,13 +88,7 @@ body{
 }
 
 .form-group{
-    padding:12px 15px;
-}
-
-.form-group label{
-    display:block;
-    margin-bottom:5px;
-    font-weight:600;
+    padding:15px;
 }
 
 input{
@@ -125,29 +129,6 @@ input{
     background:#00897b;
 }
 
-.csv-btn{
-    background:#ff9800;
-    color:white;
-}
-
-.csv-btn:hover{
-    background:#ef6c00;
-}
-
-.status{
-    text-align:center;
-    padding:10px;
-    font-weight:bold;
-}
-
-.success{
-    color:green;
-}
-
-.error{
-    color:red;
-}
-
 .action-buttons{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -158,7 +139,7 @@ input{
 .action-card{
     background:white;
     border-radius:12px;
-    padding:25px;
+    padding:30px 15px;
     text-align:center;
     font-weight:600;
     cursor:pointer;
@@ -183,6 +164,7 @@ input{
 }
 
 .partners{
+    background:white;
     padding:20px;
 }
 
@@ -240,12 +222,18 @@ input{
 <div class="container">
 
     <div class="header">
+
+        <!-- Ministry Logo -->
         <img src="moh_logo.png" alt="MOH Logo">
 
         <h2>INSECTICIDE TREATED NET MASS CAMPAIGN 2027</h2>
+
         <h2>MINISTRY OF HEALTH</h2>
+
         <h3>NATIONAL MALARIA CONTROL PROGRAMME</h3>
+
         <h4>SIERRA LEONE</h4>
+
     </div>
 
     <div class="main">
@@ -253,34 +241,25 @@ input{
         <div class="login-card">
 
             <div class="login-top">
-                <img src="ICF-SL Logo.jpg" alt="ICF Logo">
+                <img src="ICF-SL Logo.png" alt="ICF Logo">
             </div>
 
             <div class="form-group">
-                <label>Select credential.csv</label>
-                <input type="file" id="csvFile" accept=".csv">
-            </div>
-
-            <div class="status" id="status">
-                No credential file loaded
+                <input type="text" placeholder="Username">
             </div>
 
             <div class="form-group">
-                <input type="text" id="username" placeholder="Username">
+                <input type="password" placeholder="Password">
             </div>
 
             <div class="form-group">
-                <input type="password" id="password" placeholder="Password">
-            </div>
-
-            <div class="form-group">
-                <button class="btn login-btn" onclick="login()">
+                <button class="btn login-btn">
                     LOGIN
                 </button>
             </div>
 
             <div class="form-group">
-                <button class="btn scan-btn" onclick="scanCard()">
+                <button class="btn scan-btn">
                     SCAN USER ID CARD
                 </button>
             </div>
@@ -289,18 +268,15 @@ input{
 
         <div class="action-buttons">
 
-            <div class="action-card connectivity"
-                 onclick="showModule('Internet Connectivity')">
+            <div class="action-card connectivity">
                 INTERNET CONNECTIVITY
             </div>
 
-            <div class="action-card tracking"
-                 onclick="showModule('Attendance Tracking')">
-                ATTENDANCE TRACKING
+            <div class="action-card tracking">
+                DEVICE TRACKING
             </div>
 
-            <div class="action-card provision"
-                 onclick="showModule('Provision')">
+            <div class="action-card provision">
                 PROVISION
             </div>
 
@@ -327,7 +303,7 @@ input{
             </div>
 
             <div class="partner">
-                <img src="who.png" alt="">
+                <img src="World-Health-Organization-WHO-Logo.png" alt="">
                 <h5>WORLD HEALTH ORGANIZATION</h5>
             </div>
 
@@ -336,97 +312,10 @@ input{
     </div>
 
     <div class="footer">
-        Powered by ICF-SL © 2026
+        Powered by ICF-SL @ 2026
     </div>
 
 </div>
-
-<script>
-
-let credentials = [];
-
-document.getElementById("csvFile").addEventListener("change", function(event){
-
-    const file = event.target.files[0];
-
-    if(!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = function(e){
-
-        const text = e.target.result;
-        const rows = text.split(/\r?\n/);
-
-        credentials = [];
-
-        rows.forEach(row => {
-
-            const cols = row.split(",");
-
-            if(cols.length >= 2){
-
-                credentials.push({
-                    username: cols[0].trim(),
-                    password: cols[1].trim()
-                });
-
-            }
-
-        });
-
-        document.getElementById("status").innerHTML =
-            "✓ Credentials Loaded Successfully";
-
-        document.getElementById("status").className =
-            "status success";
-    };
-
-    reader.readAsText(file);
-
-});
-
-function login(){
-
-    const username =
-        document.getElementById("username").value.trim();
-
-    const password =
-        document.getElementById("password").value.trim();
-
-    if(credentials.length === 0){
-
-        alert("Please load credential.csv first.");
-        return;
-
-    }
-
-    const user = credentials.find(u =>
-        u.username === username &&
-        u.password === password
-    );
-
-    if(user){
-
-        alert("Login Successful");
-
-    }else{
-
-        alert("Invalid Username or Password");
-
-    }
-
-}
-
-function scanCard(){
-    alert("User ID Card Scanner Module");
-}
-
-function showModule(moduleName){
-    alert(moduleName + " Module");
-}
-
-</script>
 
 </body>
 </html>
