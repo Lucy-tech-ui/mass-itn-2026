@@ -29,10 +29,8 @@ body{
     border-radius:20px;
     overflow:hidden;
     box-shadow:0 10px 30px rgba(0,0,0,.25);
-    position:relative;
 }
 
-/* HEADER */
 .header{
     text-align:center;
     padding:30px;
@@ -70,7 +68,6 @@ body{
     padding:40px 20px;
 }
 
-/* LOGIN */
 .login-card{
     max-width:400px;
     margin:auto;
@@ -132,7 +129,6 @@ input{
     background:#00897b;
 }
 
-/* ACTIONS */
 .action-buttons{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -155,11 +151,18 @@ input{
     transform:translateY(-5px);
 }
 
-.connectivity{ border-top:5px solid #2196f3; }
-.tracking{ border-top:5px solid #4caf50; }
-.provision{ border-top:5px solid #ff9800; }
+.connectivity{
+    border-top:5px solid #2196f3;
+}
 
-/* PARTNERS */
+.tracking{
+    border-top:5px solid #4caf50;
+}
+
+.provision{
+    border-top:5px solid #ff9800;
+}
+
 .partners{
     background:white;
     padding:20px;
@@ -192,7 +195,6 @@ input{
     margin-bottom:10px;
 }
 
-/* FOOTER */
 .footer{
     text-align:center;
     background:#0f4c81;
@@ -201,18 +203,16 @@ input{
     font-weight:bold;
 }
 
-/* IFRAME VIEW */
-#appFrame{
-    width:100%;
-    height:600px;
-    border:none;
-    display:none;
+@media(max-width:768px){
+
+.action-buttons{
+    grid-template-columns:1fr;
 }
 
-/* RESPONSIVE */
-@media(max-width:768px){
-    .action-buttons{ grid-template-columns:1fr; }
-    .partner-grid{ grid-template-columns:1fr; }
+.partner-grid{
+    grid-template-columns:1fr;
+}
+
 }
 </style>
 
@@ -222,33 +222,38 @@ input{
 <div class="container">
 
     <div class="header">
+
+        <!-- Ministry Logo -->
         <img src="moh_logo.png" alt="MOH Logo">
 
         <h2>INSECTICIDE TREATED NET MASS CAMPAIGN 2027</h2>
+
         <h2>MINISTRY OF HEALTH</h2>
+
         <h3>NATIONAL MALARIA CONTROL PROGRAMME</h3>
+
         <h4>SIERRA LEONE</h4>
+
     </div>
 
     <div class="main">
 
-        <!-- LOGIN CARD -->
-        <div class="login-card" id="loginCard">
+        <div class="login-card">
 
             <div class="login-top">
                 <img src="ICF-SL Logo.png" alt="ICF Logo">
             </div>
 
             <div class="form-group">
-                <input type="text" id="username" placeholder="Username">
+                <input type="text" placeholder="Username">
             </div>
 
             <div class="form-group">
-                <input type="password" id="password" placeholder="Password">
+                <input type="password" placeholder="Password">
             </div>
 
             <div class="form-group">
-                <button class="btn login-btn" onclick="loginUser()">
+                <button class="btn login-btn">
                     LOGIN
                 </button>
             </div>
@@ -261,38 +266,49 @@ input{
 
         </div>
 
-        <!-- IFRAME (REG PAGE) -->
-        <iframe id="appFrame"></iframe>
-
-        <!-- ACTION BUTTONS -->
         <div class="action-buttons">
-            <div class="action-card connectivity">INTERNET CONNECTIVITY</div>
-            <div class="action-card tracking">DEVICE TRACKING</div>
-            <div class="action-card provision">PROVISION</div>
+
+            <div class="action-card connectivity">
+                INTERNET CONNECTIVITY
+            </div>
+
+            <div class="action-card tracking">
+                DEVICE TRACKING
+            </div>
+
+            <div class="action-card provision">
+                PROVISION
+            </div>
+
         </div>
 
     </div>
 
-    <!-- PARTNERS -->
     <div class="partners">
-        <div class="partners-title">IMPLEMENTING PARTNERS</div>
+
+        <div class="partners-title">
+            IMPLEMENTING PARTNERS
+        </div>
 
         <div class="partner-grid">
+
             <div class="partner">
-                <img src="global_fund.png">
+                <img src="global_fund.png" alt="">
                 <h5>GLOBAL FUND</h5>
             </div>
 
             <div class="partner">
-                <img src="world-vision-logo.png">
+                <img src="world-vision-logo.png" alt="">
                 <h5>WORLD VISION</h5>
             </div>
 
             <div class="partner">
-                <img src="World-Health-Organization-WHO-Logo.png">
+                <img src="World-Health-Organization-WHO-Logo.png" alt="">
                 <h5>WORLD HEALTH ORGANIZATION</h5>
             </div>
+
         </div>
+
     </div>
 
     <div class="footer">
@@ -300,37 +316,6 @@ input{
     </div>
 
 </div>
-
-<script>
-let credentials = [];
-
-// Load CSV file
-fetch("credential.csv")
-.then(res => res.text())
-.then(data => {
-    credentials = data.split("\n").map(row => {
-        let [user, pass] = row.split(",");
-        return { user: user?.trim(), pass: pass?.trim() };
-    });
-});
-
-// LOGIN FUNCTION
-function loginUser(){
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value.trim();
-
-    let valid = credentials.find(c => c.user === username && c.pass === password);
-
-    if(valid){
-        document.getElementById("loginCard").style.display = "none";
-        document.querySelector(".action-buttons").style.display = "none";
-        document.getElementById("appFrame").style.display = "block";
-        document.getElementById("appFrame").src = "reg.html";
-    }else{
-        alert("Invalid username or password");
-    }
-}
-</script>
 
 </body>
 </html>
