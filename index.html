@@ -15,7 +15,7 @@
 
 body{
     background:linear-gradient(135deg,#0f4c81,#1e88e5);
-    min-height:60vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -39,12 +39,6 @@ body{
 
 .header img{
     width:80px;
-    margin-bottom:10px;
-}
-
-.header h1{
-    font-size:25px;
-    color:#0f4c81;
     margin-bottom:10px;
 }
 
@@ -125,10 +119,6 @@ input{
     margin-top:10px;
 }
 
-.scan-btn:hover{
-    background:#00897b;
-}
-
 .action-buttons{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -142,57 +132,12 @@ input{
     padding:30px 15px;
     text-align:center;
     font-weight:600;
-    cursor:pointer;
     box-shadow:0 3px 10px rgba(0,0,0,.1);
-    transition:.3s;
-}
-
-.action-card:hover{
-    transform:translateY(-5px);
-}
-
-.connectivity{
-    border-top:5px solid #2196f3;
-}
-
-.tracking{
-    border-top:5px solid #4caf50;
-}
-
-.provision{
-    border-top:5px solid #ff9800;
 }
 
 .partners{
     background:white;
     padding:20px;
-}
-
-.partners-title{
-    text-align:center;
-    font-size:22px;
-    color:#0f4c81;
-    margin-bottom:20px;
-    font-weight:bold;
-}
-
-.partner-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.partner{
-    background:#f5f8fc;
-    border-radius:10px;
-    padding:20px;
-    text-align:center;
-    border:1px solid #ddd;
-}
-
-.partner img{
-    width:70px;
-    margin-bottom:10px;
 }
 
 .footer{
@@ -203,37 +148,42 @@ input{
     font-weight:bold;
 }
 
-@media(max-width:768px){
-
-.action-buttons{
-    grid-template-columns:1fr;
+/* iframe overlay */
+#iframeBox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:white;
+    display:none;
+    z-index:999;
 }
 
-.partner-grid{
-    grid-template-columns:1fr;
+iframe{
+    width:100%;
+    height:100%;
+    border:none;
 }
 
+.error{
+    color:red;
+    text-align:center;
+    font-size:14px;
 }
 </style>
-
 </head>
+
 <body>
 
-<div class="container">
+<div class="container" id="loginPage">
 
     <div class="header">
-
-        <!-- Ministry Logo -->
-        <img src="moh_logo.png" alt="MOH Logo">
-
+        <img src="moh_logo.png">
         <h2>INSECTICIDE TREATED NET MASS CAMPAIGN 2027</h2>
-
         <h2>MINISTRY OF HEALTH</h2>
-
         <h3>NATIONAL MALARIA CONTROL PROGRAMME</h3>
-
         <h4>SIERRA LEONE</h4>
-
     </div>
 
     <div class="main">
@@ -241,21 +191,22 @@ input{
         <div class="login-card">
 
             <div class="login-top">
-                <img src="ICF-SL Logo.jpg" alt="ICF Logo">
+                <img src="ICF-SL Logo.jpg">
             </div>
 
             <div class="form-group">
-                <input type="text" placeholder="Username">
+                <input type="text" id="username" placeholder="Username">
             </div>
 
             <div class="form-group">
-                <input type="password" placeholder="Password">
+                <input type="password" id="password" placeholder="Password">
             </div>
 
             <div class="form-group">
-                <button class="btn login-btn">
+                <button class="btn login-btn" onclick="login()">
                     LOGIN
                 </button>
+                <div class="error" id="error"></div>
             </div>
 
             <div class="form-group">
@@ -266,56 +217,52 @@ input{
 
         </div>
 
-        <div class="action-buttons">
-
-            <div class="action-card connectivity">
-                INTERNET CONNECTIVITY
-            </div>
-
-            <div class="action-card tracking">
-                DEVICE TRACKING
-            </div>
-
-            <div class="action-card provision">
-                PROVISION
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="partners">
-
-        <div class="partners-title">
-            IMPLEMENTING PARTNERS
-        </div>
-
-        <div class="partner-grid">
-
-            <div class="partner">
-                <img src="global_fund.png" alt="">
-                <h5>GLOBAL FUND</h5>
-            </div>
-
-            <div class="partner">
-                <img src="world-vision-logo.png" alt="">
-                <h5>WORLD VISION</h5>
-            </div>
-
-            <div class="partner">
-                <img src="who.png" alt="">
-                <h5>WORLD HEALTH ORGANIZATION</h5>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="footer">
-        Powered by ICF-SL @ 2026
     </div>
 
 </div>
+
+<!-- iframe page -->
+<div id="iframeBox">
+    <iframe id="frame"></iframe>
+</div>
+
+<script>
+let credentials = [];
+
+// Load CSV file
+fetch("credential.csv")
+.then(res => res.text())
+.then(data => {
+    let rows = data.split("\n");
+
+    rows.forEach(row => {
+        let cols = row.split(",");
+        if(cols.length >= 2){
+            credentials.push({
+                username: cols[0].trim(),
+                password: cols[1].trim()
+            });
+        }
+    });
+});
+
+// LOGIN FUNCTION
+function login(){
+    let user = document.getElementById("username").value.trim();
+    let pass = document.getElementById("password").value.trim();
+    let error = document.getElementById("error");
+
+    let found = credentials.find(c => c.username === user && c.password === pass);
+
+    if(found){
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("iframeBox").style.display = "block";
+        document.getElementById("frame").src = "reg.html";
+    }else{
+        error.innerText = "Invalid username or password";
+    }
+}
+</script>
 
 </body>
 </html>
