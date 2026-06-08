@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITN Mass Campaign - Dashboard</title>
+    <title>ITN Mass Campaign - Tabs Menu</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
@@ -25,24 +25,27 @@
             padding: 24px;
         }
 
-        /* Mobile Phone Container */
+        /* Mobile Phone Container with Image Background */
         .phone-container {
             width: 375px;
             height: 812px;
-            background-color: #f7f9f8;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             border-radius: 44px;
             box-shadow: 0 20px 50px rgba(0, 32, 16, 0.12);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             position: relative;
-            border: 8px solid #333; /* Simulate phone bezel */
+            border: 8px solid #333; /* Phone bezel */
         }
 
         /* Top Header Area */
         .app-header {
             background-color: #11452a;
-            padding: 48px 24px 24px 24px;
+            padding: 48px 24px 28px 24px;
             color: white;
             display: flex;
             flex-direction: column;
@@ -119,64 +122,66 @@
             object-fit: contain;
         }
 
-        /* Main Scrollable Content Area */
+        /* Main Content Workspace */
         .app-main {
             flex-grow: 1;
-            padding: 20px 20px 24px 20px;
-            overflow-y: auto; /* Enables scrolling for multi-card panels */
-        }
-
-        /* 2-Column Grid Layout */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            width: 100%;
-        }
-
-        /* Interactive Feature Cards */
-        .feature-card {
-            background-color: #ffffff;
-            border-radius: 16px;
-            padding: 20px 16px;
+            padding: 28px 24px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            gap: 12px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .feature-card:active {
-            transform: scale(0.96);
-            background-color: #f3f5f4;
+        .menu-title {
+            color: #1a1a1a;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-align: left;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6); 
         }
 
-        /* Feature Icons Box styled with Application brand colors */
-        .card-icon-wrap {
-            width: 52px;
-            height: 52px;
-            background-color: rgba(43, 129, 70, 0.1);
-            color: #2b8146;
+        /* 2-Row Grid Layout for Rectangular Buttons */
+        .tabs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns per row */
+            gap: 14px;
+        }
+
+        /* Rounded Rectangle Button Styles */
+        .tab-btn {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid #ddd;
             border-radius: 12px;
+            padding: 18px 14px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 22px;
+            gap: 14px;
+            text-decoration: none;
+            color: #1a1a1a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
         }
 
-        .feature-card h3 {
+        .tab-btn:hover, .tab-btn:active {
+            border-color: #2b8146;
+            background-color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(43, 129, 70, 0.12);
+        }
+
+        .tab-btn i {
+            color: #2b8146;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .tab-label {
             font-size: 13px;
             font-weight: 600;
-            color: #1a1a1a;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
-        /* Footer */
+        /* App Footer matching initial login layout exactly */
         .app-footer {
             background-color: #11452a;
             color: white;
@@ -185,6 +190,7 @@
             font-size: 12px;
             font-weight: 400;
             letter-spacing: 0.3px;
+            margin-top: auto;
         }
     </style>
 </head>
@@ -205,7 +211,8 @@
             <div class="partners-wrapper">
                 <span class="partners-label">Implementing Partners</span>
                 <div class="partner-logos">
-                    <img src="moh_logo.png" alt="MoH" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=MoH'">
+                    <!-- Replaced moh_logo.png here with who_logo.png -->
+                    <img src="who_logo.png" alt="WHO" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=WHO'">
                     <img src="world-vision-logo.png" alt="World Vision" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=WV'">
                     <img src="global_fund.png" alt="Global Fund" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=GF'">
                     <img src="NMCP.png" alt="NMCP" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=NMCP'">
@@ -213,78 +220,60 @@
             </div>
         </header>
 
-        <!-- Main Workspace - 8 Functional Cards in 2 Columns -->
+        <!-- App Main Content -->
         <main class="app-main">
-            <div class="card-grid">
+            <h2 class="menu-title">Campaign Modules</h2>
+            
+            <!-- 2-Row Rectangular Grid Layout -->
+            <div class="tabs-grid">
                 
-                <!-- 1. Registration -->
-                <div class="feature-card">
-                    <div class="card-icon-wrap">
-                        <i class="fa-solid fa-address-card"></i>
-                    </div>
-                    <h3>Registration</h3>
-                </div>
+                <!-- Row 1 -->
+                <a href="#registration" class="tab-btn">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span class="tab-label">Registration</span>
+                </a>
 
-                <!-- 2. Distribution -->
-                <div class="feature-card">
-                    <div class="card-icon-wrap">
-                        <i class="fa-solid fa-truck-ramp-box"></i>
-                    </div>
-                    <h3>Distribution</h3>
-                </div>
+                <a href="#distribution" class="tab-btn">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    <span class="tab-label">Distribution</span>
+                </a>
 
-                <!-- 3. Stock Management -->
-                <div class="feature-card">
-                    <div class="card-icon-wrap">
-                        <i class="fa-solid fa-boxes-stacked"></i>
-                    </div>
-                    <h3>Stock Management</h3>
-                </div>
+                <a href="#dashboard" class="tab-btn">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span class="tab-label">Dashboard</span>
+                </a>
 
-                <!-- 4. Reconciliation -->
-                <div class="feature-card">
-                    <div class="card-icon-wrap">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                    </div>
-                    <h3>Reconciliation</h3>
-                </div>
+                <a href="#stock" class="tab-btn">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    <span class="tab-label">Stock Mgmt</span>
+                </a>
 
-                <!-- 5. Dashboard -->
-                <div class="feature-card">
-                    <div class="card-icon-wrap">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </div>
-                    <h3>Dashboard</h3>
-                </div>
+                <!-- Row 2 -->
+                <a href="#monitoring" class="tab-btn">
+                    <i class="fa-solid fa-square-poll-horizontal"></i>
+                    <span class="tab-label">Monitoring</span>
+                </a>
 
-                <!-- 6. Attendance Tracking -->
-                <div class="feature-card">
-                    <div class="card-icon-wrap">
-                        <i class="fa-solid fa-clipboard-user"></i>
-                    </div>
-                    <h3>Attendance Tracking</h3>
-                </div>
+                <a href="#tracking" class="tab-btn">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span class="tab-label">Device Tracking</span>
+                </a>
 
-                <!-- 7. Monitoring -->
-                <div class="feature-card">
-                    <div class="card-icon-wrap">
-                        <i class="fa-solid fa-desktop"></i>
-                    </div>
-                    <h3>Monitoring</h3>
-                </div>
+                <a href="#attendance" class="tab-btn">
+                    <i class="fa-solid fa-clipboard-user"></i>
+                    <span class="tab-label">Attendance</span>
+                </a>
 
-                <!-- 8. Device Tracking -->
-                <div class="feature-card">
-                    <div class="card-icon-wrap">
-                        <i class="fa-solid fa-mobile-screen-button"></i>
-                    </div>
-                    <h3>Device Tracking</h3>
-                </div>
+                <!-- Data Reconciliation Tab -->
+                <a href="#reconciliation" class="tab-btn">
+                    <i class="fa-solid fa-code-compare"></i>
+                    <span class="tab-label">Data Reconciliation</span>
+                </a>
 
             </div>
         </main>
 
-        <!-- App Footer -->
+        <!-- App Footer (Exact copy from initial template) -->
         <footer class="app-footer">
             Powered by ICF-SL @ 2026
         </footer>
