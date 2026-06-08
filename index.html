@@ -256,25 +256,7 @@ input{
                 <button class="btn login-btn">
                     LOGIN
                 </button>
-            </div> 
-// LOGIN FUNCTION
-function login(){
-    let user = document.getElementById("username").value.trim();
-    let pass = document.getElementById("password").value.trim();
-    let error = document.getElementById("error");
-
-    let valid = credentials.find(c => c.username === user && c.password === pass);
-
-    if(valid){
-        document.getElementById("loginApp").style.display = "none";
-        document.getElementById("iframeContainer").style.display = "block";
-        document.getElementById("regFrame").src = "reg.html";
-    }else{
-        error.innerText = "Invalid username or password";
-    }
-}
-</script>
-
+            </div>
 
             <div class="form-group">
                 <button class="btn scan-btn">
