@@ -6,308 +6,214 @@
 <title>ITN Mass Campaign 2027</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Segoe UI, sans-serif;
-}
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, sans-serif;
+    }
 
-body{
-    background:linear-gradient(135deg,#0f4c81,#1e88e5);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
+    body{
+        background:#f2f6ff;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        min-height:100vh;
+    }
 
-.container{
-    width:100%;
-    max-width:900px;
-    background:white;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
+    .app{
+        width:100%;
+        max-width:420px;
+        background:#fff;
+        border:2px solid #2b6cb0;
+        border-radius:10px;
+        overflow:hidden;
+    }
 
-.header{
-    text-align:center;
-    padding:30px;
-    background:white;
-}
+    .header{
+        text-align:center;
+        padding:15px;
+        font-weight:bold;
+        background:#ffffff;
+        border-bottom:2px solid #2b6cb0;
+    }
 
-.header img{
-    width:80px;
-    margin-bottom:10px;
-}
+    .header small{
+        display:block;
+        font-weight:normal;
+        margin-top:5px;
+    }
 
-.header h1{
-    font-size:28px;
-    color:#0f4c81;
-    margin-bottom:10px;
-}
+    .logo-box{
+        text-align:center;
+        padding:10px;
+    }
 
-.header h2{
-    font-size:22px;
-    margin-bottom:8px;
-}
+    .logo-box img{
+        width:80px;
+        height:80px;
+        object-fit:contain;
+    }
 
-.header h3{
-    font-size:18px;
-    margin-bottom:8px;
-}
+    .form{
+        padding:15px;
+    }
 
-.header h4{
-    font-size:16px;
-    color:#555;
-}
+    input{
+        width:100%;
+        padding:12px;
+        margin:8px 0;
+        border:1px solid #2b6cb0;
+        border-radius:5px;
+        outline:none;
+    }
 
-.main{
-    background:white;
-    padding:40px 20px;
-}
+    button{
+        width:100%;
+        padding:12px;
+        background:#2b6cb0;
+        color:white;
+        border:none;
+        border-radius:5px;
+        margin-top:10px;
+        font-weight:bold;
+        cursor:pointer;
+    }
 
-.login-card{
-    max-width:400px;
-    margin:auto;
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-}
+    button:hover{
+        background:#1e4f86;
+    }
 
-.login-top{
-    background:linear-gradient(135deg,#1976d2,#42a5f5);
-    text-align:center;
-    padding:25px;
-}
+    .scan{
+        margin-top:10px;
+        background:#e2e8f0;
+        color:#000;
+    }
 
-.login-top img{
-    width:90px;
-}
+    .tabs{
+        display:flex;
+        justify-content:space-between;
+        margin-top:10px;
+    }
 
-.form-group{
-    padding:15px;
-}
+    .tabs div{
+        flex:1;
+        padding:10px;
+        text-align:center;
+        background:#edf2f7;
+        border:1px solid #cbd5e0;
+        font-size:12px;
+    }
 
-input{
-    width:100%;
-    padding:14px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
-}
+    .partners{
+        text-align:center;
+        padding:10px;
+        background:#f7fafc;
+        margin-top:10px;
+    }
 
-.btn{
-    width:100%;
-    border:none;
-    padding:15px;
-    cursor:pointer;
-    border-radius:8px;
-    font-size:16px;
-    font-weight:bold;
-    transition:.3s;
-}
+    .iframe-container{
+        display:none;
+        width:100%;
+        height:100vh;
+        position:fixed;
+        top:0;
+        left:0;
+        background:white;
+    }
 
-.login-btn{
-    background:#1565c0;
-    color:white;
-}
+    iframe{
+        width:100%;
+        height:100%;
+        border:none;
+    }
 
-.login-btn:hover{
-    background:#0d47a1;
-}
-
-.scan-btn{
-    background:#26a69a;
-    color:white;
-    margin-top:10px;
-}
-
-.scan-btn:hover{
-    background:#00897b;
-}
-
-.action-buttons{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-    margin-top:30px;
-}
-
-.action-card{
-    background:white;
-    border-radius:12px;
-    padding:30px 15px;
-    text-align:center;
-    font-weight:600;
-    cursor:pointer;
-    box-shadow:0 3px 10px rgba(0,0,0,.1);
-    transition:.3s;
-}
-
-.action-card:hover{
-    transform:translateY(-5px);
-}
-
-.connectivity{
-    border-top:5px solid #2196f3;
-}
-
-.tracking{
-    border-top:5px solid #4caf50;
-}
-
-.provision{
-    border-top:5px solid #ff9800;
-}
-
-.partners{
-    background:white;
-    padding:20px;
-}
-
-.partners-title{
-    text-align:center;
-    font-size:22px;
-    color:#0f4c81;
-    margin-bottom:20px;
-    font-weight:bold;
-}
-
-.partner-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.partner{
-    background:#f5f8fc;
-    border-radius:10px;
-    padding:20px;
-    text-align:center;
-    border:1px solid #ddd;
-}
-
-.partner img{
-    width:70px;
-    margin-bottom:10px;
-}
-
-.footer{
-    text-align:center;
-    background:#0f4c81;
-    color:white;
-    padding:15px;
-    font-weight:bold;
-}
-
-@media(max-width:768px){
-
-.action-buttons{
-    grid-template-columns:1fr;
-}
-
-.partner-grid{
-    grid-template-columns:1fr;
-}
-
-}
+    .error{
+        color:red;
+        font-size:12px;
+        text-align:center;
+    }
 </style>
-
 </head>
+
 <body>
 
-<div class="container">
+<div class="app" id="loginApp">
 
     <div class="header">
-
-        <!-- Ministry Logo -->
-        <img src="moh_logo.png" alt="MOH Logo">
-
-        <h2>INSECTICIDE TREATED NET MASS CAMPAIGN 2027</h2>
-
-        <h2>MINISTRY OF HEALTH</h2>
-
-        <h3>NATIONAL MALARIA CONTROL PROGRAMME</h3>
-
-        <h4>SIERRA LEONE</h4>
-
+        INSECTICIDE TREATED NET MASS CAMPAIGN 2027
+        <small>MINISTRY OF HEALTH - SIERRA LEONE</small>
     </div>
 
-    <div class="main">
-
-        <div class="login-card">
-
-            <div class="login-top">
-                <img src="ICF-SL Logo.jpg" alt="ICF Logo">
-            </div>
-
-            <div class="form-group">
-                <input type="text" placeholder="Username">
-            </div>
-
-            <div class="form-group">
-                <input type="password" placeholder="Password">
-            </div>
-
-            <div class="form-group">
-                <button class="btn login-btn">
-                    LOGIN
-                </button>
-            </div>
-
-            <div class="form-group">
-                <button class="btn scan-btn">
-                    SCAN USER ID CARD
-                </button>
-            </div>
-
-        </div>
-
-        <div class="action-buttons">
-
-            <div class="action-card provision">
-                PROVISION
-            </div>
-
-        </div>
-
+    <div class="logo-box">
+        <img src="ICF.jpg" alt="logo">
     </div>
 
-    <div class="partners">
+    <div class="form">
+        <input type="text" id="username" placeholder="USERNAME">
+        <input type="password" id="password" placeholder="PASSWORD">
 
-        <div class="partners-title">
-            IMPLEMENTING PARTNERS
+        <button onclick="login()">LOGIN</button>
+
+        <button class="scan">SCAN USER ID CARD</button>
+
+        <div class="error" id="error"></div>
+
+        <div class="tabs">
+            <div>INTERNET CONNECTIVITY</div>
+            <div>DEVICE TRACKING</div>
+            <div>PROVISION</div>
         </div>
 
-        <div class="partner-grid">
-
-            <div class="partner">
-                <img src="global_fund.png" alt="">
-                <h5>GLOBAL FUND</h5>
-            </div>
-
-            <div class="partner">
-                <img src="world-vision-logo.png" alt="">
-                <h5>WORLD VISION</h5>
-            </div>
-
-            <div class="partner">
-                <img src="who.png" alt="">
-                <h5>WORLD HEALTH ORGANIZATION</h5>
-            </div>
-
+        <div class="partners">
+            <b>IMPLEMENTING PARTNERS</b><br><br>
+            GLOBAL FUND | WORLD VISION | WHO
         </div>
-
-    </div>
-
-    <div class="footer">
-        Powered by ICF-SL @ 2026
     </div>
 
 </div>
+
+<!-- iframe page -->
+<div class="iframe-container" id="iframeContainer">
+    <iframe id="regFrame"></iframe>
+</div>
+
+<script>
+let credentials = [];
+
+// Load CSV file
+fetch("credential.csv")
+.then(res => res.text())
+.then(data => {
+    let rows = data.split("\n");
+    rows.forEach(r => {
+        let cols = r.split(",");
+        if(cols.length >= 2){
+            credentials.push({
+                username: cols[0].trim(),
+                password: cols[1].trim()
+            });
+        }
+    });
+});
+
+// LOGIN FUNCTION
+function login(){
+    let user = document.getElementById("username").value.trim();
+    let pass = document.getElementById("password").value.trim();
+    let error = document.getElementById("error");
+
+    let valid = credentials.find(c => c.username === user && c.password === pass);
+
+    if(valid){
+        document.getElementById("loginApp").style.display = "none";
+        document.getElementById("iframeContainer").style.display = "block";
+        document.getElementById("regFrame").src = "reg.html";
+    }else{
+        error.innerText = "Invalid username or password";
+    }
+}
+</script>
 
 </body>
 </html>
