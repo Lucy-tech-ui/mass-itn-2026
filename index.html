@@ -16,17 +16,20 @@
 body{
     background:linear-gradient(135deg,#0f4c81,#1e88e5);
     min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
 }
 
-/* MAIN CONTAINER */
 .container{
     width:100%;
-    max-width:700px;
+    max-width:900px;
     background:white;
     border-radius:20px;
     overflow:hidden;
     box-shadow:0 10px 30px rgba(0,0,0,.25);
-    margin:20px auto;
+    position:relative;
 }
 
 /* HEADER */
@@ -41,8 +44,14 @@ body{
     margin-bottom:10px;
 }
 
+.header h1{
+    font-size:28px;
+    color:#0f4c81;
+    margin-bottom:10px;
+}
+
 .header h2{
-    font-size:20px;
+    font-size:22px;
     margin-bottom:8px;
 }
 
@@ -56,12 +65,12 @@ body{
     color:#555;
 }
 
-/* MAIN */
 .main{
+    background:white;
     padding:40px 20px;
 }
 
-/* LOGIN CARD */
+/* LOGIN */
 .login-card{
     max-width:400px;
     margin:auto;
@@ -101,6 +110,7 @@ input{
     border-radius:8px;
     font-size:16px;
     font-weight:bold;
+    transition:.3s;
 }
 
 .login-btn{
@@ -118,7 +128,11 @@ input{
     margin-top:10px;
 }
 
-/* ACTION BUTTONS */
+.scan-btn:hover{
+    background:#00897b;
+}
+
+/* ACTIONS */
 .action-buttons{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -132,8 +146,18 @@ input{
     padding:30px 15px;
     text-align:center;
     font-weight:600;
+    cursor:pointer;
     box-shadow:0 3px 10px rgba(0,0,0,.1);
+    transition:.3s;
 }
+
+.action-card:hover{
+    transform:translateY(-5px);
+}
+
+.connectivity{ border-top:5px solid #2196f3; }
+.tracking{ border-top:5px solid #4caf50; }
+.provision{ border-top:5px solid #ff9800; }
 
 /* PARTNERS */
 .partners{
@@ -165,6 +189,7 @@ input{
 
 .partner img{
     width:70px;
+    margin-bottom:10px;
 }
 
 /* FOOTER */
@@ -176,50 +201,29 @@ input{
     font-weight:bold;
 }
 
-/* ERROR */
-.error{
-    color:red;
-    text-align:center;
-    font-size:14px;
-}
-
-/* IFRAME OVERLAY */
-#iframeBox{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
+/* IFRAME VIEW */
+#appFrame{
     width:100%;
-    height:100%;
-    background:white;
-    z-index:999;
-}
-
-iframe{
-    width:100%;
-    height:100%;
+    height:600px;
     border:none;
+    display:none;
 }
 
 /* RESPONSIVE */
 @media(max-width:768px){
-    .action-buttons{
-        grid-template-columns:1fr;
-    }
-    .partner-grid{
-        grid-template-columns:1fr;
-    }
+    .action-buttons{ grid-template-columns:1fr; }
+    .partner-grid{ grid-template-columns:1fr; }
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<!-- LOGIN PAGE -->
-<div class="container" id="loginPage">
+<div class="container">
 
     <div class="header">
-        <img src="moh_logo.png">
+        <img src="moh_logo.png" alt="MOH Logo">
+
         <h2>INSECTICIDE TREATED NET MASS CAMPAIGN 2027</h2>
         <h2>MINISTRY OF HEALTH</h2>
         <h3>NATIONAL MALARIA CONTROL PROGRAMME</h3>
@@ -228,10 +232,11 @@ iframe{
 
     <div class="main">
 
-        <div class="login-card">
+        <!-- LOGIN CARD -->
+        <div class="login-card" id="loginCard">
 
             <div class="login-top">
-                <img src="ICF-SL Logo.jpg">
+                <img src="ICF-SL Logo.png" alt="ICF Logo">
             </div>
 
             <div class="form-group">
@@ -243,21 +248,27 @@ iframe{
             </div>
 
             <div class="form-group">
-                <button class="btn login-btn" onclick="login()">LOGIN</button>
-                <div class="error" id="error"></div>
+                <button class="btn login-btn" onclick="loginUser()">
+                    LOGIN
+                </button>
             </div>
 
             <div class="form-group">
-                <button class="btn scan-btn">SCAN USER ID CARD</button>
+                <button class="btn scan-btn">
+                    SCAN USER ID CARD
+                </button>
             </div>
 
         </div>
 
+        <!-- IFRAME (REG PAGE) -->
+        <iframe id="appFrame"></iframe>
+
         <!-- ACTION BUTTONS -->
         <div class="action-buttons">
-            <div class="action-card">INTERNET CONNECTIVITY</div>
-            <div class="action-card">ATTENDANCE TRACKING</div>
-            <div class="action-card">PROVISION</div>
+            <div class="action-card connectivity">INTERNET CONNECTIVITY</div>
+            <div class="action-card tracking">DEVICE TRACKING</div>
+            <div class="action-card provision">PROVISION</div>
         </div>
 
     </div>
@@ -278,7 +289,7 @@ iframe{
             </div>
 
             <div class="partner">
-                <img src="who.png">
+                <img src="World-Health-Organization-WHO-Logo.png">
                 <h5>WORLD HEALTH ORGANIZATION</h5>
             </div>
         </div>
@@ -290,46 +301,33 @@ iframe{
 
 </div>
 
-<!-- IFRAME PAGE -->
-<div id="iframeBox">
-    <iframe id="frame"></iframe>
-</div>
-
 <script>
 let credentials = [];
 
-/* LOAD CSV FILE */
+// Load CSV file
 fetch("credential.csv")
 .then(res => res.text())
 .then(data => {
-    let rows = data.split("\n");
-
-    rows.forEach(row => {
-        let cols = row.split(",");
-
-        if(cols.length >= 2){
-            credentials.push({
-                username: cols[0].trim(),
-                password: cols[1].trim()
-            });
-        }
+    credentials = data.split("\n").map(row => {
+        let [user, pass] = row.split(",");
+        return { user: user?.trim(), pass: pass?.trim() };
     });
 });
 
-/* LOGIN FUNCTION */
-function login(){
-    let user = document.getElementById("username").value.trim();
-    let pass = document.getElementById("password").value.trim();
-    let error = document.getElementById("error");
+// LOGIN FUNCTION
+function loginUser(){
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
 
-    let found = credentials.find(c => c.username === user && c.password === pass);
+    let valid = credentials.find(c => c.user === username && c.pass === password);
 
-    if(found){
-        document.getElementById("loginPage").style.display = "none";
-        document.getElementById("iframeBox").style.display = "block";
-        document.getElementById("frame").src = "reg.html";
+    if(valid){
+        document.getElementById("loginCard").style.display = "none";
+        document.querySelector(".action-buttons").style.display = "none";
+        document.getElementById("appFrame").style.display = "block";
+        document.getElementById("appFrame").src = "reg.html";
     }else{
-        error.innerText = "Invalid username or password";
+        alert("Invalid username or password");
     }
 }
 </script>
