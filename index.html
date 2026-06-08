@@ -6,7 +6,7 @@
     <title>ITN Campaign 2027 | Insecticide Treated Net</title>
     <!-- Font Awesome 6 (free icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts: Inter + Poppins -->
+    <!-- Google Fonts: Inter + Poppins for modern mobile feel -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -17,7 +17,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #ffffff;
+            background: linear-gradient(145deg, #0b4638 0%, #188066 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -26,7 +26,7 @@
             position: relative;
         }
 
-        /* subtle sea wave pattern overlay for texture */
+        /* subtle background pattern */
         body::before {
             content: "";
             position: absolute;
@@ -34,11 +34,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(26, 115, 159, 0.04)" stroke-width="0.5"><path d="M2 12c2-2 4-3 6-3s4 1 6 3 4 3 6 3 4-1 6-3"/><path d="M2 16c2-2 4-3 6-3s4 1 6 3 4 3 6 3 4-1 6-3"/><path d="M2 8c2-2 4-3 6-3s4 1 6 3 4 3 6 3 4-1 6-3"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"><path d="M4 4h16v16H4z"/><circle cx="12" cy="12" r="2"/></svg>');
             background-repeat: repeat;
-            background-size: 40px;
             pointer-events: none;
-            opacity: 0.6;
         }
 
         /* mobile-first container */
@@ -47,56 +45,64 @@
             width: 100%;
             margin: 0 auto;
             background: #ffffff;
-            border-radius: 48px;
+            border-radius: 44px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255,255,255,0.2);
             transition: all 0.2s ease;
-            position: relative;
-            z-index: 2;
         }
 
-        /* ===== HEADER with centered PNG Logo - Sea Blue Theme ===== */
+        /* ===== HEADER with CENTER PNG LOGO (replaced flag & ministry text) ===== */
         .mobile-header {
-            background: linear-gradient(115deg, #ffffff 0%, #f0f7fc 100%);
+            background: linear-gradient(115deg, #ffffff 0%, #fef9ef 100%);
             padding: 28px 20px 20px 20px;
             text-align: center;
-            border-bottom: 1px solid #d4e6f0;
+            border-bottom: 1px solid #e6f0eb;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* PNG logo container - centered sea blue emblem */
+        /* PNG logo container - centered */
         .header-logo-png {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
+        /* custom PNG style representation: high-quality vector look with gradient + emblem */
         .png-logo-emblem {
             width: 90px;
             height: 90px;
-            background: linear-gradient(135deg, #e6f3f8, #cde5ef);
+            background: linear-gradient(135deg, #e8f3ef, #cfe8e0);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 16px rgba(26, 115, 159, 0.12);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
             border: 2px solid #ffffff;
         }
 
         .png-logo-emblem i {
-            font-size: 3.4rem;
-            color: #1a739f;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+            font-size: 3.2rem;
+            color: #1d6e58;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        /* Optional: we can add a text alternative to mimic PNG brand */
+        .logo-text {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #2c7a62;
+            margin-top: 8px;
+            letter-spacing: 1px;
         }
 
         .campaign-title h1 {
             font-family: 'Poppins', sans-serif;
             font-size: 1.55rem;
             font-weight: 800;
-            background: linear-gradient(125deg, #1a6d7a, #2a9d8f);
+            background: linear-gradient(125deg, #0b5e4a, #1e8f76);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -105,26 +111,26 @@
 
         .campaign-title .camp-year {
             font-size: 0.7rem;
-            color: #5c9bb5;
+            color: #548e7c;
             margin-top: 6px;
             font-weight: 500;
         }
 
-        /* ===== PARTNERS CENTER (png style - sea blue accents) ===== */
+        /* ===== PARTNERS CENTER (png style) ===== */
         .partners-section {
-            background: #ffffff;
-            padding: 18px 16px;
+            background: #fefefc;
+            padding: 20px 16px;
             text-align: center;
-            border-bottom: 1px solid #e2edf2;
+            border-bottom: 1px solid #e9f0ec;
         }
 
         .partners-label {
             font-size: 0.7rem;
             font-weight: 700;
             letter-spacing: 1.5px;
-            color: #2c7a9e;
+            color: #3f7b68;
             text-transform: uppercase;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .partner-grid {
@@ -132,82 +138,82 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            row-gap: 16px;
+            gap: 24px;
+            row-gap: 20px;
         }
 
         .partner-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             background: #ffffff;
-            padding: 6px 16px;
+            padding: 8px 20px;
             border-radius: 48px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-            min-width: 85px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            min-width: 90px;
         }
 
         .partner-icon-png {
-            width: 56px;
-            height: 56px;
-            background: #f0f8fc;
+            width: 60px;
+            height: 60px;
+            background: #f4f9f6;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            font-size: 1.9rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        /* partner specific sea blue tones */
-        .png-global { background: #e3f0f5; color: #2a7f9c; }
-        .png-worldvision { background: #e0eff5; color: #1e7e9e; }
-        .png-who { background: #e5f2f7; color: #2382a1; }
-        .png-icf { background: #e8f3f8; color: #1f7896; }
+        /* partner specific backgrounds */
+        .png-global { background: #e1f0fe; color: #1f6392; }
+        .png-worldvision { background: #fee9cf; color: #c26422; }
+        .png-who { background: #e0f0ea; color: #1f7a5c; }
+        .png-icf { background: #e9e6f5; color: #5e4b8b; }
 
         .partner-item span {
             font-size: 0.7rem;
             font-weight: 600;
-            color: #3d7b99;
+            color: #2c6b58;
         }
 
-        /* ===== LOGIN SECTION - Sea Blue Theme ===== */
+        /* ===== MAIN LOGIN CARD ===== */
         .login-mobile-card {
-            padding: 28px 24px 32px;
+            padding: 32px 24px 36px;
             background: #ffffff;
         }
 
         .input-field {
-            margin-bottom: 22px;
+            margin-bottom: 24px;
         }
 
         .input-label {
             display: block;
             font-weight: 600;
             font-size: 0.8rem;
-            color: #2c7a9e;
+            color: #2c5a4a;
             margin-bottom: 8px;
         }
 
         .input-box {
             display: flex;
             align-items: center;
-            background: #f5fafd;
+            background: #f2f8f5;
             border-radius: 60px;
             padding: 4px 20px;
-            border: 1px solid #d4e6f0;
+            border: 1px solid #e2ece7;
             transition: all 0.2s;
         }
 
         .input-box:focus-within {
-            border-color: #2a9d8f;
+            border-color: #2c8f74;
             background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.12);
+            box-shadow: 0 0 0 3px rgba(44, 143, 116, 0.15);
         }
 
         .input-box i {
-            color: #5ba0bc;
+            color: #5b8b7a;
             font-size: 1.1rem;
             margin-right: 12px;
         }
@@ -224,7 +230,7 @@
 
         .login-button {
             width: 100%;
-            background: linear-gradient(95deg, #2a7f9e, #3a9ebd);
+            background: linear-gradient(95deg, #1d6e58, #239d7e);
             border: none;
             padding: 14px;
             border-radius: 60px;
@@ -233,122 +239,71 @@
             color: white;
             cursor: pointer;
             transition: 0.2s;
-            margin-top: 8px;
-            margin-bottom: 16px;
+            margin-top: 12px;
+            margin-bottom: 18px;
             font-family: 'Poppins', sans-serif;
-            box-shadow: 0 5px 15px rgba(42, 127, 158, 0.2);
+            box-shadow: 0 5px 12px rgba(29,110,88,0.3);
         }
 
         .login-button:active {
             transform: scale(0.97);
-            background: linear-gradient(95deg, #1f6a85, #2e8aab);
-        }
-
-        /* Scan User ID Card Button (after login button) */
-        .scan-card-button-wrapper {
-            margin: 12px 0 8px 0;
-        }
-
-        .scan-id-btn {
-            width: 100%;
-            background: transparent;
-            border: 2px solid #2a7f9e;
-            padding: 12px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #2a7f9e;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .scan-id-btn i {
-            font-size: 1.1rem;
-        }
-
-        .scan-id-btn:active {
-            transform: scale(0.97);
-            background: #e3f0f5;
-        }
-
-        /* Scan feedback area - no faded placeholder, only appears when needed */
-        .scan-feedback {
-            margin-top: 12px;
-            font-size: 0.7rem;
-            text-align: center;
-            font-weight: 500;
-            min-height: 0px;
-            padding: 0;
-            background: transparent;
-            border-radius: 30px;
-            transition: all 0.2s ease;
-        }
-
-        /* Only show feedback when it has content */
-        .scan-feedback:not(:empty) {
-            padding: 8px 12px;
-            background: #f0f8fc;
+            background: linear-gradient(95deg, #155e4b, #1b8469);
         }
 
         .secure-note {
             text-align: center;
             font-size: 0.65rem;
-            color: #8bb4c7;
+            color: #99b9ae;
             margin-top: 20px;
-            border-top: 1px solid #e2edf2;
-            padding-top: 16px;
+            border-top: 1px solid #eef3f0;
+            padding-top: 18px;
         }
 
-        /* ===== FOOTER - Sea Blue Dark Accent ===== */
+        /* ===== FOOTER ===== */
         .mobile-footer {
-            background: #eef5f8;
-            padding: 18px 20px;
+            background: #1e3e34;
+            padding: 20px 20px;
             text-align: center;
-            border-top: 1px solid #d4e6f0;
+            border-top: 1px solid #317a64;
         }
 
         .footer-inner {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
             align-items: center;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            color: #c2e0d6;
         }
 
         .footer-powered {
             font-weight: 600;
             font-size: 0.7rem;
             letter-spacing: 0.5px;
-            background: #dcecf3;
+            background: #2a5a4b;
             display: inline-block;
-            padding: 5px 18px;
+            padding: 5px 16px;
             border-radius: 40px;
-            color: #2a7f9e;
+            color: #f1f9f5;
         }
 
-        .footer-tagline {
-            font-size: 0.6rem;
-            color: #6ea0b8;
-        }
-
-        /* toast message - sea blue */
+        /* toast message */
         .toast-msg {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: #2c7a9e;
+            background: #1d3e34;
             color: white;
             padding: 10px 22px;
             border-radius: 60px;
             font-weight: 500;
             font-size: 0.8rem;
             z-index: 200;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             transition: 0.2s;
             opacity: 0;
             pointer-events: none;
@@ -358,32 +313,20 @@
             text-align: center;
         }
 
-        /* disabled state for buttons after successful auth */
-        .login-button:disabled,
-        .scan-id-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .scan-id-btn:disabled:hover {
-            background: transparent;
-        }
-
         @media (max-width: 480px) {
             .campaign-mobile {
                 border-radius: 36px;
             }
             .partner-item {
-                padding: 5px 12px;
+                padding: 6px 14px;
             }
             .partner-icon-png {
-                width: 48px;
-                height: 48px;
-                font-size: 1.5rem;
+                width: 52px;
+                height: 52px;
+                font-size: 1.6rem;
             }
             .login-mobile-card {
-                padding: 24px 20px;
+                padding: 28px 20px;
             }
             .png-logo-emblem {
                 width: 75px;
@@ -398,45 +341,52 @@
 <body>
 
 <div class="campaign-mobile">
-    <!-- HEADER with centered PNG logo - Sea Blue Theme -->
+    <!-- HEADER with centered PNG file (replaced flag & ministry text) -->
     <div class="mobile-header">
+        <!-- PNG logo centered - simulates a high-quality.png image (visual emblem) -->
         <div class="header-logo-png">
-            <div class="moh.png">
-                <i class="fas fa-water"></i>
+            <div class="moh_logo.png">
+                <!-- Using a detailed icon as PNG-like representation -->
+                <i class="fas fa-shield-virus"></i>
             </div>
         </div>
+        <div class="logo-text">ITN Campaign · Official Seal</div>
         <div class="campaign-title">
-            <h1><i class="fas fa-shield-alt"></i> INSECTICIDE TREATED NET <br> MASS CAMPAIGN 2027</h1>
+            <h1><i class="fas fa-mosquito"></i> INSECTICIDE TREATED NET <br> MASS CAMPAIGN 2027</h1>
             <div class="camp-year">Sierra Leone · Malaria Prevention</div>
         </div>
     </div>
 
-    <!-- IMPLEMENTING PARTNERS (centered PNG style - sea blue) -->
+    <!-- IMPLEMENTING PARTNERS at centre with .png style (global fund, world vision, who, ICF) -->
     <div class="partners-section">
-        <div class="partners-label">IMPLEMENTING PARTNERS</div>
+        <div class="partners-label"><i class="fas fa-handshake"></i> IMPLEMENTING PARTNERS</div>
         <div class="partner-grid">
+            <!-- Global Fund PNG style -->
             <div class="partner-item">
-                <div class="global_fund.png"></div>
+                <div class="partner-icon-png png-global"><i class="fas fa-globe-africa"></i></div>
                 <span>Global Fund</span>
             </div>
+            <!-- World Vision PNG -->
             <div class="partner-item">
-                <div class="world-vision-logo.png"></div>
+                <div class="partner-icon-png png-worldvision"><i class="fas fa-hands-helping"></i></div>
                 <span>World Vision</span>
             </div>
+            <!-- WHO PNG -->
             <div class="partner-item">
-                <div class="who.png"></div>
+                <div class="partner-icon-png png-who"><i class="fas fa-building"></i></div>
                 <span>WHO</span>
             </div>
+            <!-- ICF PNG -->
             <div class="partner-item">
-                <div class="ICF-SL Logo.jpg"></div>
+                <div class="partner-icon-png png-icf"><i class="fas fa-chart-line"></i></div>
                 <span>ICF</span>
             </div>
         </div>
     </div>
 
-    <!-- LOGIN SECTION -->
+    <!-- LOGIN SECTION (clean, no scan card) -->
     <div class="login-mobile-card">
-        <!-- Username Field -->
+        <!-- USERNAME field -->
         <div class="input-field">
             <div class="input-label"><i class="fas fa-user"></i> USERNAME</div>
             <div class="input-box">
@@ -445,7 +395,7 @@
             </div>
         </div>
 
-        <!-- Password Field -->
+        <!-- PASSWORD field -->
         <div class="input-field">
             <div class="input-label"><i class="fas fa-lock"></i> PASSWORD</div>
             <div class="input-box">
@@ -454,18 +404,7 @@
             </div>
         </div>
 
-        <!-- Login Button -->
         <button class="login-button" id="mobileLoginBtn"><i class="fas fa-sign-in-alt"></i> LOGIN</button>
-
-        <!-- SCAN USER ID CARD BUTTON (after login button) -->
-        <div class="scan-card-button-wrapper">
-            <button class="scan-id-btn" id="simulateScanBtn">
-                <i class="fas fa-id-card"></i> SCAN USER ID CARD
-            </button>
-        </div>
-
-        <!-- Scan Feedback Area - empty by default, no faded placeholder -->
-        <div id="scanFeedback" class="scan-feedback"></div>
         
         <div class="secure-note">
             <i class="fas fa-shield-alt"></i> Secured access · Campaign official portal
@@ -475,11 +414,11 @@
     <!-- FOOTER -->
     <div class="mobile-footer">
         <div class="footer-inner">
+            <div class="footer-copyright">
+                <i class="fas fa-copyright"></i> 2026 Ministry of Health Sierra Leone
+            </div>
             <div class="footer-powered">
                 <i class="fas fa-microchip"></i> Powered by ICF-SL @ 2026
-            </div>
-            <div class="footer-tagline">
-                <i class="fas fa-mosquito"></i> Together we end malaria
             </div>
         </div>
     </div>
@@ -493,14 +432,12 @@
     const usernameInput = document.getElementById('mobileUsername');
     const passwordInput = document.getElementById('mobilePassword');
     const loginButton = document.getElementById('mobileLoginBtn');
-    const simulateScanBtn = document.getElementById('simulateScanBtn');
-    const scanFeedbackDiv = document.getElementById('scanFeedback');
     const toastEl = document.getElementById('toastMessage');
 
     // Helper: show toast message
     function showToast(message, isError = false) {
         toastEl.style.opacity = '1';
-        toastEl.style.backgroundColor = isError ? '#c45a3a' : '#2a7f9e';
+        toastEl.style.backgroundColor = isError ? '#b33a28' : '#1d6e58';
         toastEl.innerHTML = isError ? `<i class="fas fa-exclamation-triangle"></i> ${message}` : `<i class="fas fa-check-circle"></i> ${message}`;
         setTimeout(() => {
             toastEl.style.opacity = '0';
@@ -510,186 +447,54 @@
     // Demo user accounts (campaign staff)
     const validUsers = [
         { username: "admin_moh", password: "net2027", role: "Campaign Manager", fullname: "Dr. Samuel Koroma" },
-        { username: "district_officer", password: "itn123", role: "District Supervisor", fullname: "Mariama Jalloh" },
-        { username: "field_agent", password: "scan2027", role: "Field Distributor", fullname: "Mohamed Bangura" },
-        { username: "lil_moh", password: "limkokwing", role: "Health Coordinator", fullname: "Lil Moh" }
+        { username: "national_monitor", password: "itn123", role: "District Supervisor", fullname: "Mariama Jalloh" },
+        { username: "field_agent", password: "scan2027", role: "Voucher Verifier", fullname: "Mohamed Bangura" },
+        { username: "lil_moh", password: "123456", role: "Warehouse Manager", fullname: "Lil Moh" }
     ];
 
-    // Simulated card user data (for scan functionality)
-    const simulatedCardUser = {
-        username: "card_scanner",
-        displayName: "Alpha S. Kamara (Card ID: 8872-ICF)",
-        role: "Distribution Officer",
-        fullname: "Alpha S. Kamara"
-    };
-
-    // Flag to track if card has been scanned
-    let cardScanned = false;
-    let scannedUserData = null;
-
-    // Function to simulate card scanning
-    function simulateCardScan() {
-        if (loginButton.disabled) {
-            showToast("Already authenticated, session active.", false);
-            return;
-        }
-        
-        // Show scanning animation
-        scanFeedbackDiv.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Scanning card...`;
-        scanFeedbackDiv.style.color = "#2a7f9e";
-        
-        setTimeout(() => {
-            // Simulate successful card read
-            const cardFullName = simulatedCardUser.displayName;
-            const cardRole = simulatedCardUser.role;
-            
-            // Auto-fill username field with card holder ID
-            usernameInput.value = "scanned_" + cardFullName.replace(/\s/g, "").substring(0, 15);
-            // Set a placeholder password (will be validated on login)
-            passwordInput.value = "scancard2027";
-            
-            // Store scanned user data
-            cardScanned = true;
-            scannedUserData = {
-                username: usernameInput.value,
-                password: "scancard2027",
-                fullname: simulatedCardUser.fullname,
-                role: cardRole,
-                displayName: cardFullName
-            };
-            
-            scanFeedbackDiv.innerHTML = `<i class="fas fa-id-card"></i> ✅ Card read: ${cardFullName}`;
-            scanFeedbackDiv.style.color = "#1a6d7a";
-            showToast(`Card detected: ${cardFullName}. Tap LOGIN to proceed.`, false);
-            
-            // Add a subtle highlight effect on the scan button
-            simulateScanBtn.style.backgroundColor = "#e3f0f5";
-            setTimeout(() => {
-                simulateScanBtn.style.backgroundColor = "transparent";
-            }, 400);
-        }, 800);
-    }
-
-    // Function to handle card-based login (auto-authenticate scanned card)
-    function attemptCardLogin() {
-        if (loginButton.disabled) return false;
-        
-        const username = usernameInput.value.trim();
-        const password = passwordInput.value.trim();
-        
-        // Check if this is a card-scanned login
-        if (cardScanned && scannedUserData && username === scannedUserData.username && password === "scancard2027") {
-            // Card authentication successful
-            showToast(`Card login successful! Welcome ${scannedUserData.fullname} (${scannedUserData.role}).`, false);
-            updateUIForLoggedInUser(scannedUserData.fullname, scannedUserData.role);
-            return true;
-        }
-        return false;
-    }
-
-    // Standard username/password login
-    function performStandardLogin(username, password) {
-        const user = validUsers.find(u => u.username === username && u.password === password);
-        if (user) {
-            showToast(`Welcome ${user.fullname} (${user.role}). Access granted.`, false);
-            updateUIForLoggedInUser(user.fullname, user.role);
-            return true;
-        }
-        return false;
-    }
-
-    // Main login handler
-    function performLogin() {
-        if (loginButton.disabled) return false;
-        
-        const username = usernameInput.value.trim();
-        const password = passwordInput.value.trim();
-        
-        if (!username || !password) {
-            showToast("Please enter username and password, or scan your ID card", true);
+    // Perform login function
+    function performLogin(username, password) {
+        if (!username.trim() || !password.trim()) {
+            showToast("Please enter username and password", true);
             return false;
         }
-        
-        // Try card login first (if card was scanned)
-        if (cardScanned && attemptCardLogin()) {
+        const user = validUsers.find(u => u.username === username.trim() && u.password === password);
+        if (user) {
+            showToast(`Welcome ${user.fullname} (${user.role}). Access granted.`);
+            // Visual feedback: disable login and change button state (simulate logged-in)
+            loginButton.disabled = true;
+            loginButton.innerHTML = '<i class="fas fa-check-circle"></i> LOGGED IN';
+            loginButton.style.opacity = '0.7';
+            loginButton.style.cursor = 'default';
+            usernameInput.disabled = true;
+            passwordInput.disabled = true;
             return true;
-        }
-        
-        // Try standard login
-        if (performStandardLogin(username, password)) {
-            return true;
-        }
-        
-        // If both fail
-        showToast("Invalid username or password. Please try again or use card scan.", true);
-        return false;
-    }
-
-    // Update UI after successful authentication
-    function updateUIForLoggedInUser(fullname, role) {
-        loginButton.disabled = true;
-        loginButton.innerHTML = '<i class="fas fa-check-circle"></i> LOGGED IN';
-        loginButton.style.opacity = '0.7';
-        loginButton.style.cursor = 'default';
-        usernameInput.disabled = true;
-        passwordInput.disabled = true;
-        
-        // Update scan feedback to show authenticated state
-        scanFeedbackDiv.innerHTML = `<i class="fas fa-user-check"></i> ✅ Authenticated as: ${fullname} (${role})`;
-        scanFeedbackDiv.style.color = "#1a6d7a";
-        
-        // Disable scan button after login
-        if (simulateScanBtn) {
-            simulateScanBtn.disabled = true;
-            simulateScanBtn.style.opacity = '0.5';
-            simulateScanBtn.style.cursor = 'default';
+        } else {
+            showToast("Invalid username or password. Please try again.", true);
+            return false;
         }
     }
 
-    // Event Listeners
+    // Login click handler
     loginButton.addEventListener('click', (e) => {
         e.preventDefault();
         if (loginButton.disabled) return;
-        performLogin();
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        performLogin(username, password);
     });
 
-    simulateScanBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (loginButton.disabled) {
-            showToast("Already logged in. Session active.", false);
-            return;
-        }
-        simulateCardScan();
-    });
-
-    // Allow "Enter" key on inputs to trigger login
+    // Allow "Enter" key on inputs
     const handleEnter = (e) => {
         if (e.key === 'Enter' && !loginButton.disabled) {
             e.preventDefault();
-            performLogin();
+            performLogin(usernameInput.value, passwordInput.value);
         }
     };
     usernameInput.addEventListener('keypress', handleEnter);
     passwordInput.addEventListener('keypress', handleEnter);
 
-    // Reset card scan flag if user manually edits username/password (only if not logged in)
-    usernameInput.addEventListener('input', () => {
-        if (!loginButton.disabled && cardScanned && usernameInput.value !== scannedUserData?.username) {
-            cardScanned = false;
-            scannedUserData = null;
-            scanFeedbackDiv.innerHTML = '';
-        }
-    });
-    
-    passwordInput.addEventListener('input', () => {
-        if (!loginButton.disabled && cardScanned && passwordInput.value !== "scancard2027") {
-            cardScanned = false;
-            scannedUserData = null;
-            scanFeedbackDiv.innerHTML = '';
-        }
-    });
-
-    console.log("ITN Campaign | Sea Blue Theme | White background | Scan User ID Card button after Login | No faded placeholder");
+    console.log("ITN Campaign | Header PNG logo centered | Partners as PNG style | Mobile optimized");
 </script>
 </body>
 </html>
