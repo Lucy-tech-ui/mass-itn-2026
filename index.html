@@ -2,570 +2,290 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>ITN Mass Campaign 2027 | NMCP Sierra Leone</title>
-    <!-- Google Fonts + Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITN Mass Campaign - Login</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background: #e2f0e8;
-            font-family: 'Inter', sans-serif;
-            padding: 0;
+            /* Background to simulate the mockup presentation */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&q=80') no-repeat center center/cover;
+            backdrop-filter: blur(8px);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
-        /* MAIN CARD — MOBILE FIRST */
-        .campaign-mobile {
-            max-width: 100%;
-            width: 100%;
-            background: #ffffff;
-            box-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 8px 28px rgba(0, 32, 16, 0.12);
+        /* Mobile Phone Container */
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background-color: #f7f9f8;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             overflow: hidden;
-        }
-
-        /* HEADER SECTION with background color (#0a2f1f) */
-        .header-section {
-            background: #0a2f1f;
-            padding: 1rem 1.2rem;
-            border-bottom: 4px solid #f5bc4e;
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
+            position: relative;
+            border: 8px solid #333; /* Simulate phone bezel */
         }
 
-        /* Top row: MoH logo + text on left, partners on right (one side) */
-        .top-header-row {
+        /* Top Header Area */
+        .app-header {
+            background-color: #11452a;
+            padding: 40px 20px 20px 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .moh-title-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .moh-seal-top {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            padding: 2px;
+            object-fit: contain;
+        }
+
+        .moh-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .moh-text h1 {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .moh-text p {
+            font-size: 10px;
+            font-weight: 400;
+            color: #d1e3d8;
+            line-height: 1.3;
+            margin-top: 2px;
+        }
+
+        /* Partner Logos Row */
+        .partner-logos {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        /* Placeholder for moh.png */
-        .moh-placeholder {
-            width: 55px;
-            height: 55px;
-            background: #ffffff;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border: 1px solid #e0dbb5;
-        }
-
-        .moh-placeholder i {
-            font-size: 2rem;
-            color: #0a2f1f;
-        }
-
-        .ministry-text h3 {
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: -0.2px;
-        }
-
-        .ministry-text p {
-            font-size: 0.65rem;
-            color: #cde6db;
-            font-weight: 500;
-        }
-
-        /* Partners container - aligned to the right side (one side) */
-        .partners-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 0.7rem;
-            flex-wrap: wrap;
-            background: rgba(255,255,240,0.08);
-            padding: 0.4rem 0.9rem;
-            border-radius: 60px;
-            backdrop-filter: blur(2px);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 5px;
         }
 
         .partner-logo {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,240,0.12);
-            padding: 0.25rem 0.7rem;
-            border-radius: 40px;
-            transition: all 0.2s ease;
+            width: 45px;
+            height: 45px;
+            background-color: white;
+            border-radius: 6px;
+            padding: 4px;
+            object-fit: contain;
         }
 
-        .partner-logo:hover {
-            background: rgba(255,255,240,0.25);
-            transform: translateY(-1px);
-        }
-
-        .partner-icon-box {
-            width: 30px;
-            height: 30px;
-            background: #fef7e0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .partner-icon-box i {
-            font-size: 1rem;
-            color: #1d5a3c;
-        }
-
-        .partner-name {
-            font-weight: 600;
-            font-size: 0.65rem;
-            color: #f9e6b3;
-            letter-spacing: 0.2px;
-            white-space: nowrap;
-        }
-
-        /* For very small screens, partners wrap gracefully */
-        @media (max-width: 550px) {
-            .top-header-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .partners-container {
-                justify-content: flex-start;
-                margin-top: 0.25rem;
-            }
-            .partner-name {
-                font-size: 0.6rem;
-            }
-            .partner-icon-box {
-                width: 26px;
-                height: 26px;
-            }
-        }
-
-        /* main grid becomes column on mobile */
-        .main-flex {
+        /* Main Content */
+        .app-main {
+            flex-grow: 1;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            background: #fefcf5;
+            align-items: center;
         }
 
-        /* LOGIN PANEL - Full width, no right panel anymore */
-        .login-panel {
-            padding: 2rem 1.5rem;
+        /* Login Card */
+        .login-card {
             background: white;
             width: 100%;
+            border-radius: 12px;
+            padding: 30px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 10px;
         }
 
+        .login-card h2 {
+            text-align: center;
+            color: #1a1a1a;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        /* Inputs */
         .input-group {
-            margin-bottom: 1.3rem;
-        }
-
-        .input-group label {
-            display: block;
-            font-weight: 700;
-            color: #2b4b36;
-            font-size: 0.75rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.3px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            border: 1.5px solid #e2dfd3;
-            border-radius: 1.2rem;
-            font-size: 0.95rem;
-            background: #fffdf9;
-            transition: 0.2s;
-            font-family: 'Inter', monospace;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #f5bc4e;
-            box-shadow: 0 0 0 3px rgba(245, 188, 78, 0.2);
-        }
-
-        .login-actions {
+            position: relative;
+            margin-bottom: 15px;
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin: 1.5rem 0 0.5rem;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 0 15px;
+            transition: border-color 0.3s ease;
         }
 
-        .btn-login {
-            background: #0f472e;
+        .input-group:focus-within {
+            border-color: #2b8146;
+        }
+
+        .input-group i {
+            color: #888;
+            font-size: 16px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 10px;
             border: none;
-            padding: 0.9rem;
-            border-radius: 2.2rem;
-            font-weight: 700;
-            font-size: 1rem;
-            color: white;
+            outline: none;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .input-group input::placeholder {
+            color: #a0a0a0;
+        }
+
+        .toggle-pw {
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
         }
 
-        .btn-login:active {
-            transform: scale(0.97);
-            background: #0a3521;
-        }
-
-        .btn-scan {
-            background: #3b2a1f;
+        .login-btn {
+            background-color: #2b8146;
+            color: white;
             border: none;
-            padding: 0.9rem;
-            border-radius: 2.2rem;
-            font-weight: 600;
-            font-size: 1rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            cursor: pointer;
-            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 15px;
         }
 
-        .btn-scan:active {
-            transform: scale(0.97);
+        .login-btn:hover {
+            background-color: #216a38;
         }
 
-        /* RIGHT PANEL (Features) - COMPLETELY HIDDEN on mobile AND desktop */
-        .info-panel {
-            display: none;
+        .scan-btn {
+            background-color: transparent;
+            color: #1a1a1a;
+            border: 1px solid #1a1a1a;
         }
 
-        /* footer */
-        .footer {
-            background: #0e2a1d;
-            padding: 0.9rem 1rem;
-            text-align: center;
-            color: #c6e2d4;
-            font-size: 0.7rem;
-            font-weight: 500;
+        .scan-btn i {
+            font-size: 18px;
         }
 
-        /* MODAL (mobile optimized) */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1200;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.2s;
-            padding: 1rem;
+        .scan-btn:hover {
+            background-color: #f5f5f5;
         }
 
-        .modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .modal-card {
-            background: white;
-            max-width: 320px;
-            width: 100%;
-            border-radius: 1.8rem;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .modal-card i {
-            font-size: 2.8rem;
-            color: #0f472e;
-        }
-
-        .modal-card h3 {
-            margin: 0.5rem 0;
-            font-size: 1.3rem;
-        }
-
-        .modal-card button {
-            margin-top: 1rem;
-            background: #0f472e;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 2rem;
-            color: white;
-            font-weight: 600;
-            margin: 0.5rem 0.3rem;
-            cursor: pointer;
-        }
-
-        /* toast styling */
-        .mobile-toast {
-            position: fixed;
-            bottom: 20px;
-            left: 16px;
-            right: 16px;
-            background: #1f3b2c;
+        /* Footer */
+        .app-footer {
+            background-color: #11452a;
             color: white;
             text-align: center;
-            padding: 12px 16px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            z-index: 1300;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-            backdrop-filter: blur(8px);
-            background: #1d4c35e6;
-            transition: opacity 0.2s;
-        }
-
-        /* small adjustments - no features panel to worry about */
-        @media (min-width: 640px) {
-            .campaign-mobile {
-                max-width: 560px;
-                border-radius: 2rem;
-                margin: 1.5rem auto;
-                box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.25);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .campaign-mobile {
-                max-width: 600px;
-            }
-        }
-
-        button {
-            cursor: pointer;
-            transition: 0.1s linear;
-        }
-        button:active {
-            transform: scale(0.97);
+            padding: 15px;
+            font-size: 12px;
+            font-weight: 400;
         }
     </style>
 </head>
 <body>
-<div class="campaign-mobile">
-    <!-- HEADER SECTION with background color and partner logos all on one side (right side) -->
-    <div class="header-section">
-        <div class="top-header-row">
-            <div class="logo-area">
-                <!-- Placeholder for moh.png -->
-                <div class="moh-placeholder" id="mohLogoPlaceholder">
-                    <i class="fas fa-notes-medical"></i>
-                </div>
-                <div class="ministry-text">
-                    <h3>MINISTRY OF HEALTH</h3>
-                    <p>NATIONAL MALARIA CONTROL PROGRAMME • SIERRA LEONE</p>
+
+    <div class="phone-container">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="moh-title-container">
+                <!-- Replace src with your actual moh_logo.png -->
+                <img src="moh_logo.png" alt="MoH Seal" class="moh-seal-top" onerror="this.src='https://via.placeholder.com/50?text=MoH'">
+                <div class="moh-text">
+                    <h1>MINISTRY OF HEALTH</h1>
+                    <p>NATIONAL MALARIA CONTROL PROGRAMME<br>• SIERRA LEONE</p>
                 </div>
             </div>
-            
-            <!-- Partners Container - all implementing partners grouped together on one side (right) -->
-            <div class="partners-container">
-                <!-- NMCP Logo -->
-                <div class="partner-logo" id="nmcpLogo">
-                    <div class="partner-icon-box">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <span class="partner-name">NMCP</span>
+            <div class="partner-logos">
+                <img src="moh_logo.png" alt="MoH" class="partner-logo" onerror="this.src='https://via.placeholder.com/45?text=MoH'">
+                <img src="world-vision-logo.png" alt="World Vision" class="partner-logo" onerror="this.src='https://via.placeholder.com/45?text=WV'">
+                <img src="global_fund.png" alt="Global Fund" class="partner-logo" onerror="this.src='https://via.placeholder.com/45?text=GF'">
+                <img src="NMCP.png" alt="NMCP" class="partner-logo" onerror="this.src='https://via.placeholder.com/45?text=NMCP'">
+            </div>
+        </header>
+
+        <!-- App Main Content / Login Form -->
+        <main class="app-main">
+            <div class="login-card">
+                <h2>Login</h2>
+                
+                <div class="input-group">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" placeholder="Username" id="username">
                 </div>
                 
-                <!-- WHO Logo -->
-                <div class="partner-logo" id="whoLogo">
-                    <div class="partner-icon-box">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <span class="partner-name">WHO</span>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock" style="font-size: 14px;"></i>
+                    <input type="password" placeholder="Password" id="password">
+                    <i class="fa-regular fa-eye-slash toggle-pw" id="togglePassword"></i>
                 </div>
+
+                <button class="btn login-btn">LOGIN</button>
                 
-                <!-- World Vision Logo -->
-                <div class="partner-logo" id="worldVisionLogo">
-                    <div class="partner-icon-box">
-                        <i class="fas fa-hands-helping"></i>
-                    </div>
-                    <span class="partner-name">WORLD VISION</span>
-                </div>
-                
-                <!-- Global Fund Logo -->
-                <div class="partner-logo" id="globalFundLogo">
-                    <div class="partner-icon-box">
-                        <i class="fas fa-globe-africa"></i>
-                    </div>
-                    <span class="partner-name">GLOBAL FUND</span>
-                </div>
+                <button class="btn scan-btn">
+                    <i class="fa-solid fa-expand"></i> SCAN USER ID CARD
+                </button>
             </div>
-        </div>
+        </main>
+
+        <!-- App Footer -->
+        <footer class="app-footer">
+            Powered by ICF-SL @ 2026
+        </footer>
     </div>
 
-    <!-- main flex - now only login panel (no features/right panel) -->
-    <div class="main-flex">
-        <!-- LOGIN panel (full width, no features section) -->
-        <div class="login-panel">
-            <div class="input-group">
-                <label><i class="fas fa-user"></i> USERNAME</label>
-                <input type="text" class="input-field" id="mobileUsername" placeholder="Enter username" autocomplete="off">
-            </div>
-            <div class="input-group">
-                <label><i class="fas fa-lock"></i> PASSWORD</label>
-                <input type="password" class="input-field" id="mobilePassword" placeholder="Enter password">
-            </div>
-            <div class="login-actions">
-                <button class="btn-login" id="mobileLoginBtn"><i class="fas fa-sign-in-alt"></i> LOGIN</button>
-                <button class="btn-scan" id="mobileScanBtn"><i class="fas fa-id-card"></i> SCAN USER ID CARD</button>
-            </div>
-        </div>
-    </div>
+    <!-- Script for toggle password visibility -->
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
 
-    <div class="footer">
-        <i class="fas fa-microchip"></i> Powered by ICF-SL @ 2026
-    </div>
-</div>
-
-<!-- SCAN MODAL (touch optimized) -->
-<div id="scanModalMobile" class="modal-overlay">
-    <div class="modal-card">
-        <i class="fas fa-id-card"></i>
-        <h3>Scan ID Card</h3>
-        <p>Simulated card reader. Tap "Authorize" to proceed.</p>
-        <div>
-            <button id="modalProceedMobile">Authorize</button>
-            <button id="modalCloseMobile" style="background:#5c6e63;">Cancel</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Helper for mobile toast notification
-    function showMobileMessage(msg, isSuccess = true) {
-        const existingToast = document.querySelector('.mobile-toast');
-        if(existingToast) existingToast.remove();
-        const toast = document.createElement('div');
-        toast.className = 'mobile-toast';
-        toast.innerHTML = `<i class="fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-triangle'}"></i> ${msg}`;
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 300);
-        }, 2700);
-    }
-
-    // Elements
-    const usernameInput = document.getElementById('mobileUsername');
-    const passwordInput = document.getElementById('mobilePassword');
-    const loginBtn = document.getElementById('mobileLoginBtn');
-    const scanBtn = document.getElementById('mobileScanBtn');
-    const modal = document.getElementById('scanModalMobile');
-    const modalProceed = document.getElementById('modalProceedMobile');
-    const modalClose = document.getElementById('modalCloseMobile');
-
-    // login logic
-    function performLogin() {
-        const user = usernameInput.value.trim();
-        const pwd = passwordInput.value.trim();
-        if (user === "" && pwd === "") {
-            showMobileMessage("✅ Access granted", true);
-            addLoginStatusMessage();
-        } else if (user !== "" && pwd !== "") {
-            showMobileMessage(`✅ Welcome, ${user}`, true);
-            addLoginStatusMessage();
-        } else {
-            showMobileMessage("❌ Invalid credentials", false);
-        }
-    }
-
-    function addLoginStatusMessage() {
-        const existingStatus = document.querySelector('.dynamic-status-mobile');
-        if(existingStatus) return;
-        const statusDiv = document.createElement('div');
-        statusDiv.className = 'dynamic-status-mobile';
-        statusDiv.style.marginTop = '15px';
-        statusDiv.style.fontSize = '0.7rem';
-        statusDiv.style.background = '#e2f0e6';
-        statusDiv.style.borderRadius = '40px';
-        statusDiv.style.padding = '8px 12px';
-        statusDiv.style.textAlign = 'center';
-        statusDiv.style.fontWeight = '500';
-        statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Authenticated';
-        const loginContainer = document.querySelector('.login-panel');
-        if(loginContainer && !document.querySelector('.dynamic-status-mobile')) {
-            loginContainer.appendChild(statusDiv);
-            setTimeout(() => {
-                statusDiv.style.opacity = '0.8';
-            }, 50);
-        }
-    }
-
-    // modal open/close
-    function openModal() {
-        modal.classList.add('active');
-    }
-    function closeModal() {
-        modal.classList.remove('active');
-    }
-
-    scanBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openModal();
-    });
-
-    modalProceed.addEventListener('click', () => {
-        closeModal();
-        usernameInput.value = "FieldOfficer";
-        passwordInput.value = "scan2027";
-        showMobileMessage("🪪 ID Card scanned", true);
-        showMobileMessage("Credentials filled. Tap LOGIN.", true);
-    });
-
-    modalClose.addEventListener('click', () => {
-        closeModal();
-    });
-    modal.addEventListener('click', (e) => {
-        if(e.target === modal) closeModal();
-    });
-
-    loginBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        performLogin();
-    });
-
-    // allow enter key
-    const inputs = [usernameInput, passwordInput];
-    inputs.forEach(inp => {
-        inp.addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') {
-                e.preventDefault();
-                performLogin();
-            }
+        togglePassword.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // Toggle the eye icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
         });
-    });
-
-    // No feature cards anymore, but we keep console log
-    console.log("ITN Campaign Portal — Features panel removed, clean login only");
-</script>
+    </script>
 </body>
 </html>
