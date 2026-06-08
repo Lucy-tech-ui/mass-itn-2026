@@ -257,30 +257,6 @@ input{
                     LOGIN
                 </button>
             </div> 
-            <!-- iframe page -->
-<div class="iframe-container" id="iframeContainer">
-    <iframe id="regFrame"></iframe>
-</div>
-
-<script>
-let credentials = [];
-
-// Load CSV file
-fetch("credential.csv")
-.then(res => res.text())
-.then(data => {
-    let rows = data.split("\n");
-    rows.forEach(r => {
-        let cols = r.split(",");
-        if(cols.length >= 2){
-            credentials.push({
-                username: cols[0].trim(),
-                password: cols[1].trim()
-            });
-        }
-    });
-});
-
 // LOGIN FUNCTION
 function login(){
     let user = document.getElementById("username").value.trim();
