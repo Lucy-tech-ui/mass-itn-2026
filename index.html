@@ -10,7 +10,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Segoe UI, sans-serif;
+    font-family:'Segoe UI',sans-serif;
 }
 
 body{
@@ -25,7 +25,7 @@ body{
 .container{
     width:100%;
     max-width:900px;
-    background:white;
+    background:#fff;
     border-radius:20px;
     overflow:hidden;
     box-shadow:0 10px 30px rgba(0,0,0,.25);
@@ -33,45 +33,62 @@ body{
 
 .header{
     text-align:center;
-    padding:30px;
-    background:white;
+    padding:30px 20px;
 }
 
-.header img{
+.main-logo{
     width:80px;
     margin-bottom:10px;
 }
 
-.header h1{
-    font-size:28px;
-    color:#0f4c81;
-    margin-bottom:10px;
-}
-
 .header h2{
-    font-size:22px;
+    color:#0f4c81;
     margin-bottom:8px;
+    font-size:22px;
 }
 
 .header h3{
-    font-size:18px;
     margin-bottom:8px;
+    font-size:18px;
 }
 
 .header h4{
-    font-size:16px;
-    color:#555;
+    color:#666;
+}
+
+.header-partners{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:20px;
+    margin-top:20px;
+    padding-top:15px;
+    border-top:1px solid #ddd;
+}
+
+.partner-item{
+    text-align:center;
+}
+
+.partner-item img{
+    width:60px;
+}
+
+.partner-item span{
+    display:block;
+    margin-top:5px;
+    font-size:12px;
+    font-weight:bold;
+    color:#0f4c81;
 }
 
 .main{
-    background:white;
     padding:40px 20px;
 }
 
 .login-card{
     max-width:400px;
     margin:auto;
-    background:white;
     border-radius:15px;
     overflow:hidden;
     box-shadow:0 5px 20px rgba(0,0,0,.15);
@@ -103,96 +120,27 @@ input{
     width:100%;
     border:none;
     padding:15px;
-    cursor:pointer;
     border-radius:8px;
     font-size:16px;
     font-weight:bold;
-    transition:.3s;
+    cursor:pointer;
 }
 
 .login-btn{
     background:#1565c0;
-    color:white;
-}
-
-.login-btn:hover{
-    background:#0d47a1;
+    color:#fff;
 }
 
 .scan-btn{
     background:#26a69a;
-    color:white;
+    color:#fff;
     margin-top:10px;
 }
 
-.scan-btn:hover{
-    background:#00897b;
-}
-
-.action-buttons{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-    margin-top:30px;
-}
-
-.action-card{
-    background:white;
-    border-radius:12px;
-    padding:30px 15px;
+.message{
     text-align:center;
-    font-weight:600;
-    cursor:pointer;
-    box-shadow:0 3px 10px rgba(0,0,0,.1);
-    transition:.3s;
-}
-
-.action-card:hover{
-    transform:translateY(-5px);
-}
-
-.connectivity{
-    border-top:5px solid #2196f3;
-}
-
-.tracking{
-    border-top:5px solid #4caf50;
-}
-
-.provision{
-    border-top:5px solid #ff9800;
-}
-
-.partners{
-    background:white;
-    padding:20px;
-}
-
-.partners-title{
-    text-align:center;
-    font-size:22px;
-    color:#0f4c81;
-    margin-bottom:20px;
+    padding:10px;
     font-weight:bold;
-}
-
-.partner-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.partner{
-    background:#f5f8fc;
-    border-radius:10px;
-    padding:20px;
-    text-align:center;
-    border:1px solid #ddd;
-}
-
-.partner img{
-    width:70px;
-    margin-bottom:10px;
 }
 
 .footer{
@@ -205,17 +153,23 @@ input{
 
 @media(max-width:768px){
 
-.action-buttons{
-    grid-template-columns:1fr;
-}
+    .header h2{
+        font-size:18px;
+    }
 
-.partner-grid{
-    grid-template-columns:1fr;
-}
+    .header h3{
+        font-size:15px;
+    }
 
+    .partner-item img{
+        width:45px;
+    }
+
+    .partner-item span{
+        font-size:10px;
+    }
 }
 </style>
-
 </head>
 <body>
 
@@ -223,16 +177,36 @@ input{
 
     <div class="header">
 
-        <!-- Ministry Logo -->
-        <img src="moh_logo.png" alt="MOH Logo">
+        <img src="moh_logo.png" class="main-logo" alt="MOH Logo">
 
         <h2>INSECTICIDE TREATED NET MASS CAMPAIGN 2027</h2>
-
         <h2>MINISTRY OF HEALTH</h2>
-
         <h3>NATIONAL MALARIA CONTROL PROGRAMME</h3>
-
         <h4>SIERRA LEONE</h4>
+
+        <div class="header-partners">
+
+            <div class="partner-item">
+                <img src="global_fund.png" alt="">
+                <span>GLOBAL FUND</span>
+            </div>
+
+            <div class="partner-item">
+                <img src="world-vision-logo.png" alt="">
+                <span>WORLD VISION</span>
+            </div>
+
+            <div class="partner-item">
+                <img src="who.png" alt="">
+                <span>WHO</span>
+            </div>
+
+            <div class="partner-item">
+                <img src="ICF-SL Logo.png" alt="">
+                <span>ICF-SL</span>
+            </div>
+
+        </div>
 
     </div>
 
@@ -245,15 +219,15 @@ input{
             </div>
 
             <div class="form-group">
-                <input type="text" placeholder="Username">
+                <input type="text" id="username" placeholder="Username">
             </div>
 
             <div class="form-group">
-                <input type="password" placeholder="Password">
+                <input type="password" id="password" placeholder="Password">
             </div>
 
             <div class="form-group">
-                <button class="btn login-btn">
+                <button class="btn login-btn" onclick="login()">
                     LOGIN
                 </button>
             </div>
@@ -264,48 +238,7 @@ input{
                 </button>
             </div>
 
-        </div>
-
-        <div class="action-buttons">
-
-            <div class="action-card connectivity">
-                INTERNET CONNECTIVITY
-            </div>
-
-            <div class="action-card tracking">
-                ATTENDANCE TRACKING
-            </div>
-
-            <div class="action-card provision">
-               DEVICE PROVISIONING
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="partners">
-
-        <div class="partners-title">
-            IMPLEMENTING PARTNERS
-        </div>
-
-        <div class="partner-grid">
-
-            <div class="partner">
-                <img src="global_fund.png" alt="">
-                <h5>GLOBAL FUND</h5>
-            </div>
-
-            <div class="partner">
-                <img src="world-vision-logo.png" alt="">
-                <h5>WORLD VISION</h5>
-            </div>
-
-            <div class="partner">
-                <img src="who.png" alt="">
-                <h5>WORLD HEALTH ORGANIZATION</h5>
-            </div>
+            <div id="message" class="message"></div>
 
         </div>
 
@@ -316,6 +249,68 @@ input{
     </div>
 
 </div>
+
+<script>
+async function login(){
+
+    const username =
+        document.getElementById('username').value.trim();
+
+    const password =
+        document.getElementById('password').value.trim();
+
+    const msg =
+        document.getElementById('message');
+
+    try{
+
+        const response =
+            await fetch('credential.csv');
+
+        const csv =
+            await response.text();
+
+        const rows =
+            csv.split('\n');
+
+        let valid = false;
+
+        for(let i=1;i<rows.length;i++){
+
+            const cols =
+                rows[i].trim().split(',');
+
+            if(cols.length >= 2){
+
+                const csvUser = cols[0].trim();
+                const csvPass = cols[1].trim();
+
+                if(
+                    username === csvUser &&
+                    password === csvPass
+                ){
+                    valid = true;
+                    break;
+                }
+            }
+        }
+
+        if(valid){
+            msg.style.color = "green";
+            msg.innerHTML = "Login Successful";
+        }else{
+            msg.style.color = "red";
+            msg.innerHTML = "Invalid Username or Password";
+        }
+
+    }catch(error){
+
+        msg.style.color = "red";
+        msg.innerHTML =
+            "Unable to read credential.csv. Run from a web server.";
+    }
+}
+</script>
 
 </body>
 </html>
