@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITN Mass Campaign - Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        /* Mobile Phone Container */
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background-color: #f7f9f8;
+            border-radius: 44px;
+            box-shadow: 0 20px 50px rgba(0, 32, 16, 0.12);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 8px solid #333; /* Simulate phone bezel */
+        }
+
+        /* Top Header Area */
+        .app-header {
+            background-color: #11452a;
+            padding: 48px 24px 24px 24px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .moh-title-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .moh-seal-top {
+            width: 52px;
+            height: 52px;
+            background: white;
+            border-radius: 50%;
+            padding: 2px;
+            object-fit: contain;
+        }
+
+        .moh-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .moh-text h1 {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .moh-text p {
+            font-size: 10px;
+            font-weight: 400;
+            color: #d1e3d8;
+            line-height: 1.4;
+            margin-top: 3px;
+        }
+
+        /* Partners Container */
+        .partners-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .partners-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: #f5bc4e;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding-left: 4px;
+        }
+
+        /* Partner Logos Row */
+        .partner-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 16px 24px;
+            border-radius: 14px;
+        }
+
+        .partner-logo {
+            width: 48px;
+            height: 48px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 4px;
+            object-fit: contain;
+        }
+
+        /* Main Scrollable Content Area */
+        .app-main {
+            flex-grow: 1;
+            padding: 20px 20px 24px 20px;
+            overflow-y: auto; /* Enables scrolling for multi-card panels */
+        }
+
+        /* 2-Column Grid Layout */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            width: 100%;
+        }
+
+        /* Interactive Feature Cards */
+        .feature-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .feature-card:active {
+            transform: scale(0.96);
+            background-color: #f3f5f4;
+        }
+
+        /* Feature Icons Box styled with Application brand colors */
+        .card-icon-wrap {
+            width: 52px;
+            height: 52px;
+            background-color: rgba(43, 129, 70, 0.1);
+            color: #2b8146;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .feature-card h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a1a;
+            line-height: 1.3;
+        }
+
+        /* Footer */
+        .app-footer {
+            background-color: #11452a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="moh-title-container">
+                <img src="moh_logo.png" alt="MoH Seal" class="moh-seal-top" onerror="this.src='https://via.placeholder.com/52?text=MoH'">
+                <div class="moh-text">
+                    <h1>MINISTRY OF HEALTH</h1>
+                    <p>NATIONAL MALARIA CONTROL PROGRAMME<br>• SIERRA LEONE</p>
+                </div>
+            </div>
+            
+            <!-- Partners Section Wrapper -->
+            <div class="partners-wrapper">
+                <span class="partners-label">Implementing Partners</span>
+                <div class="partner-logos">
+                    <img src="moh_logo.png" alt="MoH" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=MoH'">
+                    <img src="world-vision-logo.png" alt="World Vision" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=WV'">
+                    <img src="global_fund.png" alt="Global Fund" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=GF'">
+                    <img src="NMCP.png" alt="NMCP" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=NMCP'">
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Workspace - 8 Functional Cards in 2 Columns -->
+        <main class="app-main">
+            <div class="card-grid">
+                
+                <!-- 1. Registration -->
+                <div class="feature-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+                    <h3>Registration</h3>
+                </div>
+
+                <!-- 2. Distribution -->
+                <div class="feature-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-solid fa-truck-ramp-box"></i>
+                    </div>
+                    <h3>Distribution</h3>
+                </div>
+
+                <!-- 3. Stock Management -->
+                <div class="feature-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <h3>Stock Management</h3>
+                </div>
+
+                <!-- 4. Reconciliation -->
+                <div class="feature-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3>Reconciliation</h3>
+                </div>
+
+                <!-- 5. Dashboard -->
+                <div class="feature-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3>Dashboard</h3>
+                </div>
+
+                <!-- 6. Attendance Tracking -->
+                <div class="feature-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-solid fa-clipboard-user"></i>
+                    </div>
+                    <h3>Attendance Tracking</h3>
+                </div>
+
+                <!-- 7. Monitoring -->
+                <div class="feature-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+                    <h3>Monitoring</h3>
+                </div>
+
+                <!-- 8. Device Tracking -->
+                <div class="feature-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                    </div>
+                    <h3>Device Tracking</h3>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- App Footer -->
+        <footer class="app-footer">
+            Powered by ICF-SL @ 2026
+        </footer>
+    </div>
+
+</body>
+</html>
