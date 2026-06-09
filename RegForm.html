@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITN Mass Campaign - Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f5; /* Light neutral canvas to center the phone mockup */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        /* Mobile Phone Container */
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background-color: #ffffff;
+            border-radius: 44px;
+            box-shadow: 0 20px 50px rgba(0, 32, 16, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 8px solid #333; /* Phone frame bezel */
+        }
+
+        /* Top Header Area - Clean White Style */
+        .app-header {
+            background-color: #ffffff;
+            padding: 48px 24px 20px 24px;
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .moh-title-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .moh-seal-top {
+            width: 52px;
+            height: 52px;
+            background: white;
+            border-radius: 50%;
+            padding: 2px;
+            object-fit: contain;
+        }
+
+        .moh-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .moh-text h1 {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #11452a;
+        }
+
+        .moh-text p {
+            font-size: 10px;
+            font-weight: 500;
+            color: #555555;
+            line-height: 1.4;
+            margin-top: 3px;
+        }
+
+        /* Partners Container */
+        .partners-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .partners-label {
+            font-size: 9px;
+            font-weight: 800;
+            color: #c78b16;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding-left: 4px;
+        }
+
+        /* Partner Logos Row */
+        .partner-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            background: #f1f5f2;
+            padding: 12px 20px;
+            border-radius: 12px;
+        }
+
+        .partner-logo {
+            width: 42px;
+            height: 42px;
+            background-color: white;
+            border-radius: 6px;
+            padding: 4px;
+            object-fit: contain;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Main Workspace Container */
+        .app-main {
+            flex-grow: 1;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto; /* Gracefully scrolls if content overflows */
+        }
+
+        /* Form Header Banner */
+        .intro-banner {
+            background: linear-gradient(135deg, #11452a 0%, #1e5c3c 100%);
+            border-radius: 16px;
+            padding: 20px;
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(17, 69, 42, 0.15);
+        }
+
+        .intro-banner h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #f5bc4e;
+            margin-bottom: 6px;
+        }
+
+        .intro-banner p {
+            font-size: 12px;
+            color: #e2f0e8;
+            line-height: 1.5;
+        }
+
+        .section-heading {
+            font-size: 14px;
+            font-weight: 800;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+            margin-bottom: -4px;
+        }
+
+        /* Modules Stack Cards */
+        .module-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            text-decoration: none;
+            color: #1a1a1a;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+            transition: all 0.2s ease;
+        }
+
+        .module-card:hover, .module-card:active {
+            border-color: #2b8146;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(43, 129, 70, 0.06);
+        }
+
+        .module-icon-box {
+            width: 44px;
+            height: 44px;
+            background-color: #f0fdf4;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2b8146;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .module-details {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .module-details h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a202c;
+        }
+
+        .module-details p {
+            font-size: 12px;
+            color: #718096;
+            line-height: 1.4;
+        }
+
+        /* Bottom Control Bar Layout */
+        .bottom-action-bar {
+            margin-top: auto;
+            padding: 12px 0 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px dashed #edf2f7;
+        }
+
+        .btn-sync {
+            background-color: #ffffff;
+            border: 1px solid #bbf7d0;
+            color: #2b8146;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(43, 129, 70, 0.05);
+        }
+
+        .btn-sync:hover {
+            background-color: #f0fdf4;
+        }
+
+        .link-logout {
+            color: #dc2626;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .link-logout:hover {
+            background-color: #fef2f2;
+        }
+
+        /* App Footer styling */
+        .app-footer {
+            background-color: #11452a;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <header class="app-header">
+            <div class="moh-title-container">
+                <img src="moh_logo.png" alt="MoH Seal" class="moh-seal-top" onerror="this.src='https://via.placeholder.com/52?text=MoH'">
+                <div class="moh-text">
+                    <h1>MINISTRY OF HEALTH</h1>
+                    <p>NATIONAL MALARIA CONTROL PROGRAMME<br>• SIERRA LEONE</p>
+                </div>
+            </div>
+            
+            <div class="partners-wrapper">
+                <span class="partners-label">Implementing Partners</span>
+                <div class="partner-logos">
+                    <img src="who_logo.png" alt="WHO" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=WHO'">
+                    <img src="world-vision-logo.png" alt="World Vision" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=WV'">
+                    <img src="global_fund.png" alt="Global Fund" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=GF'">
+                    <img src="NMCP.png" alt="NMCP" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=NMCP'">
+                </div>
+            </div>
+        </header>
+
+        <main class="app-main">
+            
+            <div class="intro-banner">
+                <h2>Registration Form</h2>
+                <p>A unified digital ecosystem engineered for precision targeting, household registration, accountability, and seamless data collection.</p>
+            </div>
+
+            <span class="section-heading">Operational Hubs</span>
+
+            <a href="#registration" class="module-card">
+                <div class="module-icon-box">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <div class="module-details">
+                    <h3>Household Registration</h3>
+                    <p>Capture structural geolocation coordinates, beneficiary head tallies, and critical indicators.</p>
+                </div>
+            </a>
+
+            <a href="#records" class="module-card">
+                <div class="module-icon-box">
+                    <i class="fa-solid fa-folder-open"></i>
+                </div>
+                <div class="module-details">
+                    <h3>Records</h3>
+                    <p>Track historical log data streams, ledger entries, and core summary metrics.</p>
+                </div>
+            </a>
+
+            <a href="#attendance" class="module-card">
+                <div class="module-icon-box">
+                    <i class="fa-solid fa-clipboard-user"></i>
+                </div>
+                <div class="module-details">
+                    <h3>Personnel Attendance</h3>
+                    <p>Monitor real-time workflow clock-ins, workspace logs, and active field assignments.</p>
+                </div>
+            </a>
+
+            <div class="bottom-action-bar">
+                <a href="#login" class="link-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                </a>
+                
+                <button class="btn-sync" onclick="let icon=this.querySelector('i'); icon.classList.add('fa-spin'); setTimeout(()=>{ icon.classList.remove('fa-spin'); alert('Data fully synchronized with central hub NMCP.'); }, 1500);">
+                    <i class="fa-solid fa-rotate"></i> Sync Data
+                </button>
+            </div>
+
+        </main>
+
+        <footer class="app-footer">
+            Powered by ICF-SL @ 2026
+        </footer>
+    </div>
+
+</body>
+</html>
