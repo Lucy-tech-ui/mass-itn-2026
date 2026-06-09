@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITN Mass Campaign - Records</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f5; /* Centering canvas background */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Mobile Phone Container Frame */
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background-color: #ffffff;
+            border-radius: 44px;
+            box-shadow: 0 20px 50px rgba(0, 32, 16, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 8px solid #333;
+        }
+
+        /* Top App Header Area */
+        .app-header {
+            background-color: #ffffff;
+            padding: 44px 20px 14px 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .moh-title-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .moh-seal-top {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+        }
+
+        .moh-text h1 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #11452a;
+            letter-spacing: 0.3px;
+        }
+
+        .moh-text p {
+            font-size: 9px;
+            font-weight: 500;
+            color: #555555;
+            line-height: 1.3;
+        }
+
+        /* Main Workspace Container */
+        .app-main {
+            flex-grow: 1;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            overflow-y: auto; /* Handles layout viewport scrolling seamlessly */
+        }
+
+        /* Back Navigation Hub header */
+        .module-page-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #11452a;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .module-page-title i {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Content Informational Cards Layout */
+        .record-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+        }
+
+        .card-heading {
+            font-size: 11px;
+            font-weight: 800;
+            color: #c78b16;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* General Data Item Data Structure Grid */
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 8px 0;
+            border-bottom: 1px dashed #f1f5f9;
+            font-size: 12px;
+        }
+
+        .data-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .data-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .data-value {
+            color: #1e293b;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Summary Dashboard Status Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .stat-box {
+            background-color: #f8fafc;
+            padding: 8px 4px;
+            border-radius: 8px;
+            border: 1px solid #edf2f7;
+        }
+
+        .stat-val {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .stat-lbl {
+            font-size: 9px;
+            color: #64748b;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        /* Generated Secure Allocation Voucher/Token Stylings */
+        .token-badge-container {
+            background: linear-gradient(135deg, #f0fdf4 0%, #e6f7ed 100%);
+            border: 1px dashed #2b8146;
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 6px;
+            position: relative;
+        }
+
+        .token-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(43, 129, 70, 0.15);
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+        }
+
+        .token-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #11452a;
+        }
+
+        .token-code {
+            font-size: 13px;
+            font-weight: 800;
+            color: #2b8146;
+            letter-spacing: 0.5px;
+        }
+
+        /* HHR Progress Meter bars */
+        .progress-group {
+            margin-top: 8px;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background-color: #edf2f7;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #2b8146;
+            border-radius: 3px;
+        }
+
+        /* Action bar footer centered container */
+        .bottom-action-bar {
+            margin-top: auto;
+            padding: 12px 0 2px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centering the exit button perfectly */
+            border-top: 1px dashed #edf2f7;
+        }
+
+        .link-logout {
+            color: #dc2626;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 24px;
+            border: 1px solid #fee2e2;
+            border-radius: 20px;
+            background-color: #fff5f5;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .link-logout:hover {
+            background-color: #fef2f2;
+            border-color: #fca5a5;
+        }
+
+        .app-footer {
+            background-color: #11452a;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 11px;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <header class="app-header">
+            <div class="moh-title-container">
+                <img src="moh_logo.png" alt="MoH Seal" class="moh-seal-top" onerror="this.src='https://via.placeholder.com/44?text=MoH'">
+                <div class="moh-text">
+                    <h1>MINISTRY OF HEALTH</h1>
+                    <p>NATIONAL MALARIA CONTROL PROGRAMME • SL</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="app-main">
+            
+            <div class="module-page-title">
+                <i class="fa-solid fa-arrow-left" onclick="window.location.href='RegForm.html';"></i>
+                <h2>Records</h2>
+            </div>
+
+            <div class="record-card">
+                <div class="card-heading"><i class="fa-solid fa-id-card"></i> HHR Operation Assignment</div>
+                <div class="data-item">
+                    <span class="data-label">HHR Operator Name</span>
+                    <span class="data-value">Sahr Emerson Conteh</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">HHR Registration ID</span>
+                    <span class="data-value">HHR-WA-URB-2026-8841</span>
+                </div>
+            </div>
+
+            <div class="record-card">
+                <div class="card-heading"><i class="fa-solid fa-chart-pie"></i> Catchment Area Coverage</div>
+                <div class="data-item">
+                    <span class="data-label">Target Households to Cover</span>
+                    <span class="data-value">450 Households</span>
+                </div>
+                <div class="data-item" style="padding-bottom: 10px;">
+                    <span class="data-label">Current Progress Status</span>
+                    <span class="data-value">In Progress</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box" style="border-top: 2px solid #2b8146;">
+                        <div class="stat-val">385</div>
+                        <div class="stat-lbl">Registered</div>
+                    </div>
+                    <div class="stat-box" style="border-top: 2px solid #c78b16;">
+                        <div class="stat-val">45</div>
+                        <div class="stat-lbl">Pending</div>
+                    </div>
+                    <div class="stat-box" style="border-top: 2px solid #dc2626;">
+                        <div class="stat-val">20</div>
+                        <div class="stat-lbl">Re-visit</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="record-card">
+                <div class="card-heading"><i class="fa-solid fa-house-user"></i> Household Record Entry</div>
+                <div class="data-item">
+                    <span class="data-label">Head of Household</span>
+                    <span class="data-value">Mariama Bangura</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Household Phone Number</span>
+                    <span class="data-value">+232 76 543 210</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Household Size Tally</span>
+                    <span class="data-value">4 Members</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Registration Timestamp</span>
+                    <span class="data-value">09/Jun/2026 - 14:26 GMT</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Total Bednets Allocated</span>
+                    <span class="data-value" style="color:#2b8146; font-weight:700;">2 Bednets <small style="font-weight:400; color:#64748b;">(2 members = 1 net)</small></span>
+                </div>
+
+                <div class="token-badge-container">
+                    <div class="token-header">
+                        <span class="token-title"><i class="fa-solid fa-ticket"></i> ISSUED REDEMPTION TOKEN</span>
+                        <span class="token-code">TK-89410-SL</span>
+                    </div>
+                    <div class="data-item" style="padding: 2px 0; border: none;">
+                        <span class="data-label" style="color: #14532d;">Generated Tokens</span>
+                        <span class="data-value" style="color: #14532d; font-weight:700;">2 Tokens <small style="font-weight:400;">(3-4 members)</small></span>
+                    </div>
+                    <div class="data-item" style="padding: 2px 0; border: none; margin-top: 2px;">
+                        <span class="data-label" style="color: #14532d;">Distribution Point</span>
+                        <span class="data-value" style="color: #11452a; font-weight:700;"><i class="fa-solid fa-location-dot"></i> Aberdeen PHU Hub</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="record-card">
+                <div class="card-heading"><i class="fa-solid fa-bolt"></i> HHR Operator Performance</div>
+                <div class="progress-group">
+                    <div class="progress-meta">
+                        <span class="data-label">Catchment Sync Accuracy</span>
+                        <span class="progress-score" style="font-weight:700; font-size:11px;">96%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-fill" style="width: 96%;"></div>
+                    </div>
+                </div>
+                <div class="progress-group">
+                    <div class="progress-meta">
+                        <span class="data-label">Daily Target Velocity</span>
+                        <span class="progress-score" style="font-weight:700; font-size:11px;">85%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-fill" style="width: 85%; background-color: #c78b16;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-action-bar">
+                <a href="RegForm.html" class="link-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Exit
+                </a>
+            </div>
+
+        </main>
+
+        <footer class="app-footer">
+            Powered by ICF-SL @ 2026
+        </footer>
+    </div>
+
+</body>
+</html>
