@@ -7,238 +7,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            /* Updated background to white */
-            background-color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-        }
-
-        /* Mobile Phone Container */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #ffffff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+        
         .phone-container {
-            width: 375px;
-            height: 812px;
-            background-color: #f7f9f8;
-            border-radius: 44px;
-            box-shadow: 0 20px 45px -10px rgba(0, 32, 16, 0.15);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            border: 8px solid #333;
+            width: 375px; height: 812px; background-color: #f7f9f8; border-radius: 44px;
+            box-shadow: 0 20px 45px -10px rgba(0, 32, 16, 0.15); overflow: hidden;
+            display: flex; flex-direction: column; position: relative; border: 8px solid #333;
         }
 
-        /* Top Header Area */
-        .app-header {
-            background-color: #ffffff;
-            padding: 48px 24px 28px 24px;
-            color: #1a1a1a;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            border-bottom: 1px solid #eaeaea;
-        }
+        .app-header { background-color: #ffffff; padding: 48px 24px 28px 24px; border-bottom: 1px solid #eaeaea; }
+        .moh-title-container { display: flex; align-items: center; gap: 16px; }
+        .moh-seal-top { width: 52px; height: 52px; background: white; border-radius: 50%; padding: 2px; object-fit: contain; }
+        .moh-text h1 { font-size: 16px; font-weight: 700; color: #11452a; }
+        .moh-text p { font-size: 10px; color: #555555; line-height: 1.4; margin-top: 3px; }
+        
+        .partners-wrapper { margin-top: 24px; }
+        .partners-label { font-size: 10px; font-weight: 800; color: #c78b16; text-transform: uppercase; }
+        .partner-logos { display: flex; gap: 16px; background: #f1f5f2; padding: 12px; border-radius: 14px; margin-top: 8px; }
+        .partner-logo { width: 48px; height: 48px; background: white; border-radius: 8px; padding: 4px; object-fit: contain; }
 
-        .moh-title-container {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .moh-seal-top {
-            width: 52px;
-            height: 52px;
-            background: white;
-            border-radius: 50%;
-            padding: 2px;
-            object-fit: contain;
-        }
-
-        .moh-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .moh-text h1 {
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: #11452a;
-        }
-
-        .moh-text p {
-            font-size: 10px;
-            font-weight: 500;
-            color: #555555;
-            line-height: 1.4;
-            margin-top: 3px;
-        }
-
-        /* Partners Container */
-        .partners-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .partners-label {
-            font-size: 10px;
-            font-weight: 800;
-            color: #c78b16;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding-left: 4px;
-        }
-
-        /* Partner Logos Row */
-        .partner-logos {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 32px;
-            background: #f1f5f2;
-            padding: 16px 24px;
-            border-radius: 14px;
-        }
-
-        .partner-logo {
-            width: 48px;
-            height: 48px;
-            background-color: white;
-            border-radius: 8px;
-            padding: 4px;
-            object-fit: contain;
-            border: 1px solid #e0e0e0;
-        }
-
-        /* Main Content */
-        .app-main {
-            flex-grow: 1;
-            padding: 28px 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Login Card */
-        .login-card {
-            background: white;
-            width: 100%;
-            border-radius: 20px;
-            padding: 40px 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            margin-top: 8px;
-        }
-
-        .login-card h2 {
-            text-align: center;
-            color: #1a1a1a;
-            font-size: 26px;
-            font-weight: 600;
-            margin-bottom: 32px;
-        }
-
-        /* Inputs */
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 0 18px;
-            transition: border-color 0.3s ease;
-        }
-
-        .input-group:focus-within {
-            border-color: #2b8146;
-        }
-
-        .input-group i {
-            color: #888;
-            font-size: 16px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 18px 14px;
-            border: none;
-            outline: none;
-            font-size: 15px;
-            color: #333;
-        }
-
-        .input-group input::placeholder {
-            color: #a0a0a0;
-        }
-
-        .toggle-pw {
-            cursor: pointer;
-            padding: 10px;
-            margin-right: -10px;
-        }
-
-        /* Buttons */
-        .btn {
-            width: 100%;
-            padding: 18px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .login-btn {
-            background-color: #2b8146;
-            color: white;
-            border: none;
-            margin-top: 16px;
-            margin-bottom: 20px;
-        }
-
-        .login-btn:hover {
-            background-color: #216a38;
-        }
-
-        .scan-btn {
-            background-color: transparent;
-            color: #1a1a1a;
-            border: 1px solid #1a1a1a;
-        }
-
-        .scan-btn i {
-            font-size: 18px;
-        }
-
-        .scan-btn:hover {
-            background-color: #f5f5f5;
-        }
-
-        /* Footer */
-        .app-footer {
-            background-color: #11452a;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 12px;
-            font-weight: 400;
-            letter-spacing: 0.3px;
-        }
+        .app-main { flex-grow: 1; padding: 28px 24px; }
+        .login-card { background: white; width: 100%; border-radius: 20px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+        .login-card h2 { text-align: center; margin-bottom: 32px; }
+        
+        .input-group { border: 1px solid #ddd; border-radius: 10px; padding: 0 18px; margin-bottom: 20px; display: flex; align-items: center; }
+        .input-group input { width: 100%; padding: 18px 14px; border: none; outline: none; font-size: 15px; }
+        
+        .btn { width: 100%; padding: 18px; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; margin-top: 10px; }
+        .login-btn { background-color: #2b8146; color: white; }
+        .scan-btn { background-color: transparent; border: 1px solid #1a1a1a; }
+        
+        .app-footer { background-color: #11452a; color: white; text-align: center; padding: 20px; font-size: 12px; }
     </style>
 </head>
 <body>
@@ -246,20 +46,19 @@
     <div class="phone-container">
         <header class="app-header">
             <div class="moh-title-container">
-                <img src="moh_logo.png" alt="MoH Seal" class="moh-seal-top" onerror="this.src='https://via.placeholder.com/52?text=MoH'">
+                <img src="moh_logo.png" alt="MoH" class="moh-seal-top">
                 <div class="moh-text">
                     <h1>MINISTRY OF HEALTH</h1>
                     <p>NATIONAL MALARIA CONTROL PROGRAMME<br>• SIERRA LEONE</p>
                 </div>
             </div>
-            
             <div class="partners-wrapper">
                 <span class="partners-label">Implementing Partners</span>
                 <div class="partner-logos">
-                    <img src="who_logo.png" alt="WHO" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=WHO'">
-                    <img src="world-vision-logo.png" alt="World Vision" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=WV'">
-                    <img src="global_fund.png" alt="Global Fund" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=GF'">
-                    <img src="NMCP.png" alt="NMCP" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=NMCP'">
+                    <img src="who_logo.png" alt="WHO" class="partner-logo">
+                    <img src="world-vision-logo.png" alt="WV" class="partner-logo">
+                    <img src="global_fund.png" alt="GF" class="partner-logo">
+                    <img src="NMCP.png" alt="NMCP" class="partner-logo">
                 </div>
             </div>
         </header>
@@ -267,41 +66,44 @@
         <main class="app-main">
             <div class="login-card">
                 <h2>Login</h2>
-                
                 <div class="input-group">
-                    <i class="fa-regular fa-user"></i>
-                    <input type="text" placeholder="Username" id="username" autocomplete="username">
+                    <input type="text" placeholder="Username" id="username">
                 </div>
-                
                 <div class="input-group">
-                    <i class="fa-solid fa-lock" style="font-size: 14px;"></i>
-                    <input type="password" placeholder="Password" id="password" autocomplete="current-password">
-                    <i class="fa-regular fa-eye-slash toggle-pw" id="togglePassword"></i>
+                    <input type="password" placeholder="Password" id="password">
                 </div>
-
-                <button class="btn login-btn">LOGIN</button>
-                
-                <button class="btn scan-btn">
-                    <i class="fa-solid fa-expand"></i> SCAN USER ID CARD
-                </button>
+                <button class="btn login-btn" id="loginBtn">LOGIN</button>
+                <button class="btn scan-btn">SCAN USER ID CARD</button>
             </div>
         </main>
 
-        <footer class="app-footer">
-            Powered by ICF-SL @ 2026
-        </footer>
+        <footer class="app-footer">Powered by ICF-SL @ 2026</footer>
     </div>
 
     <script>
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
+        // Credential and Page Mapping
+        const userAccess = {
+            "Admin": { pass: "123456", pages: ["tabs.html"] },
+            "hhr2026": { pass: "123", pages: ["RegForm.html"] },
+            "vv2026": { pass: "1234", pages: ["Dist.html"] },
+            "NatSup": { pass: "12345", pages: ["monitoring.html", "Dashboard.html"] },
+            "whm": { pass: "1231", pages: ["Stockmgt.html"] },
+            "Chsup": { pass: "1232", pages: ["Stockmgt.html", "devt.html", "Attendance.html"] },
+            "DataM": { pass: "1233", pages: ["Dashboard.html", "Reconciliation.html"] }
+        };
 
-        togglePassword.addEventListener('click', function () {
-            const isPassword = passwordInput.getAttribute('type') === 'password';
-            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
-            
-            this.classList.toggle('fa-eye-slash', !isPassword);
-            this.classList.toggle('fa-eye', isPassword);
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            if (userAccess[user] && userAccess[user].pass === pass) {
+                // Open pages in new tabs
+                userAccess[user].pages.forEach(page => {
+                    window.open(page, '_blank');
+                });
+            } else {
+                alert("Invalid Username or Password");
+            }
         });
     </script>
 </body>
