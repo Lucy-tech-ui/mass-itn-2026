@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ITN Mass Campaign - Login</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -17,8 +15,7 @@
         }
 
         body {
-            /* Pure white background with no presentation borders/wrappers */
-            background-color: #ffffff;
+            background-color: #e2f0e8;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -32,8 +29,7 @@
             height: 812px;
             background-color: #f7f9f8;
             border-radius: 44px;
-            /* Defined drop shadow for crisp visibility on a white baseline canvas */
-            box-shadow: 0 20px 50px rgba(0, 32, 16, 0.12);
+            box-shadow: 0 20px 45px -10px rgba(0, 32, 16, 0.15);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -43,12 +39,13 @@
 
         /* Top Header Area */
         .app-header {
-            background-color: #11452a;
+            background-color: #ffffff;
             padding: 48px 24px 28px 24px;
-            color: white;
+            color: #1a1a1a;
             display: flex;
             flex-direction: column;
             gap: 24px;
+            border-bottom: 1px solid #eaeaea;
         }
 
         .moh-title-container {
@@ -75,12 +72,13 @@
             font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.5px;
+            color: #11452a;
         }
 
         .moh-text p {
             font-size: 10px;
-            font-weight: 400;
-            color: #d1e3d8;
+            font-weight: 500;
+            color: #555555;
             line-height: 1.4;
             margin-top: 3px;
         }
@@ -95,7 +93,7 @@
         .partners-label {
             font-size: 10px;
             font-weight: 800;
-            color: #f5bc4e;
+            color: #c78b16;
             letter-spacing: 1px;
             text-transform: uppercase;
             padding-left: 4px;
@@ -107,7 +105,7 @@
             align-items: center;
             justify-content: center;
             gap: 32px;
-            background: rgba(255, 255, 255, 0.08);
+            background: #f1f5f2;
             padding: 16px 24px;
             border-radius: 14px;
         }
@@ -119,6 +117,7 @@
             border-radius: 8px;
             padding: 4px;
             object-fit: contain;
+            border: 1px solid #e0e0e0;
         }
 
         /* Main Content */
@@ -184,6 +183,8 @@
 
         .toggle-pw {
             cursor: pointer;
+            padding: 10px;
+            margin-right: -10px;
         }
 
         /* Buttons */
@@ -242,7 +243,6 @@
 <body>
 
     <div class="phone-container">
-        <!-- App Header -->
         <header class="app-header">
             <div class="moh-title-container">
                 <img src="moh_logo.png" alt="MoH Seal" class="moh-seal-top" onerror="this.src='https://via.placeholder.com/52?text=MoH'">
@@ -252,11 +252,10 @@
                 </div>
             </div>
             
-            <!-- Partners Section Wrapper -->
             <div class="partners-wrapper">
                 <span class="partners-label">Implementing Partners</span>
                 <div class="partner-logos">
-                    <img src="moh_logo.png" alt="MoH" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=MoH'">
+                    <img src="who.png" alt="WHO" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=MoH'">
                     <img src="world-vision-logo.png" alt="World Vision" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=WV'">
                     <img src="global_fund.png" alt="Global Fund" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=GF'">
                     <img src="NMCP.png" alt="NMCP" class="partner-logo" onerror="this.src='https://via.placeholder.com/48?text=NMCP'">
@@ -264,19 +263,18 @@
             </div>
         </header>
 
-        <!-- App Main Content / Login Form -->
         <main class="app-main">
             <div class="login-card">
                 <h2>Login</h2>
                 
                 <div class="input-group">
                     <i class="fa-regular fa-user"></i>
-                    <input type="text" placeholder="Username" id="username">
+                    <input type="text" placeholder="Username" id="username" autocomplete="username">
                 </div>
                 
                 <div class="input-group">
                     <i class="fa-solid fa-lock" style="font-size: 14px;"></i>
-                    <input type="password" placeholder="Password" id="password">
+                    <input type="password" placeholder="Password" id="password" autocomplete="current-password">
                     <i class="fa-regular fa-eye-slash toggle-pw" id="togglePassword"></i>
                 </div>
 
@@ -288,22 +286,21 @@
             </div>
         </main>
 
-        <!-- App Footer -->
         <footer class="app-footer">
             Powered by ICF-SL @ 2026
         </footer>
     </div>
 
-    <!-- Script for toggle password visibility -->
     <script>
         const togglePassword = document.getElementById('togglePassword');
-        const password = document.getElementById('password');
+        const passwordInput = document.getElementById('password');
 
         togglePassword.addEventListener('click', function () {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
+            const isPassword = passwordInput.getAttribute('type') === 'password';
+            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+            
+            this.classList.toggle('fa-eye-slash', !isPassword);
+            this.classList.toggle('fa-eye', isPassword);
         });
     </script>
 </body>
