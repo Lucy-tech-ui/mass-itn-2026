@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID Card Generator - ITN Campaign</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #ffffff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+        
+        .phone-container {
+            width: 375px; background-color: #f7f9f8; border-radius: 44px;
+            box-shadow: 0 20px 45px -10px rgba(0, 32, 16, 0.15); overflow: hidden;
+            display: flex; flex-direction: column; position: relative; border: 8px solid #333;
+        }
+
+        .app-header { background-color: #ffffff; padding: 48px 24px 28px 24px; border-bottom: 1px solid #eaeaea; }
+        .moh-title-container { display: flex; align-items: center; gap: 16px; }
+        .moh-seal-top { width: 52px; height: 52px; background: #eee; border-radius: 50%; padding: 2px; object-fit: contain; }
+        .moh-text h1 { font-size: 16px; font-weight: 700; color: #11452a; }
+        .moh-text p { font-size: 10px; color: #555555; line-height: 1.4; margin-top: 3px; }
+        
+        .partners-wrapper { margin-top: 24px; }
+        .partners-label { font-size: 10px; font-weight: 800; color: #c78b16; text-transform: uppercase; }
+        /* Partner container adjusted for perfect fit */
+        .partner-logos { 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: #f1f5f2; padding: 10px; border-radius: 14px; margin-top: 8px; border: 1px solid #e0e0e0;
+        }
+        .partner-logo { width: 60px; height: 30px; object-fit: contain; }
+
+        .app-main { flex-grow: 1; padding: 20px; overflow-y: auto; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-weight: 600; font-size: 10px; color: #11452a; margin-bottom: 4px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; }
+        .btn-row { display: flex; gap: 8px; margin-bottom: 10px; }
+        .btn { padding: 10px; border-radius: 8px; font-size: 10px; font-weight: 700; border: none; cursor: pointer; flex: 1; }
+        
+        #id-card { 
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%); 
+            padding: 20px; border: 4px solid #11452a; margin-top: 15px; display: none; border-radius: 16px;
+        }
+        .id-header { color: #11452a; font-weight: 800; border-bottom: 2px solid #2b8146; margin-bottom: 10px; padding-bottom: 5px; }
+        .photo-box { width: 80px; height: 95px; border: 3px solid #11452a; background: #eee; border-radius: 4px; }
+        .scan-text { font-size: 9px; font-weight: bold; color: #555; margin-top: 4px; }
+        .footer-info { font-size: 9px; color: #11452a; margin-top: 10px; font-weight: 600; border-top: 1px dashed #ccc; padding-top: 5px; }
+
+        .app-footer { background-color: #11452a; color: white; text-align: center; padding: 20px; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="phone-container">
+    <header class="app-header">
+        <div class="moh-title-container">
+            <img src="moh_logo.png" alt="MoH" class="moh-seal-top">
+            <div class="moh-text">
+                <h1>MINISTRY OF HEALTH</h1>
+                <p>NATIONAL MALARIA CONTROL PROGRAMME<br>• SIERRA LEONE</p>
+            </div>
+        </div>
+        <div class="partners-wrapper">
+            <span class="partners-label">Implementing Partners</span>
+            <div class="partner-logos">
+                <img src="who_logo.png" alt="WHO" class="partner-logo">
+                <img src="world-vision-logo.png" alt="WV" class="partner-logo">
+                <img src="global_fund.png" alt="GF" class="partner-logo">
+                <img src="NMCP.png" alt="NMCP" class="partner-logo">
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <form id="id-form">
+            <div class="btn-row">
+                <button type="button" class="btn" style="background:#e0e0e0" onclick="alert('Camera requires HTTPS')">USE CAMERA</button>
+                <button type="button" class="btn" style="background:#ff4444; color:white" onclick="location.reload()">CLEAR</button>
+            </div>
+            <div class="form-group"><label>Photo</label><input type="file" id="photo-input" accept="image/*" required></div>
+            <div class="form-group"><label>Full Name</label><input type="text" id="full-name" required></div>
+            <div class="form-group"><label>Telephone (0XXXXXXXX)</label><input type="tel" id="telephone" pattern="0\d{8}" maxlength="9" required></div>
+            <div class="form-group"><label>Role</label>
+                <select id="role" required>
+                    <option value="">Select Role</option>
+                    <option>National Monitor</option><option>Chiefdom Supervisor</option>
+                    <option>Independent Monitor</option><option>DHMT Staff</option>
+                    <option>PHU Staff</option><option>Voucher Verifier</option>
+                    <option>ITN Distributor</option><option>DP Supervisor</option>
+                </select>
+            </div>
+            <div class="form-group"><label>District</label><select id="district" onchange="updateChiefdoms()" required><option value="">Select District</option></select></div>
+            <div class="form-group"><label>Chiefdom</label><select id="chiefdom" onchange="updatePHUs()" required><option value="">Select District First</option></select></div>
+            <div class="form-group"><label>PHU</label><select id="phu" required><option value="">Select Chiefdom First</option></select></div>
+            <div class="form-group"><label>Community Name</label><input type="text" id="community" required></div>
+            
+            <button type="submit" class="btn" style="background: #2b8146; color: white; width: 100%; padding: 12px; font-size:12px;">GENERATE ID CARD</button>
+            <button type="button" onclick="downloadID()" class="btn" style="background: #333; color: white; width: 100%; padding: 12px; font-size:12px; margin-top:8px;">DOWNLOAD ID CARD (PNG)</button>
+        </form>
+
+        <div id="id-card">
+            <div class="id-header">OFFICIAL ID CARD</div>
+            <div style="display: flex; gap: 15px;">
+                <div class="photo-box"><img id="preview-img" style="width:100%;height:100%;object-fit:cover;"></div>
+                <div style="font-size:11px; flex:1;">
+                    <p><strong>Name:</strong> <span id="out-name"></span></p>
+                    <p><strong>Role:</strong> <span id="out-role"></span></p>
+                    <p><strong>ID:</strong> <span id="out-id"></span></p>
+                    <p><strong>Loc:</strong> <span id="out-loc"></span></p>
+                </div>
+                <div>
+                    <div id="qrcode"></div>
+                    <div class="scan-text">SCAN ME</div>
+                </div>
+            </div>
+            <div class="footer-info">
+                Issued By: NMCP-World Vision<br>
+                Valid date: 31st December 2026
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">Powered by ICF-SL @ 2026</footer>
+</div>
+
+<script>
+    const slData = { 
+        "Bo": { "Kakua": ["Bo Gov Hospital"], "Bumpe": ["Bumpe Clinic"], "Jimi": ["Jimi PHU"] },
+        "Bombali": { "Makari": ["Makari PHU"], "Bombali Sebora": ["Bombali PHU"] },
+        "Bonthe": { "Imperri": ["Imperri PHU"], "Bonthe": ["Bonthe Hospital"] },
+        "Falaba": { "Mongo": ["Mongo PHU"], "Sulima": ["Sulima PHU"] },
+        "Kailahun": { "Luawa": ["Luawa PHU"], "Jawei": ["Jawei PHU"] },
+        "Kambia": { "Magbema": ["Kambia Gov Hospital"], "Mambolo": ["Mambolo PHU"] },
+        "Karene": { "Sella Limba": ["Kamakwie PHU"], "Sanda Loko": ["Sanda Loko PHU"] },
+        "Kenema": { "Nongowa": ["Kenema Gov Hospital"], "Gaura": ["Joru PHU"] },
+        "Koinadugu": { "Wara Wara": ["Kabala Hospital"], "Dembelia": ["Dembelia PHU"] },
+        "Kono": { "Kamara": ["Koidu Gov Hospital"], "Tankoro": ["Tankoro PHU"] },
+        "Moyamba": { "Kaiyamba": ["Moyamba Gov Hospital"], "Bagruwa": ["Bagruwa PHU"] },
+        "Port Loko": { "Maforki": ["Port Loko Gov Hospital"], "Bureh": ["Bureh PHU"] },
+        "Pujehun": { "Kpanga": ["Pujehun Gov Hospital"], "Galliness": ["Galliness PHU"] },
+        "Tonkolili": { "Kholifa": ["Magburaka Gov Hospital"], "Kunike": ["Kunike PHU"] },
+        "Western Rural": { "Waterloo": ["Waterloo PHU"], "Koya": ["Koya PHU"] },
+        "Western Urban": { "Freetown City": ["Connaught", "Lumley PHU"] }
+    };
+    
+    const qrcode = new QRCode(document.getElementById("qrcode"), { width: 60, height: 60 });
+    const distSelect = document.getElementById('district');
+    Object.keys(slData).forEach(d => distSelect.innerHTML += `<option value="${d}">${d}</option>`);
+
+    function updateChiefdoms() {
+        const d = distSelect.value;
+        const cSelect = document.getElementById('chiefdom');
+        cSelect.innerHTML = '<option value="">Select Chiefdom</option>';
+        if(d) Object.keys(slData[d]).forEach(c => cSelect.innerHTML += `<option value="${c}">${c}</option>`);
+    }
+
+    function updatePHUs() {
+        const d = distSelect.value;
+        const c = document.getElementById('chiefdom').value;
+        const pSelect = document.getElementById('phu');
+        pSelect.innerHTML = '<option value="">Select PHU</option>';
+        if(d && c) slData[d][c].forEach(p => pSelect.innerHTML += `<option value="${p}">${p}</option>`);
+    }
+
+    document.getElementById('id-form').onsubmit = function(e) {
+        e.preventDefault();
+        const name = document.getElementById('full-name').value;
+        const role = document.getElementById('role').value;
+        const phone = document.getElementById('telephone').value;
+        const idNum = name.substring(0,3).toUpperCase() + phone;
+        const loc = `${document.getElementById('district').value}, ${document.getElementById('community').value}`;
+        
+        document.getElementById('out-name').innerText = name;
+        document.getElementById('out-role').innerText = role;
+        document.getElementById('out-id').innerText = idNum;
+        document.getElementById('out-loc').innerText = loc;
+        
+        qrcode.makeCode(`ID:${idNum}|Name:${name}|Role:${role}|Loc:${loc}`);
+        document.getElementById('id-card').style.display = 'block';
+    };
+
+    function downloadID() {
+        html2canvas(document.querySelector("#id-card")).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'User_ID_Card.png';
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+        });
+    }
+
+    document.getElementById('photo-input').onchange = (e) => {
+        document.getElementById('preview-img').src = URL.createObjectURL(e.target.files[0]);
+    };
+</script>
+</body>
+</html>
