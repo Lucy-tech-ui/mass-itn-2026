@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITN Mass Campaign - Registration Form</title>
+    <title>ITN Mass Campaign - Management System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,7 +15,7 @@
         }
 
         body {
-            background-color: #f4f6f5; /* Light neutral canvas to center the phone mockup */
+            background-color: #f4f6f5; /* Clean neutral canvas background */
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -23,7 +23,7 @@
             padding: 24px;
         }
 
-        /* Mobile Phone Container */
+        /* Mobile Phone Wrapper Design Frame */
         .phone-container {
             width: 375px;
             height: 812px;
@@ -34,18 +34,27 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            border: 8px solid #333; /* Phone frame bezel */
+            border: 8px solid #333; /* Smartphone bezel */
         }
 
-        /* Top Header Area - Clean White Style */
+        /* Shared Dynamic Contextual Header Component */
         .app-header {
             background-color: #ffffff;
             padding: 48px 24px 20px 24px;
             color: #1a1a1a;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
             border-bottom: 1px solid #eaeaea;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Conditional styling variant for registration/records mode */
+        .phone-container.in-form-mode .app-header {
+            background-color: #11452a;
+            color: white;
+            border-bottom: none;
         }
 
         .moh-title-container {
@@ -61,6 +70,7 @@
             border-radius: 50%;
             padding: 2px;
             object-fit: contain;
+            border: 1px solid #e2e8f0;
         }
 
         .moh-text {
@@ -73,6 +83,11 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             color: #11452a;
+            transition: color 0.3s ease;
+        }
+
+        .phone-container.in-form-mode .moh-text h1 {
+            color: #ffffff;
         }
 
         .moh-text p {
@@ -81,9 +96,14 @@
             color: #555555;
             line-height: 1.4;
             margin-top: 3px;
+            transition: color 0.3s ease;
         }
 
-        /* Partners Container */
+        .phone-container.in-form-mode .moh-text p {
+            color: #d1e3d8;
+        }
+
+        /* Partner Badges Layout */
         .partners-wrapper {
             display: flex;
             flex-direction: column;
@@ -97,22 +117,31 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             padding-left: 4px;
+            transition: color 0.3s ease;
         }
 
-        /* Partner Logos Row */
+        .phone-container.in-form-mode .partners-label {
+            color: #f5bc4e;
+        }
+
         .partner-logos {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 28px;
+            gap: 24px;
             background: #f1f5f2;
-            padding: 12px 20px;
+            padding: 10px 16px;
             border-radius: 12px;
+            transition: background 0.3s ease;
+        }
+
+        .phone-container.in-form-mode .partner-logos {
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .partner-logo {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             background-color: white;
             border-radius: 6px;
             padding: 4px;
@@ -120,17 +149,22 @@
             border: 1px solid #e0e0e0;
         }
 
-        /* Main Workspace Container */
-        .app-main {
+        /* Core Workspace Section Viewports */
+        .app-main-viewport {
             flex-grow: 1;
-            padding: 24px 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* VIEW 1: Operational Menu Dashboard Styles */
+        #menuDashboardView {
             display: flex;
             flex-direction: column;
             gap: 16px;
-            overflow-y: auto; /* Gracefully scrolls if content overflows */
         }
 
-        /* Form Header Banner */
         .intro-banner {
             background: linear-gradient(135deg, #11452a 0%, #1e5c3c 100%);
             border-radius: 16px;
@@ -153,16 +187,14 @@
         }
 
         .section-heading {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
             color: #4a5568;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-top: 4px;
-            margin-bottom: -4px;
         }
 
-        /* Modules Stack Cards */
         .module-card {
             background-color: #ffffff;
             border: 1px solid #e2e8f0;
@@ -171,6 +203,7 @@
             display: flex;
             align-items: flex-start;
             gap: 14px;
+            cursor: pointer;
             text-decoration: none;
             color: #1a1a1a;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
@@ -196,16 +229,11 @@
             flex-shrink: 0;
         }
 
-        .module-details {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
         .module-details h3 {
             font-size: 15px;
             font-weight: 600;
             color: #1a202c;
+            margin-bottom: 2px;
         }
 
         .module-details p {
@@ -214,10 +242,10 @@
             line-height: 1.4;
         }
 
-        /* Bottom Control Bar Layout */
+        /* Bottom Action Panel */
         .bottom-action-bar {
             margin-top: auto;
-            padding: 12px 0 4px 0;
+            padding: 16px 0 4px 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -239,10 +267,6 @@
             box-shadow: 0 2px 6px rgba(43, 129, 70, 0.05);
         }
 
-        .btn-sync:hover {
-            background-color: #f0fdf4;
-        }
-
         .link-logout {
             color: #dc2626;
             text-decoration: none;
@@ -259,7 +283,439 @@
             background-color: #fef2f2;
         }
 
-        /* App Footer styling */
+        /* VIEW 2: Embedded Household Registration Form Viewport Setup */
+        #registrationFormView {
+            display: none; /* Hidden on initialization */
+            animation: viewFadeIn 0.35s ease-in-out forwards;
+        }
+
+        /* VIEW 4: Embedded Records Ledger Module Viewport */
+        #recordsDashboardView {
+            display: none;
+            flex-direction: column;
+            gap: 14px;
+            animation: viewFadeIn 0.35s ease-in-out forwards;
+        }
+
+        @keyframes viewFadeIn {
+            from { opacity: 0; transform: translateX(15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .form-nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .back-menu-btn {
+            color: #1a1a1a;
+            font-size: 16px;
+            text-decoration: none;
+            background: rgba(230, 235, 232, 0.8);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            transition: background 0.2s;
+        }
+
+        .back-menu-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .menu-title {
+            color: #1a1a1a;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        /* Step Navigation Flow Indicators styling */
+        .step-indicator-wrapper {
+            position: relative;
+            background: rgba(241, 245, 243, 0.9);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-connector-line {
+            position: absolute;
+            top: 50%;
+            left: 24px;
+            right: 24px;
+            height: 3px;
+            background-color: #cbd5e1;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .step-connector-progress {
+            position: absolute;
+            top: 50%;
+            left: 24px;
+            height: 3px;
+            background-color: #2b8146;
+            transform: translateY(-50%);
+            z-index: 1;
+            width: 0%; 
+            transition: width 0.3s ease;
+        }
+
+        .step-dot {
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 3;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .step-dot.active {
+            background-color: #2b8146;
+            color: white;
+            box-shadow: 0 0 0 3px rgba(43, 129, 70, 0.2);
+        }
+
+        .step-dot.completed {
+            background-color: #11452a;
+            color: white;
+        }
+
+        /* Multi-Step Panels Configurations */
+        .reg-section-panel {
+            display: none;
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 16px;
+            padding: 20px 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        .reg-section-panel.active-panel {
+            display: block;
+        }
+
+        .panel-header {
+            margin-bottom: 16px;
+            border-bottom: 2px solid #2b8146;
+            padding-bottom: 6px;
+        }
+
+        .panel-header span {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: #2b8146;
+            letter-spacing: 0.5px;
+        }
+
+        .panel-header h3 {
+            font-size: 16px;
+            color: #1a1a1a;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* Form Fields Configurations */
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+        }
+
+        .input-control {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            background: white;
+            transition: border-color 0.2s;
+        }
+
+        .input-control:focus {
+            border-color: #2b8146;
+        }
+
+        .input-control[readonly] {
+            background-color: #f1f5f9;
+            color: #64748b;
+            cursor: not-allowed;
+        }
+
+        .action-input-wrapper {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-inline-btn {
+            background-color: #11452a;
+            color: white;
+            border: none;
+            padding: 0 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* Wizard Panel Action Buttons Column */
+        .button-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+
+        .btn-primary {
+            background-color: #2b8146;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #216a38;
+        }
+
+        .error-banner {
+            display: none;
+            background-color: #fce8e6;
+            border: 1px solid #ea4335;
+            color: #c5221f;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        /* VIEW 3: Success View Layout Module */
+        #successReceiptView {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 24px 12px;
+            animation: viewFadeIn 0.35s ease-in-out forwards;
+        }
+
+        .success-badge-icon {
+            width: 72px;
+            height: 72px;
+            background-color: #f0fdf4;
+            color: #2b8146;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(43, 129, 70, 0.1);
+        }
+
+        .success-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #11452a;
+            margin-bottom: 8px;
+        }
+
+        .success-desc {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .receipt-summary-box {
+            width: 100%;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            padding: 6px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .receipt-row:last-child {
+            border-bottom: none;
+        }
+
+        .receipt-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .receipt-value {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        /* Embedded Records View Components Layout styling */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 4px;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .search-wrapper input {
+            padding-left: 38px;
+        }
+
+        .ledger-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            max-height: 480px;
+            padding-right: 2px;
+        }
+
+        .ledger-item-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ledger-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 6px;
+        }
+
+        .ledger-token-id {
+            font-size: 13px;
+            font-weight: 800;
+            color: #2b8146;
+        }
+
+        .ledger-date-stamp {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .ledger-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .ledger-detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .ledger-detail-label {
+            color: #64748b;
+        }
+
+        .ledger-detail-value {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .badge-nets-count {
+            background-color: #fffbeb;
+            color: #c78b16;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 11px;
+            border: 1px solid #fde68a;
+        }
+
+        .no-records-fallback {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .no-records-fallback i {
+            font-size: 28px;
+            color: #cbd5e1;
+        }
+
+        /* Fixed Device Baseline Footer Container */
         .app-footer {
             background-color: #11452a;
             color: white;
@@ -268,12 +724,13 @@
             font-size: 12px;
             font-weight: 400;
             letter-spacing: 0.3px;
+            flex-shrink: 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="phone-container">
+    <div class="phone-container" id="appDeviceContainer">
         <header class="app-header">
             <div class="moh-title-container">
                 <img src="moh_logo.png" alt="MoH Seal" class="moh-seal-top" onerror="this.src='https://via.placeholder.com/52?text=MoH'">
@@ -294,61 +751,629 @@
             </div>
         </header>
 
-        <main class="app-main">
-            
-            <div class="intro-banner">
-                <h2>Registration Form</h2>
-                <p>A unified digital ecosystem engineered for precision targeting, household registration, accountability, and seamless data collection.</p>
-            </div>
+        <div class="app-main-viewport">
 
-            <span class="section-heading">Operational Hubs</span>
+            <section id="menuDashboardView">
+                <div class="intro-banner">
+                    <h2>Registration Hub</h2>
+                    <p>A unified digital ecosystem engineered for precision targeting, household registration, accountability, and seamless data collection.</p>
+                </div>
 
-            <a href="#registration" class="module-card">
-                <div class="module-icon-box">
-                    <i class="fa-solid fa-user-plus"></i>
-                </div>
-                <div class="module-details">
-                    <h3>Household Registration</h3>
-                    <p>Capture structural geolocation coordinates, beneficiary head tallies, and critical indicators.</p>
-                </div>
-            </a>
+                <span class="section-heading">Operational Modules</span>
 
-            <a href="#records" class="module-card">
-                <div class="module-icon-box">
-                    <i class="fa-solid fa-folder-open"></i>
+                <div class="module-card" onclick="routeToFormView()">
+                    <div class="module-icon-box">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </div>
+                    <div class="module-details">
+                        <h3>Household Registration</h3>
+                        <p>Capture structural geolocation coordinates, beneficiary head tallies, and critical indicators.</p>
+                    </div>
                 </div>
-                <div class="module-details">
-                    <h3>Records</h3>
-                    <p>Track historical log data streams, ledger entries, and core summary metrics.</p>
-                </div>
-            </a>
 
-            <a href="#attendance" class="module-card">
-                <div class="module-icon-box">
-                    <i class="fa-solid fa-clipboard-user"></i>
+                <div class="module-card" onclick="routeToRecordsView()">
+                    <div class="module-icon-box">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <div class="module-details">
+                        <h3>Records</h3>
+                        <p>Track historical log data streams, ledger entries, and core summary metrics.</p>
+                    </div>
                 </div>
-                <div class="module-details">
-                    <h3>Personnel Attendance</h3>
-                    <p>Monitor real-time workflow clock-ins, workspace logs, and active field assignments.</p>
-                </div>
-            </a>
 
-            <div class="bottom-action-bar">
-                <a href="#login" class="link-logout">
-                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                </a>
+                <div class="module-card" onclick="alert('Module Route: Attendance and dispatch log interface coming soon.')">
+                    <div class="module-icon-box">
+                        <i class="fa-solid fa-clipboard-user"></i>
+                    </div>
+                    <div class="module-details">
+                        <h3>Personnel Attendance</h3>
+                        <p>Monitor real-time workflow clock-ins, workspace logs, and active field assignments.</p>
+                    </div>
+                </div>
+
+                <div class="bottom-action-bar">
+                    <a href="#logout" class="link-logout" onclick="alert('Logging session out...');">
+                        <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                    </a>
+                    
+                    <button class="btn-sync" onclick="syncCentralHubData(this)">
+                        <i class="fa-solid fa-rotate"></i> Sync Data
+                    </button>
+                </div>
+            </section>
+
+            <section id="registrationFormView">
+                <div class="form-nav-bar">
+                    <button type="button" class="back-menu-btn" onclick="routeToMenuView()" title="Return to Core Hub">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <h2 class="menu-title">Registration</h2>
+                </div>
+
+                <div class="step-indicator-wrapper">
+                    <div class="step-connector-line"></div>
+                    <div class="step-connector-progress" id="progressLine"></div>
+                    <div class="step-indicator">
+                        <div class="step-dot active" id="dot-1">A</div>
+                        <div class="step-dot" id="dot-2">B</div>
+                        <div class="step-dot" id="dot-3">C</div>
+                        <div class="step-dot" id="dot-4">D</div>
+                        <div class="step-dot" id="dot-5">E</div>
+                    </div>
+                </div>
+
+                <div class="error-banner" id="errorBanner"></div>
+
+                <form id="registrationForm" onsubmit="handleFormSubmission(event)">
+
+                    <div class="reg-section-panel active-panel" id="panel-1">
+                        <div class="panel-header">
+                            <span>Section A</span>
+                            <h3>HHR Information</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="nameHHR">Name of HHR Registerer</label>
+                            <input type="text" id="nameHHR" class="input-control" placeholder="Enter HHR Full Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="idHHR">ID Number of HHR</label>
+                            <input type="text" id="idHHR" class="input-control" placeholder="Enter ID Document Number">
+                        </div>
+                        <div class="form-group">
+                            <label for="dateReg">Date of Registration</label>
+                            <input type="date" id="dateReg" class="input-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="timeReg">Registration Time (Auto)</label>
+                            <input type="time" id="timeReg" class="input-control" readonly>
+                        </div>
+                        <div class="button-row">
+                            <button type="button" class="btn btn-primary" onclick="processStepForward(1, 2)">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="reg-section-panel" id="panel-2">
+                        <div class="panel-header">
+                            <span>Section B</span>
+                            <h3>Cascading Information</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">District</label>
+                            <select id="district" class="input-control" onchange="populateRegionField()">
+                                <option value="">Select District</option>
+                                <option value="Bombali">Bombali</option>
+                                <option value="Koinadugu">Koinadugu</option>
+                                <option value="Port Loko">Port Loko</option>
+                                <option value="Kenema">Kenema</option>
+                                <option value="Bo">Bo</option>
+                                <option value="Western Area Urban">Western Area Urban</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="region">Region</label>
+                            <input type="text" id="region" class="input-control" placeholder="Auto-populated Region" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="gps">GPS Coordinates</label>
+                            <div class="action-input-wrapper">
+                                <input type="text" id="gps" class="input-control" placeholder="Click FIX..." readonly>
+                                <button type="button" class="action-inline-btn" onclick="captureGPSCoordinates()">
+                                    <i class="fa-solid fa-location-crosshairs"></i> FIX
+                                </button>
+                            </div>
+                        </div>
+                        <div class="button-row">
+                            <button type="button" class="btn btn-secondary" onclick="changePanelSelection(2, 1)">
+                                <i class="fa-solid fa-arrow-left"></i> Back
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="processStepForward(2, 3)">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="reg-section-panel" id="panel-3">
+                        <div class="panel-header">
+                            <span>Section C</span>
+                            <h3>Household Details</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="headName">Name of Household Head</label>
+                            <input type="text" id="headName" class="input-control" placeholder="Enter Head Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Sex of Household Head</label>
+                            <select id="gender" class="input-control">
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="input-control" placeholder="e.g. 077123456">
+                        </div>
+                        <div class="button-row">
+                            <button type="button" class="btn btn-secondary" onclick="changePanelSelection(3, 2)">
+                                <i class="fa-solid fa-arrow-left"></i> Back
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="processStepForward(3, 4)">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="reg-section-panel" id="panel-4">
+                        <div class="panel-header">
+                            <span>Section D</span>
+                            <h3>Household Composition</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="under5Members">Children below the age of 5</label>
+                            <input type="number" id="under5Members" class="input-control" min="0" value="0" oninput="calculateAggregatedMembers()">
+                        </div>
+                        <div class="form-group">
+                            <label for="pregnantMembers">Number of Pregnant women</label>
+                            <input type="number" id="pregnantMembers" class="input-control" min="0" value="0" oninput="calculateAggregatedMembers()">
+                        </div>
+                        <div class="form-group">
+                            <label for="otherMembers">Other Household Members</label>
+                            <input type="number" id="otherMembers" class="input-control" min="0" value="0" oninput="calculateAggregatedMembers()">
+                        </div>
+                        <div class="form-group" style="margin-top: 16px; padding-top: 10px; border-top: 1px dashed #e2e8f0;">
+                            <label for="totalHouseholdMembers" style="font-weight: 700; color: #11452a;">Total Household Members</label>
+                            <input type="number" id="totalHouseholdMembers" class="input-control" style="font-weight: 700; color: #2b8146; background-color: #f0fdf4;" value="0" readonly>
+                        </div>
+                        <div class="button-row">
+                            <button type="button" class="btn btn-secondary" onclick="changePanelSelection(4, 3)">
+                                <i class="fa-solid fa-arrow-left"></i> Back
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="processStepForward(4, 5)">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="reg-section-panel" id="panel-5">
+                        <div class="panel-header">
+                            <span>Section E</span>
+                            <h3>Net Allocation</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="householdSizeDisplay">Household Size</label>
+                            <input type="text" id="householdSizeDisplay" class="input-control" value="0 Members" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="distPoint">Distribution Point Assigned</label>
+                            <select id="distPoint" class="input-control">
+                                <option value="Aberdeen PHU Hub">Aberdeen PHU Hub</option>
+                                <option value="Lumley Community Clinic">Lumley Community Clinic</option>
+                                <option value="Murray Town Health Center">Murray Town Health Center</option>
+                                <option value="Kroo Bay Health Post">Kroo Bay Health Post</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 16px; padding-top: 10px; border-top: 1px dashed #e2e8f0;">
+                            <label for="netAllocation" style="font-weight: 700; color: #c78b16;">Total ITN Nets Allocated</label>
+                            <input type="number" id="netAllocation" class="input-control" style="font-weight: 700; color: #11452a; background-color: #fffbeb;" value="0" readonly>
+                        </div>
+
+                        <div class="button-row">
+                            <button type="button" class="btn btn-secondary" onclick="changePanelSelection(5, 4)">
+                                <i class="fa-solid fa-arrow-left"></i> Back
+                            </button>
+                            <button type="submit" class="btn btn-primary" style="background-color: #c78b16;">
+                                <i class="fa-solid fa-check-double"></i> Submit & Print
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </section>
+
+            <section id="successReceiptView">
+                <div class="success-badge-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h2 class="success-title">Submission Successful</h2>
+                <p class="success-desc">The household record has been securely saved to the local workspace ledger database.</p>
                 
-                <button class="btn-sync" onclick="let icon=this.querySelector('i'); icon.classList.add('fa-spin'); setTimeout(()=>{ icon.classList.remove('fa-spin'); alert('Data fully synchronized with central hub NMCP.'); }, 1500);">
-                    <i class="fa-solid fa-rotate"></i> Sync Data
-                </button>
-            </div>
+                <div class="receipt-summary-box">
+                    <div class="receipt-row">
+                        <span class="receipt-label">Voucher Token ID</span>
+                        <span class="receipt-value" id="rcptToken" style="color: #2b8146; font-weight: 800;">---</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-label">Household Head</span>
+                        <span class="receipt-value" id="rcptHead">---</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-label">Total Size</span>
+                        <span class="receipt-value" id="rcptSize">0 Members</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-label">ITN Net Allocation</span>
+                        <span class="receipt-value" id="rcptNets" style="color: #11452a; font-weight: 700;">0 Nets</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-label">Distribution Post</span>
+                        <span class="receipt-value" id="rcptHub">---</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-label">Timestamp</span>
+                        <span class="receipt-value" id="rcptTime">---</span>
+                    </div>
+                </div>
 
-        </main>
+                <button class="btn btn-primary" style="width: 100%;" onclick="routeToMenuView()">
+                    <i class="fa-solid fa-house-user"></i> Return to Hub
+                </button>
+            </section>
+
+            <section id="recordsDashboardView">
+                <div class="form-nav-bar">
+                    <button type="button" class="back-menu-btn" onclick="routeToMenuView()" title="Return to Core Hub">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <h2 class="menu-title">Campaign Logs</h2>
+                </div>
+
+                <div class="form-group search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="ledgerSearchInput" class="input-control" placeholder="Search Voucher ID or Head..." oninput="renderLedgerRegistryRecords()">
+                </div>
+
+                <div class="ledger-cards-container" id="ledgerContainerBlock">
+                    </div>
+            </section>
+
+        </div>
 
         <footer class="app-footer">
-            Powered by ICF-SL @ 2026
+            National ITN Mass Campaign Platform • 2026
         </footer>
     </div>
 
+    <script>
+        // Mapping of districts to their respective regions in Sierra Leone
+        const districtRegionMap = {
+            "Bombali": "Northern Region",
+            "Koinadugu": "Northern Region",
+            "Port Loko": "North West Region",
+            "Kenema": "Eastern Region",
+            "Bo": "Southern Region",
+            "Western Area Urban": "Western Area"
+        };
+
+        // In-memory array state acting as our local offline database ledger layer
+        let campaignRecordsDatabase = [
+            {
+                token: "ITN-482019",
+                headName: "Alimamy Kamara",
+                totalSize: 5,
+                netsAllocated: 3,
+                distributionPoint: "Aberdeen PHU Hub",
+                date: "2026-06-08",
+                time: "10:14"
+            },
+            {
+                token: "ITN-883012",
+                headName: "Fatmata Sesay",
+                totalSize: 2,
+                netsAllocated: 1,
+                distributionPoint: "Kroo Bay Health Post",
+                date: "2026-06-09",
+                time: "14:22"
+            }
+        ];
+
+        // --- Navigation Router Functions ---
+        function routeToFormView() {
+            document.getElementById('menuDashboardView').style.display = 'none';
+            document.getElementById('successReceiptView').style.display = 'none';
+            document.getElementById('recordsDashboardView').style.display = 'none';
+            document.getElementById('registrationFormView').style.display = 'block';
+            document.getElementById('appDeviceContainer').classList.add('in-form-mode');
+            
+            initializeDateTimeFields();
+            changePanelSelection(1, 1);
+        }
+
+        function routeToMenuView() {
+            document.getElementById('registrationFormView').style.display = 'none';
+            document.getElementById('successReceiptView').style.display = 'none';
+            document.getElementById('recordsDashboardView').style.display = 'none';
+            document.getElementById('menuDashboardView').style.display = 'flex';
+            document.getElementById('appDeviceContainer').classList.remove('in-form-mode');
+            document.getElementById('registrationForm').reset();
+            calculateAggregatedMembers();
+        }
+
+        function routeToRecordsView() {
+            document.getElementById('menuDashboardView').style.display = 'none';
+            document.getElementById('registrationFormView').style.display = 'none';
+            document.getElementById('successReceiptView').style.display = 'none';
+            document.getElementById('recordsDashboardView').style.display = 'flex';
+            document.getElementById('appDeviceContainer').classList.add('in-form-mode');
+            
+            // Render the up-to-date data structures instantly
+            renderLedgerRegistryRecords();
+        }
+
+        function routeToSuccessView(summaryData) {
+            document.getElementById('registrationFormView').style.display = 'none';
+            document.getElementById('menuDashboardView').style.display = 'none';
+            document.getElementById('recordsDashboardView').style.display = 'none';
+            document.getElementById('successReceiptView').style.display = 'flex';
+            document.getElementById('appDeviceContainer').classList.remove('in-form-mode');
+
+            // Populate summary voucher ledger data
+            document.getElementById('rcptToken').innerText = summaryData.token;
+            document.getElementById('rcptHead').innerText = summaryData.headName;
+            document.getElementById('rcptSize').innerText = summaryData.totalSize + " Members";
+            document.getElementById('rcptNets').innerText = summaryData.netsAllocated + " Nets";
+            document.getElementById('rcptHub').innerText = summaryData.distributionPoint;
+            document.getElementById('rcptTime').innerText = summaryData.date + ' ' + summaryData.time;
+        }
+
+        // --- Dynamic Records Engine Rendering Module ---
+        function renderLedgerRegistryRecords() {
+            const container = document.getElementById('ledgerContainerBlock');
+            const query = document.getElementById('ledgerSearchInput').value.trim().toLowerCase();
+            container.innerHTML = "";
+
+            // Apply search match queries instantly over token patterns or names
+            const filteredArray = campaignRecordsDatabase.filter(item => 
+                item.token.toLowerCase().includes(query) || 
+                item.headName.toLowerCase().includes(query)
+            );
+
+            if(filteredArray.length === 0) {
+                container.innerHTML = `
+                    <div class="no-records-fallback">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span>No matched campaign registry items exist inside local database.</span>
+                    </div>`;
+                return;
+            }
+
+            filteredArray.forEach(record => {
+                const card = document.createElement('div');
+                card.className = "ledger-item-card";
+                card.innerHTML = `
+                    <div class="ledger-card-top">
+                        <span class="ledger-token-id">${record.token}</span>
+                        <span class="ledger-date-stamp">${record.date} @ ${record.time}</span>
+                    </div>
+                    <div class="ledger-card-body">
+                        <div class="ledger-detail-row">
+                            <span class="ledger-detail-label">Household Head:</span>
+                            <span class="ledger-detail-value">${record.headName}</span>
+                        </div>
+                        <div class="ledger-detail-row">
+                            <span class="ledger-detail-label">Total Residents:</span>
+                            <span class="ledger-detail-value">${record.totalSize} Members</span>
+                        </div>
+                        <div class="ledger-detail-row" style="margin-top:4px; align-items: center;">
+                            <span class="ledger-detail-label">Distribution Hub:</span>
+                            <span class="ledger-detail-value" style="font-size:11px; color:#475569;">${record.distributionPoint}</span>
+                        </div>
+                        <div class="ledger-detail-row" style="margin-top:2px; align-items: center;">
+                            <span class="ledger-detail-label">Allocated Supply:</span>
+                            <span class="badge-nets-count">${record.netsAllocated} ITN Nets</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // --- Form Step Flow & Wizard Processing Core Engine ---
+        function changePanelSelection(targetStep, currentStep) {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`panel-${i}`).classList.remove('active-panel');
+                document.getElementById(`dot-${i}`).classList.remove('active');
+                if (i < targetStep) {
+                    document.getElementById(`dot-${i}`).classList.add('completed');
+                } else {
+                    document.getElementById(`dot-${i}`).classList.remove('completed');
+                }
+            }
+
+            document.getElementById(`panel-${targetStep}`).classList.add('active-panel');
+            document.getElementById(`dot-${targetStep}`).classList.add('active');
+
+            const structuralWidthPercentage = ((targetStep - 1) / 4) * 100;
+            document.getElementById('progressLine').style.width = `${structuralWidthPercentage}%`;
+            
+            document.querySelector('.app-main-viewport').scrollTop = 0;
+            clearValidationBanner();
+        }
+
+        function processStepForward(currentStep, nextStep) {
+            if (validateStepDataFields(currentStep)) {
+                changePanelSelection(nextStep, currentStep);
+            }
+        }
+
+        // --- Contextual Form Validation Framework ---
+        function triggerValidationBanner(errorMessage) {
+            const errorElement = document.getElementById('errorBanner');
+            errorElement.innerText = errorMessage;
+            errorElement.style.display = 'block';
+            document.querySelector('.app-main-viewport').scrollTop = 0;
+        }
+
+        function clearValidationBanner() {
+            const errorElement = document.getElementById('errorBanner');
+            errorElement.style.display = 'none';
+            errorElement.innerText = '';
+        }
+
+        function validateStepDataFields(step) {
+            clearValidationBanner();
+
+            if (step === 1) {
+                const nameHHR = document.getElementById('nameHHR').value.trim();
+                const idHHR = document.getElementById('idHHR').value.trim();
+                if (!nameHHR) return triggerValidationBanner("Validation Error: 'Name of HHR Registerer' is required."), false;
+                if (!idHHR) return triggerValidationBanner("Validation Error: 'ID Number of HHR' is required."), false;
+            } 
+            else if (step === 2) {
+                const district = document.getElementById('district').value;
+                const gps = document.getElementById('gps').value;
+                if (!district) return triggerValidationBanner("Validation Error: Structural 'District' boundary must be specified."), false;
+                if (!gps) return triggerValidationBanner("Validation Error: Geolocation 'GPS Coordinates' must be fixed for operational accountability."), false;
+            } 
+            else if (step === 3) {
+                const headName = document.getElementById('headName').value.trim();
+                const gender = document.getElementById('gender').value;
+                const phone = document.getElementById('phone').value.trim();
+                
+                if (!headName) return triggerValidationBanner("Validation Error: 'Name of Household Head' is a required entry parameter."), false;
+                if (!gender) return triggerValidationBanner("Validation Error: 'Sex of Household Head' must be assigned."), false;
+                if (!phone) return triggerValidationBanner("Validation Error: Contact 'Phone Number' is mandatory."), false;
+                
+                if (!/^\d{8,12}$/.test(phone.replace(/[\s-]/g, ''))) {
+                    return triggerValidationBanner("Validation Error: Enter a mathematically viable structural phone number format."), false;
+                }
+            } 
+            else if (step === 4) {
+                const total = parseInt(document.getElementById('totalHouseholdMembers').value) || 0;
+                if (total <= 0) {
+                    return triggerValidationBanner("Validation Error: Household volume must declare at least 1 resident member metric."), false;
+                }
+            }
+            return true;
+        }
+
+        // --- Core Business Logic Operations & Calculations ---
+        function initializeDateTimeFields() {
+            const today = new Date();
+            const yr = today.getFullYear();
+            const mo = String(today.getMonth() + 1).padStart(2, '0');
+            const da = String(today.getDate()).padStart(2, '0');
+            document.getElementById('dateReg').value = `${yr}-${mo}-${da}`;
+            
+            const hr = String(today.getHours()).padStart(2, '0');
+            const mn = String(today.getMinutes()).padStart(2, '0');
+            document.getElementById('timeReg').value = `${hr}:${mn}`;
+        }
+
+        function populateRegionField() {
+            const selectedDistrict = document.getElementById('district').value;
+            const regionField = document.getElementById('region');
+            regionField.value = districtRegionMap[selectedDistrict] || "";
+        }
+
+        function captureGPSCoordinates() {
+            const gpsField = document.getElementById('gps');
+            gpsField.value = "Fetching secure satellite link...";
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude.toFixed(5);
+                        const lon = position.coords.longitude.toFixed(5);
+                        gpsField.value = `${lat}, ${lon}`;
+                        clearValidationBanner();
+                    },
+                    (error) => {
+                        const simulatedLat = (8.484 + (Math.random() - 0.5) * 0.02).toFixed(5);
+                        const simulatedLon = (-13.234 + (Math.random() - 0.5) * 0.02).toFixed(5);
+                        gpsField.value = `${simulatedLat}, ${simulatedLon} (SIM-PHU)`;
+                    },
+                    { enableHighAccuracy: true, timeout: 6000 }
+                );
+            } else {
+                gpsField.value = "8.48444, -13.23444 (SYS-FB)";
+            }
+        }
+
+        function calculateAggregatedMembers() {
+            const under5 = Math.max(0, parseInt(document.getElementById('under5Members').value) || 0);
+            const pregnant = Math.max(0, parseInt(document.getElementById('pregnantMembers').value) || 0);
+            const other = Math.max(0, parseInt(document.getElementById('otherMembers').value) || 0);
+            
+            document.getElementById('under5Members').value = under5;
+            document.getElementById('pregnantMembers').value = pregnant;
+            document.getElementById('otherMembers').value = other;
+
+            const grandTotalMembers = under5 + pregnant + other;
+            document.getElementById('totalHouseholdMembers').value = grandTotalMembers;
+            
+            document.getElementById('householdSizeDisplay').value = `${grandTotalMembers} Registered Members`;
+            
+            const mathematicallyAllocatedNets = Math.ceil(grandTotalMembers / 2);
+            document.getElementById('netAllocation').value = mathematicallyAllocatedNets;
+        }
+
+        // --- System Core Submission Logic ---
+        function handleFormSubmission(event) {
+            event.preventDefault();
+
+            if (!validateStepDataFields(5)) return;
+
+            const trackingVoucherToken = "ITN-" + Math.floor(100000 + Math.random() * 900000);
+            const collectionPackageSummary = {
+                token: trackingVoucherToken,
+                headName: document.getElementById('headName').value.trim(),
+                totalSize: parseInt(document.getElementById('totalHouseholdMembers').value),
+                netsAllocated: parseInt(document.getElementById('netAllocation').value),
+                distributionPoint: document.getElementById('distPoint').value,
+                date: document.getElementById('dateReg').value,
+                time: document.getElementById('timeReg').value
+            };
+
+            // Push directly to dynamic state array to store inside data table view listings
+            campaignRecordsDatabase.unshift(collectionPackageSummary);
+
+            routeToSuccessView(collectionPackageSummary);
+        }
+
+        function syncCentralHubData(buttonSelector) {
+            const originalStructure = buttonSelector.innerHTML;
+            buttonSelector.disabled = true;
+            buttonSelector.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Syncing...`;
+            buttonSelector.style.borderColor = "#c78b16";
+            buttonSelector.style.color = "#c78b16";
+
+            setTimeout(() => {
+                buttonSelector.disabled = false;
+                buttonSelector.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Success`;
+                buttonSelector.style.borderColor = "#2b8146";
+                buttonSelector.style.color = "#2b8146";
+                
+                alert(`Central Hub Sync Complete: ${campaignRecordsDatabase.length} entries offloaded to the centralized Ministry of Health server.`);
+                
+                setTimeout(() => {
+                    buttonSelector.innerHTML = originalStructure;
+                    buttonSelector.style = "";
+                }, 2000);
+            }, 2500);
+        }
+    </script>
 </body>
 </html>
