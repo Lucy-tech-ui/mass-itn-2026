@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ITN Mass Campaign - Mobile</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -10,84 +10,84 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
-            background-color: #f4f6f5;
+            background-color: #e8ece9;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .phone-container {
             width: 100%;
-            max-width: 400px;
-            height: 100vh;
+            max-width: 380px;
+            height: 750px;
             background-color: #ffffff;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
+            overflow: hidden;
+            border: 6px solid #11452a;
+            border-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
         .app-header {
             background-color: #ffffff;
-            padding: 40px 20px 20px 20px;
+            padding: 30px 20px 20px 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            border-bottom: 1px solid #eaeaea;
+            gap: 15px;
+            border-bottom: 2px solid #f1f5f2;
         }
 
         .moh-title-container { display: flex; align-items: center; gap: 12px; }
         .moh-seal-top { width: 45px; height: 45px; object-fit: contain; }
-        .moh-text h1 { font-size: 14px; font-weight: 700; color: #11452a; }
-        .moh-text p { font-size: 9px; font-weight: 500; color: #555555; margin-top: 2px; }
+        .moh-text h1 { font-size: 13px; font-weight: 800; color: #11452a; }
+        .moh-text p { font-size: 8px; font-weight: 600; color: #555555; line-height: 1.2; }
 
-        .partners-wrapper { display: flex; flex-direction: column; gap: 6px; }
-        .partners-label { font-size: 9px; font-weight: 800; color: #c78b16; letter-spacing: 0.5px; text-transform: uppercase; }
-        .partner-logos { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #f1f5f2; padding: 10px; border-radius: 12px; }
-        .partner-logo { width: 35px; height: 35px; object-fit: contain; }
+        .partners-wrapper { display: flex; flex-direction: column; gap: 5px; }
+        .partners-label { font-size: 8px; font-weight: 800; color: #c78b16; text-transform: uppercase; }
+        .partner-logos { display: flex; align-items: center; justify-content: space-around; background: #f8faf9; padding: 8px; border-radius: 15px; border: 1px solid #e2e8f0; }
+        .partner-logo { width: 30px; height: 30px; object-fit: contain; }
 
-        .app-main { flex-grow: 1; padding: 20px; }
+        .app-main { flex-grow: 1; padding: 20px; overflow-y: auto; }
         
-        /* Updated Banner Section */
+        /* Banner updated: No border */
         .banner-container {
             width: 100%;
-            height: 160px;
-            border-radius: 16px;
+            height: 140px;
+            border-radius: 20px;
             overflow: hidden;
             margin-bottom: 20px;
             background-color: #e2e8f0;
+            border: none; 
         }
-        .banner-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures the image fills the area proportionally */
-        }
+        .banner-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .menu-title { color: #1a1a1a; font-size: 18px; margin-bottom: 15px; }
+        .menu-title { color: #11452a; font-size: 16px; margin-bottom: 15px; font-weight: 700; }
 
-        .tabs-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 12px; 
-        }
+        .tabs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
         .tab-btn {
             background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
+            border: 2px solid #11452a;
+            border-radius: 15px;
             padding: 12px 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 6px;
             text-decoration: none;
-            color: #1a1a1a;
+            color: #11452a;
+            transition: 0.2s;
         }
+        .tab-btn:active { background-color: #11452a; color: white; }
+        .tab-btn:active i { color: white; }
 
-        .tab-btn i { color: #2b8146; font-size: 18px; }
-        .tab-label { font-size: 10px; font-weight: 600; text-align: center; }
+        .tab-btn i { font-size: 18px; }
+        .tab-label { font-size: 9px; font-weight: 700; text-align: center; }
 
-        .app-footer { background-color: #11452a; color: white; text-align: center; padding: 15px; font-size: 11px; margin-top: 20px; }
+        .app-footer { background-color: #11452a; color: white; text-align: center; padding: 15px; font-size: 10px; }
     </style>
 </head>
 <body>
@@ -95,7 +95,7 @@
     <div class="phone-container">
         <header class="app-header">
             <div class="moh-title-container">
-                <img src="moh_logo.png" alt="MoH Seal" class="moh-seal-top">
+                <img src="moh_logo.png" alt="MoH" class="moh-seal-top">
                 <div class="moh-text">
                     <h1>MINISTRY OF HEALTH</h1>
                     <p>NATIONAL MALARIA CONTROL PROGRAMME<br>SIERRA LEONE</p>
@@ -115,7 +115,7 @@
 
         <main class="app-main">
             <div class="banner-container">
-                <img src="zero.jpg.jpg" alt="Campaign Banner">
+                <img src="zero.jpg.jpg" alt="Banner">
             </div>
 
             <h2 class="menu-title">Campaign Modules</h2>
@@ -124,7 +124,7 @@
                 <a href="#reg" class="tab-btn"><i class="fa-solid fa-user-plus"></i><span class="tab-label">Registration</span></a>
                 <a href="#dist" class="tab-btn"><i class="fa-solid fa-hand-holding-heart"></i><span class="tab-label">Distribution</span></a>
                 <a href="#dash" class="tab-btn"><i class="fa-solid fa-chart-pie"></i><span class="tab-label">Dashboard</span></a>
-                <a href="#stock" class="tab-btn"><i class="fa-solid fa-boxes-stacked"></i><span class="tab-label">Stock</span></a>
+                <a href="#stock" class="tab-btn"><i class="fa-solid fa-boxes-stacked"></i><span class="tab-label">Stock Mgmt</span></a>
                 <a href="#mon" class="tab-btn"><i class="fa-solid fa-square-poll-horizontal"></i><span class="tab-label">Monitoring</span></a>
                 <a href="#dev" class="tab-btn"><i class="fa-solid fa-mobile-screen-button"></i><span class="tab-label">Tracking</span></a>
                 <a href="#att" class="tab-btn"><i class="fa-solid fa-clipboard-user"></i><span class="tab-label">Attendance</span></a>
