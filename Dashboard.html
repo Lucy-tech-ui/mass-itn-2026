@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITN Mass Campaign Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #0f1115; color: #ffffff; font-family: 'Inter', sans-serif; }
+        .sidebar { background-color: #1a1d23; border-right: 1px solid #2d3139; }
+        .card { background-color: #1a1d23; border: 1px solid #2d3139; border-radius: 16px; }
+        .stat-card { background-color: #1a1d23; border-radius: 12px; padding: 20px; border: 1px solid #2d3139; }
+        
+        /* Header & Footer Styles */
+        .app-header { background-color: #ffffff; padding: 20px 24px; border-bottom: 1px solid #eaeaea; color: #11452a; }
+        .moh-seal-top { width: 40px; height: 40px; background: #eee; border-radius: 50%; object-fit: contain; }
+        .app-footer { background-color: #11452a; color: white; text-align: center; padding: 15px; font-size: 11px; }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Header -->
+    <header class="app-header flex items-center gap-4">
+        <div class="moh-seal-top"></div>
+        <div>
+            <h1 class="text-sm font-bold">MINISTRY OF HEALTH</h1>
+            <p class="text-[9px] text-[#555555]">NATIONAL MALARIA CONTROL PROGRAMME • SIERRA LEONE</p>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar -->
+        <nav class="sidebar w-20 flex flex-col items-center py-8 gap-8">
+            <div class="w-10 h-10 bg-blue-600 rounded-xl"></div>
+            <div class="space-y-6 opacity-60">
+                <div>📊</div><div>🏠</div><div>📋</div><div>⚙️</div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-2xl font-bold">ITN Campaign Dashboard</h1>
+                <input type="text" placeholder="Search..." class="bg-[#1a1d23] border border-gray-700 rounded-lg px-4 py-2 text-sm">
+            </div>
+
+            <!-- KPI Cards -->
+            <section class="grid grid-cols-4 gap-6 mb-8">
+                <div class="stat-card"><p class="text-xs opacity-60">Total Nets Distributed</p><h3 class="text-xl font-bold mt-1">1.2M</h3></div>
+                <div class="stat-card"><p class="text-xs opacity-60">Households Covered</p><h3 class="text-xl font-bold mt-1">450K</h3></div>
+                <div class="stat-card"><p class="text-xs opacity-60">Campaign Progress</p><h3 class="text-xl font-bold mt-1">78%</h3></div>
+                <div class="stat-card"><p class="text-xs opacity-60">Active Teams</p><h3 class="text-xl font-bold mt-1">124</h3></div>
+            </section>
+
+            <!-- Charts Grid -->
+            <section class="grid grid-cols-3 gap-6">
+                <div class="card col-span-2 p-6 h-80 flex flex-col">
+                    <h2 class="text-sm font-semibold mb-4">Distribution Analytics</h2>
+                    <div class="flex-1 border border-dashed border-gray-700 rounded-lg flex items-center justify-center text-gray-500">Visualization Area</div>
+                </div>
+                <div class="card p-6 h-80 flex flex-col">
+                    <h2 class="text-sm font-semibold mb-4">Coverage by District</h2>
+                    <div class="flex-1 border border-dashed border-gray-700 rounded-lg flex items-center justify-center text-gray-500">Donut Chart</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">Powered by ICF-SL @ 2026</footer>
+</body>
+</html>
