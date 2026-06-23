@@ -1,21 +1,1101 @@
-The district dropdown is already in place with all 16 Sierra Leone districts. Let me verify the full HTML is saved correctly and provide the download link.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Tracking - Sierra Leone</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #1a5276;
+            margin-bottom: 20px;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        input[type="text"], input[type="tel"], select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+            outline: none;
+            background: white;
+        }
+        input:focus, select:focus {
+            border-color: #1a5276;
+        }
+        input.error {
+            border-color: #c0392b;
+        }
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+        }
+        select:disabled {
+            color: #999;
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 12px 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 0;
+            cursor: pointer;
+        }
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #1a5276;
+            cursor: pointer;
+        }
+        .checkbox-item label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+            color: #444;
+        }
+        .signature-section {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .signature-section h3 {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        #signatureCanvas {
+            width: 100%;
+            height: 120px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            cursor: crosshair;
+            touch-action: none;
+            display: block;
+        }
+        .signature-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-clear {
+            background: #e0e0e0;
+            color: #555;
+        }
+        .btn-clear:hover {
+            background: #d0d0d0;
+        }
+        .btn-green {
+            width: 100%;
+            padding: 14px;
+            background: #27ae60;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+        .btn-green:hover {
+            background: #219a52;
+        }
+        .btn-orange {
+            width: 100%;
+            padding: 14px;
+            background: #f39c12;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        .btn-orange:hover {
+            background: #e67e22;
+        }
+        .btn-blue {
+            width: 100%;
+            padding: 14px;
+            background: #1a5276;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+        .btn-blue:hover {
+            background: #154360;
+        }
+        .status {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 14px;
+            min-height: 20px;
+        }
+        .status.success { color: #27ae60; }
+        .status.error { color: #c0392b; }
+        .hidden { display: none; }
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+        .row .form-group {
+            flex: 1;
+        }
+        .field-hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        .data-table td {
+            color: #555;
+        }
+        .data-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+        .login-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #ddd;
+        }
+        .login-tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: #f5f5f5;
+            color: #666;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .login-tab.active {
+            background: #1a5276;
+            color: white;
+        }
+        .login-tab:hover:not(.active) {
+            background: #e8e8e8;
+        }
+        .login-panel {
+            display: none;
+        }
+        .login-panel.active {
+            display: block;
+        }
+        .scan-area {
+            border: 2px dashed #1a5276;
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            background: #f8fbff;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .scan-area:hover {
+            background: #eef4ff;
+        }
+        .scan-area .scan-icon {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+        .scan-area p {
+            color: #666;
+            font-size: 14px;
+        }
+        .scan-area small {
+            color: #999;
+            font-size: 12px;
+        }
+        #idCardInput {
+            display: none;
+        }
+        .scanned-info {
+            margin-top: 12px;
+            padding: 12px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            text-align: left;
+        }
+        .scanned-info h4 {
+            color: #27ae60;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .scanned-info p {
+            color: #444;
+            font-size: 13px;
+            margin: 3px 0;
+        }
+        @media (max-width: 600px) {
+            .row { flex-direction: column; gap: 0; }
+            h1 { font-size: 24px; }
+            .card { padding: 20px; }
+            .data-table { font-size: 12px; }
+            .data-table th, .data-table td { padding: 6px 8px; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="container">
+        <h1>Device Tracking</h1>
 
-**Download:** [device_tracking.html](sandbox:///mnt/agents/output/device_tracking.html)
+        <!-- Summary Table Card -->
+        <div class="card" id="summaryCard">
+            <h2>Summary Table</h2>
+            <table class="data-table" id="summaryTable">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>User</th>
+                        <th>Device Type</th>
+                        <th>Device Model</th>
+                        <th>Serial Number</th>
+                        <th>District</th>
+                        <th>Chiefdom</th>
+                        <th>PHU</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+            <button class="btn-orange" onclick="downloadCSV()">Download CSV</button>
+        </div>
 
----
+        <!-- Register New Device Card -->
+        <div class="card">
+            <h2>Register New Device</h2>
 
-### District dropdown already includes all 16 Sierra Leone districts:
+            <div class="form-group">
+                <select id="actionSelect" onchange="handleActionChange()">
+                    <option value="register">Register New Device</option>
+                    <option value="return">Return Device</option>
+                    <option value="transfer">Transfer Device</option>
+                </select>
+            </div>
 
-| District | District |
-|---|---|
-| Bo | Kono |
-| Bonthe | Moyamba |
-| Bombali | Port Loko |
-| Falaba | Pujehun |
-| Kailahun | Tonkolili |
-| Kambia | Western Area Rural |
-| Karene | Western Area Urban |
-| Kenema | |
-| Koinadugu | |
+            <!-- Login Section -->
+            <div id="loginSection">
+                <div class="login-tabs">
+                    <button class="login-tab active" onclick="switchLoginTab('type')" id="tabType">Type User ID</button>
+                    <button class="login-tab" onclick="switchLoginTab('scan')" id="tabScan">Scan QR Code</button>
+                </div>
 
-Each district cascades to its respective **Chiefdoms**, then to **PHUs** (Peripheral Health Units like CHC, MCHP, Hospitals), and finally to **Communities** — all populated dynamically based on Sierra Leone's administrative structure.
+                <div class="login-panel active" id="panelType">
+                    <div class="form-group" style="margin-bottom:15px;">
+                        <label for="userIdInput">User ID</label>
+                        <input type="text" id="userIdInput" placeholder="Enter your User ID (e.g. SL-2024-001)">
+                    </div>
+                    <button class="btn-green" onclick="handleSignIn('type')">Sign In</button>
+                </div>
+
+                <div class="login-panel" id="panelScan">
+                    <div class="scan-area" onclick="document.getElementById('idCardInput').click()">
+                        <div class="scan-icon">📷</div>
+                        <p><strong>Tap to scan QR Code</strong></p>
+                        <small>Supported: QR code, Barcode, NFC</small>
+                    </div>
+                    <input type="file" id="idCardInput" accept="image/*" capture="environment" onchange="handleIdCardScan(event)">
+                    <div id="scanResult"></div>
+                    <button class="btn-green" onclick="handleSignIn('scan')" id="scanSignInBtn" disabled>Sign In with Scanned QR Code</button>
+                </div>
+            </div>
+
+            <!-- Form Content (hidden until sign in) -->
+            <div class="hidden" id="formContent">
+                <div class="form-group" style="margin-top:15px; padding:10px; background:#e8f0fe; border-radius:8px;">
+                    <span style="color:#1a5276; font-weight:600;">Signed in as <span id="userNameDisplay">Officer</span></span>
+                    <button class="btn btn-clear" style="float:right; margin-top:-2px;" onclick="handleSignOut()">Sign Out</button>
+                    <div style="clear:both;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role">
+                        <option value="">-- Select Role --</option>
+                        <option value="Chiefdom Supervisor">Chiefdom Supervisor</option>
+                        <option value="HHR">HHR</option>
+                        <option value="Voucher Verifier">Voucher Verifier</option>
+                        <option value="ITN-Distributor">ITN-Distributor</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Enter full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="0XXXXXXXXX" maxlength="10" oninput="validatePhoneInput(this)">
+                        <p class="field-hint">Must start with 0 and contain exactly 9 digits</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="district">District</label>
+                        <select id="district" onchange="updateChiefdoms()">
+                            <option value="">-- Select District --</option>
+                            <option value="Bo">Bo</option>
+                            <option value="Bonthe">Bonthe</option>
+                            <option value="Bombali">Bombali</option>
+                            <option value="Falaba">Falaba</option>
+                            <option value="Kailahun">Kailahun</option>
+                            <option value="Kambia">Kambia</option>
+                            <option value="Karene">Karene</option>
+                            <option value="Kenema">Kenema</option>
+                            <option value="Koinadugu">Koinadugu</option>
+                            <option value="Kono">Kono</option>
+                            <option value="Moyamba">Moyamba</option>
+                            <option value="Port Loko">Port Loko</option>
+                            <option value="Pujehun">Pujehun</option>
+                            <option value="Tonkolili">Tonkolili</option>
+                            <option value="Western Area Rural">Western Area Rural</option>
+                            <option value="Western Area Urban">Western Area Urban</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="chiefdom">Chiefdom</label>
+                        <select id="chiefdom" onchange="updatePHUs()">
+                            <option value="">-- Select District First --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="phu">PHU</label>
+                        <select id="phu" onchange="updateCommunities()" disabled>
+                            <option value="">-- Select Chiefdom First --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="community">Community</label>
+                        <select id="community" disabled>
+                            <option value="">-- Select PHU First --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Device Type <span style="font-weight:400; color:#888;">(Select all that apply)</span></label>
+                    <div class="checkbox-group" id="deviceTypeGroup">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dt_powerbank" value="Power Bank">
+                            <label for="dt_powerbank">Power Bank</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dt_phone" value="Phone">
+                            <label for="dt_phone">Phone</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dt_tablet" value="Tablet">
+                            <label for="dt_tablet">Tablet</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dt_charger" value="Charger">
+                            <label for="dt_charger">Charger</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dt_cord" value="Cord">
+                            <label for="dt_cord">Cord</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="deviceModel">Device Model</label>
+                        <input type="text" id="deviceModel" placeholder="e.g. Samsung Galaxy A14">
+                    </div>
+                    <div class="form-group">
+                        <label for="serialNumber">Serial Number</label>
+                        <input type="text" id="serialNumber" placeholder="e.g. SN123456789">
+                    </div>
+                </div>
+
+                <div class="signature-section">
+                    <h3>Digital Signature</h3>
+                    <p style="font-size:12px; color:#888; margin-bottom:8px;">Please sign in the box below</p>
+                    <canvas id="signatureCanvas" width="520" height="120"></canvas>
+                    <div class="signature-actions">
+                        <button type="button" class="btn btn-clear" onclick="clearSignature()">Clear Signature</button>
+                        <span id="sigStatus" style="margin-left:auto; font-size:13px; color:#888; align-self:center;">No signature yet</span>
+                    </div>
+                </div>
+
+                <button class="btn-blue" onclick="submitForm()">Submit Registration</button>
+                <div class="status" id="statusMsg"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let registrations = [];
+        let isSignedIn = false;
+        let scannedUserData = null;
+
+        function handleActionChange() {
+            const action = document.getElementById('actionSelect').value;
+        }
+
+        function switchLoginTab(tab) {
+            document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.login-panel').forEach(p => p.classList.remove('active'));
+            if (tab === 'type') {
+                document.getElementById('tabType').classList.add('active');
+                document.getElementById('panelType').classList.add('active');
+            } else {
+                document.getElementById('tabScan').classList.add('active');
+                document.getElementById('panelScan').classList.add('active');
+            }
+        }
+
+        function handleIdCardScan(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                scannedUserData = {
+                    id: 'SL-2024-' + Math.floor(100 + Math.random() * 900),
+                    name: 'Officer ' + Math.floor(100 + Math.random() * 900),
+                    role: 'Chiefdom Supervisor'
+                };
+                document.getElementById('scanResult').innerHTML =
+                    '<div class="scanned-info">' +
+                    '<h4>✓ QR Code Scanned Successfully</h4>' +
+                    '<p><strong>User ID:</strong> ' + scannedUserData.id + '</p>' +
+                    '<p><strong>Name:</strong> ' + scannedUserData.name + '</p>' +
+                    '<p><strong>Role:</strong> ' + scannedUserData.role + '</p>' +
+                    '</div>';
+                document.getElementById('scanSignInBtn').disabled = false;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleSignIn(method) {
+            if (method === 'type') {
+                const userId = document.getElementById('userIdInput').value.trim();
+                if (!userId) {
+                    alert('Please enter your User ID');
+                    return;
+                }
+            }
+            isSignedIn = true;
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('formContent').classList.remove('hidden');
+            document.getElementById('statusMsg').textContent = '';
+            if (scannedUserData) {
+                document.getElementById('userNameDisplay').textContent = scannedUserData.name;
+                document.getElementById('fullName').value = scannedUserData.name;
+                document.getElementById('role').value = scannedUserData.role;
+            } else {
+                document.getElementById('userNameDisplay').textContent = document.getElementById('userIdInput').value || 'Officer';
+            }
+            setTimeout(initSignatureCanvas, 50);
+        }
+
+        function handleSignOut() {
+            isSignedIn = false;
+            scannedUserData = null;
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('formContent').classList.add('hidden');
+            document.getElementById('scanResult').innerHTML = '';
+            document.getElementById('scanSignInBtn').disabled = true;
+            document.getElementById('userIdInput').value = '';
+            document.getElementById('idCardInput').value = '';
+            clearSignature();
+            document.getElementById('statusMsg').textContent = '';
+        }
+
+        function validatePhoneInput(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 0 && value[0] !== '0') {
+                value = '0' + value;
+            }
+            if (value.length > 10) {
+                value = value.substring(0, 10);
+            }
+            input.value = value;
+            if (value.length === 10) {
+                input.classList.remove('error');
+            }
+        }
+
+        function isPhoneValid(phone) {
+            return /^0\d{9}$/.test(phone);
+        }
+
+        const chiefdomsData = {
+            "Bo": ["Badja", "Bagbe", "Bagbo", "Baoma", "Bumpe", "Gbo", "Jaiama Bongor", "Kakua", "Komboya", "Lugbu", "Niawa-Lenga", "Selenga", "Tikonko", "Valunia", "Wonde"],
+            "Bonthe": ["Bendu Cha", "Bum", "Dema", "Imperi", "Jong", "Kpanda-Kemo", "Kwamebai Krim", "Nongoba Bullom", "Sittia", "Sogbini", "Yawbeko"],
+            "Bombali": ["Bombali Sebora", "Bombali Siaray", "Makari", "Gbanti", "Paki Masabong", "Safroko Limba", "Biriwa Limba", "Gbendembu", "Ngowahun", "Magbaiamba-Ndowahun", "Kamaranka", "Mara"],
+            "Falaba": ["Neya", "Nyedu", "Kulor-Seradu", "Mongo", "Seradu", "Morifindugu", "Delemandugu", "Sulima", "Kabelia", "Folasaba-Kamba", "Dembelia Musaia", "Dembelia Sikunia", "Kamadugu-Yiraia"],
+            "Kailahun": ["Dea", "Jaluahun", "Jawei", "Kissi Agba", "Kissi Kama", "Kissi Teng", "Kissi Tongi", "Luawa", "Malema", "Mandu", "Peje Bongre", "Peje West", "Penguia", "Yaweyo"],
+            "Kambia": ["Bramaia", "Gbinle Dixon", "Khonimakha", "Magbema", "Mambolo", "Masungbala", "Samu", "Tonko Limba", "Tala-Munu", "Gbinle"],
+            "Karene": ["Buya", "Debia", "Gbanti", "Libeisaygahun-Gbombahun", "Mafonda Makerembay", "Romende", "Safroko", "Sanda Loko", "Sanda Magbolontor", "Sanda Tendaren", "Sella Limba", "Tambakha Simibungie", "Tambakha Yobangie"],
+            "Kenema": ["Dama", "Dodo", "Gaura", "Gorama Mende", "Kandu Leppiam", "Koya", "Langurama Ya", "Lower Bambara", "Nongowa", "Nomo", "Simbaru", "Tunkia", "Upper Bambara", "Waanja"],
+            "Koinadugu": ["Wara-Wara Bafodia", "Kamukeh", "Sengbe", "Wara-Wara Yagalla", "Diang", "Kasunko-Kakellay", "Gbongobor-Kayaka", "Thamiso", "Neini", "Kallian", "Barawa-Wolley"],
+            "Kono": ["Fiama", "Gbane", "Gbane Kandor", "Gbense", "Gorama Kono", "Kamara", "Lei", "Mafindor", "Nimikoro", "Nimiyama", "Sandor", "Tankoro", "Toli", "Yembeh"],
+            "Moyamba": ["Bagruwa", "Banta", "Banta-Mokele", "Bumpe", "Dasse", "Fakunya", "Kaiyamba", "Kagboro", "Kamajei", "Kongboro", "Kori", "Kowa", "Ribbi", "Timdel"],
+            "Port Loko": ["Bake-Loko", "Bureh", "Buya Romende", "Kaffu Bullom", "Kamasondo", "Kasseh", "Koya", "Lokomassama", "Maconteh", "Maforki", "Makama", "Marampa", "Masimera", "Thainkatopa"],
+            "Pujehun": ["Barri", "Gallines", "Perri", "Kpaka", "Makpele", "Malen", "Mano Sakrim", "Kpanga", "Kabonde", "Kpanga-Krim", "Peje", "Soro Gbema", "Sowa", "Yekemo-Kpukumu-Krim"],
+            "Tonkolili": ["Dansogoia", "Kalantuba", "Kafe", "Simiria", "Kholifa Rowala", "Tane", "Kunike Gbarnga", "Kholifa Mayosso-Mamuntha", "Kunike Sanda", "Kunike Folawusu", "Yele", "Mayeppoh", "Poli", "Masakong", "Yoni Mabanta", "Yoni Mamailla", "Kholifa Mabang", "Malal", "Sambaia"],
+            "Western Area Rural": ["Western Area Rural (No Chiefdoms)"],
+            "Western Area Urban": ["Western Area Urban (No Chiefdoms)"]
+        };
+
+        const phuData = {
+            "Badja": ["Badja CHC", "Badja MCHP", "Koroma Town MCHP", "Mamudie MCHP"],
+            "Bagbe": ["Bagbe CHC", "Bagbe MCHP", "Fakaiya MCHP", "Kpetema MCHP"],
+            "Bagbo": ["Bagbo CHC", "Bagbo MCHP", "Gbo MCHP", "Jaiama MCHP"],
+            "Baoma": ["Baoma CHC", "Baoma MCHP", "Komboya MCHP", "Lugbu MCHP"],
+            "Bumpe": ["Bumpe CHC", "Bumpe MCHP", "Niawa MCHP", "Selenga MCHP"],
+            "Gbo": ["Gbo CHC", "Gbo MCHP", "Tikonko MCHP", "Valunia MCHP"],
+            "Jaiama Bongor": ["Jaiama Bongor CHC", "Jaiama MCHP", "Wonde MCHP"],
+            "Kakua": ["Kakua CHC", "Kakua MCHP", "Bo Government Hospital"],
+            "Komboya": ["Komboya CHC", "Komboya MCHP", "Lugbu MCHP"],
+            "Lugbu": ["Lugbu CHC", "Lugbu MCHP", "Niawa-Lenga MCHP"],
+            "Niawa-Lenga": ["Niawa-Lenga CHC", "Niawa MCHP", "Lenga MCHP"],
+            "Selenga": ["Selenga CHC", "Selenga MCHP", "Tikonko MCHP"],
+            "Tikonko": ["Tikonko CHC", "Tikonko MCHP", "Valunia MCHP"],
+            "Valunia": ["Valunia CHC", "Valunia MCHP", "Wonde MCHP"],
+            "Wonde": ["Wonde CHC", "Wonde MCHP", "Badja MCHP"],
+            "Bendu Cha": ["Bendu Cha CHC", "Bendu Cha MCHP"],
+            "Bum": ["Bum CHC", "Bum MCHP", "Dema MCHP"],
+            "Dema": ["Dema CHC", "Dema MCHP", "Imperi MCHP"],
+            "Imperi": ["Imperi CHC", "Imperi MCHP", "Jong MCHP"],
+            "Jong": ["Jong CHC", "Jong MCHP", "Kpanda-Kemo MCHP"],
+            "Kpanda-Kemo": ["Kpanda-Kemo CHC", "Kpanda-Kemo MCHP"],
+            "Kwamebai Krim": ["Kwamebai Krim CHC", "Kwamebai Krim MCHP"],
+            "Nongoba Bullom": ["Nongoba Bullom CHC", "Nongoba Bullom MCHP"],
+            "Sittia": ["Sittia CHC", "Sittia MCHP", "Sogbini MCHP"],
+            "Sogbini": ["Sogbini CHC", "Sogbini MCHP", "Yawbeko MCHP"],
+            "Yawbeko": ["Yawbeko CHC", "Yawbeko MCHP"],
+            "Bombali Sebora": ["Bombali Sebora CHC", "Bombali Sebora MCHP"],
+            "Bombali Siaray": ["Bombali Siaray CHC", "Bombali Siaray MCHP"],
+            "Makari": ["Makari CHC", "Makari MCHP", "Gbanti MCHP"],
+            "Gbanti": ["Gbanti CHC", "Gbanti MCHP", "Paki Masabong MCHP"],
+            "Paki Masabong": ["Paki Masabong CHC", "Paki Masabong MCHP"],
+            "Safroko Limba": ["Safroko Limba CHC", "Safroko Limba MCHP"],
+            "Biriwa Limba": ["Biriwa Limba CHC", "Biriwa Limba MCHP"],
+            "Gbendembu": ["Gbendembu CHC", "Gbendembu MCHP", "Ngowahun MCHP"],
+            "Ngowahun": ["Ngowahun CHC", "Ngowahun MCHP", "Magbaiamba-Ndowahun MCHP"],
+            "Magbaiamba-Ndowahun": ["Magbaiamba-Ndowahun CHC", "Magbaiamba-Ndowahun MCHP"],
+            "Kamaranka": ["Kamaranka CHC", "Kamaranka MCHP", "Mara MCHP"],
+            "Mara": ["Mara CHC", "Mara MCHP"],
+            "Neya": ["Neya CHC", "Neya MCHP"],
+            "Nyedu": ["Nyedu CHC", "Nyedu MCHP", "Kulor-Seradu MCHP"],
+            "Kulor-Seradu": ["Kulor-Seradu CHC", "Kulor-Seradu MCHP"],
+            "Mongo": ["Mongo CHC", "Mongo MCHP", "Seradu MCHP"],
+            "Seradu": ["Seradu CHC", "Seradu MCHP", "Morifindugu MCHP"],
+            "Morifindugu": ["Morifindugu CHC", "Morifindugu MCHP", "Delemandugu MCHP"],
+            "Delemandugu": ["Delemandugu CHC", "Delemandugu MCHP"],
+            "Sulima": ["Sulima CHC", "Sulima MCHP", "Kabelia MCHP"],
+            "Kabelia": ["Kabelia CHC", "Kabelia MCHP"],
+            "Folasaba-Kamba": ["Folasaba-Kamba CHC", "Folasaba-Kamba MCHP"],
+            "Dembelia Musaia": ["Dembelia Musaia CHC", "Dembelia Musaia MCHP"],
+            "Dembelia Sikunia": ["Dembelia Sikunia CHC", "Dembelia Sikunia MCHP"],
+            "Kamadugu-Yiraia": ["Kamadugu-Yiraia CHC", "Kamadugu-Yiraia MCHP"],
+            "Dea": ["Dea CHC", "Dea MCHP"],
+            "Jaluahun": ["Jaluahun CHC", "Jaluahun MCHP", "Jawei MCHP"],
+            "Jawei": ["Jawei CHC", "Jawei MCHP", "Kissi Agba MCHP"],
+            "Kissi Agba": ["Kissi Agba CHC", "Kissi Agba MCHP"],
+            "Kissi Kama": ["Kissi Kama CHC", "Kissi Kama MCHP"],
+            "Kissi Teng": ["Kissi Teng CHC", "Kissi Teng MCHP"],
+            "Kissi Tongi": ["Kissi Tongi CHC", "Kissi Tongi MCHP", "Luawa MCHP"],
+            "Luawa": ["Luawa CHC", "Luawa MCHP", "Malema MCHP"],
+            "Malema": ["Malema CHC", "Malema MCHP", "Mandu MCHP"],
+            "Mandu": ["Mandu CHC", "Mandu MCHP", "Peje Bongre MCHP"],
+            "Peje Bongre": ["Peje Bongre CHC", "Peje Bongre MCHP"],
+            "Peje West": ["Peje West CHC", "Peje West MCHP", "Penguia MCHP"],
+            "Penguia": ["Penguia CHC", "Penguia MCHP", "Yaweyo MCHP"],
+            "Yaweyo": ["Yaweyo CHC", "Yaweyo MCHP"],
+            "Bramaia": ["Bramaia CHC", "Bramaia MCHP"],
+            "Gbinle Dixon": ["Gbinle Dixon CHC", "Gbinle Dixon MCHP", "Khonimakha MCHP"],
+            "Khonimakha": ["Khonimakha CHC", "Khonimakha MCHP", "Magbema MCHP"],
+            "Magbema": ["Magbema CHC", "Magbema MCHP", "Mambolo MCHP"],
+            "Mambolo": ["Mambolo CHC", "Mambolo MCHP", "Masungbala MCHP"],
+            "Masungbala": ["Masungbala CHC", "Masungbala MCHP", "Samu MCHP"],
+            "Samu": ["Samu CHC", "Samu MCHP", "Tonko Limba MCHP"],
+            "Tonko Limba": ["Tonko Limba CHC", "Tonko Limba MCHP", "Tala-Munu MCHP"],
+            "Tala-Munu": ["Tala-Munu CHC", "Tala-Munu MCHP"],
+            "Gbinle": ["Gbinle CHC", "Gbinle MCHP"],
+            "Buya": ["Buya CHC", "Buya MCHP"],
+            "Debia": ["Debia CHC", "Debia MCHP", "Gbanti MCHP"],
+            "Gbanti": ["Gbanti CHC", "Gbanti MCHP", "Libeisaygahun-Gbombahun MCHP"],
+            "Libeisaygahun-Gbombahun": ["Libeisaygahun-Gbombahun CHC", "Libeisaygahun-Gbombahun MCHP"],
+            "Mafonda Makerembay": ["Mafonda Makerembay CHC", "Mafonda Makerembay MCHP"],
+            "Romende": ["Romende CHC", "Romende MCHP", "Safroko MCHP"],
+            "Safroko": ["Safroko CHC", "Safroko MCHP", "Sanda Loko MCHP"],
+            "Sanda Loko": ["Sanda Loko CHC", "Sanda Loko MCHP", "Sanda Magbolontor MCHP"],
+            "Sanda Magbolontor": ["Sanda Magbolontor CHC", "Sanda Magbolontor MCHP"],
+            "Sanda Tendaren": ["Sanda Tendaren CHC", "Sanda Tendaren MCHP", "Sella Limba MCHP"],
+            "Sella Limba": ["Sella Limba CHC", "Sella Limba MCHP", "Tambakha Simibungie MCHP"],
+            "Tambakha Simibungie": ["Tambakha Simibungie CHC", "Tambakha Simibungie MCHP"],
+            "Tambakha Yobangie": ["Tambakha Yobangie CHC", "Tambakha Yobangie MCHP"],
+            "Dama": ["Dama CHC", "Dama MCHP"],
+            "Dodo": ["Dodo CHC", "Dodo MCHP", "Gaura MCHP"],
+            "Gaura": ["Gaura CHC", "Gaura MCHP", "Gorama Mende MCHP"],
+            "Gorama Mende": ["Gorama Mende CHC", "Gorama Mende MCHP", "Kandu Leppiam MCHP"],
+            "Kandu Leppiam": ["Kandu Leppiam CHC", "Kandu Leppiam MCHP", "Koya MCHP"],
+            "Koya": ["Koya CHC", "Koya MCHP", "Langurama Ya MCHP"],
+            "Langurama Ya": ["Langurama Ya CHC", "Langurama Ya MCHP", "Lower Bambara MCHP"],
+            "Lower Bambara": ["Lower Bambara CHC", "Lower Bambara MCHP", "Nongowa MCHP"],
+            "Nongowa": ["Nongowa CHC", "Nongowa MCHP", "Nomo MCHP"],
+            "Nomo": ["Nomo CHC", "Nomo MCHP", "Simbaru MCHP"],
+            "Simbaru": ["Simbaru CHC", "Simbaru MCHP", "Tunkia MCHP"],
+            "Tunkia": ["Tunkia CHC", "Tunkia MCHP", "Upper Bambara MCHP"],
+            "Upper Bambara": ["Upper Bambara CHC", "Upper Bambara MCHP", "Waanja MCHP"],
+            "Waanja": ["Waanja CHC", "Waanja MCHP"],
+            "Wara-Wara Bafodia": ["Wara-Wara Bafodia CHC", "Wara-Wara Bafodia MCHP", "Kamukeh MCHP"],
+            "Kamukeh": ["Kamukeh CHC", "Kamukeh MCHP", "Sengbe MCHP"],
+            "Sengbe": ["Sengbe CHC", "Sengbe MCHP", "Wara-Wara Yagalla MCHP"],
+            "Wara-Wara Yagalla": ["Wara-Wara Yagalla CHC", "Wara-Wara Yagalla MCHP"],
+            "Diang": ["Diang CHC", "Diang MCHP", "Kasunko-Kakellay MCHP"],
+            "Kasunko-Kakellay": ["Kasunko-Kakellay CHC", "Kasunko-Kakellay MCHP"],
+            "Gbongobor-Kayaka": ["Gbongobor-Kayaka CHC", "Gbongobor-Kayaka MCHP", "Thamiso MCHP"],
+            "Thamiso": ["Thamiso CHC", "Thamiso MCHP", "Neini MCHP"],
+            "Neini": ["Neini CHC", "Neini MCHP", "Kallian MCHP"],
+            "Kallian": ["Kallian CHC", "Kallian MCHP", "Barawa-Wolley MCHP"],
+            "Barawa-Wolley": ["Barawa-Wolley CHC", "Barawa-Wolley MCHP"],
+            "Fiama": ["Fiama CHC", "Fiama MCHP"],
+            "Gbane": ["Gbane CHC", "Gbane MCHP", "Gbane Kandor MCHP"],
+            "Gbane Kandor": ["Gbane Kandor CHC", "Gbane Kandor MCHP", "Gbense MCHP"],
+            "Gbense": ["Gbense CHC", "Gbense MCHP", "Gorama Kono MCHP"],
+            "Gorama Kono": ["Gorama Kono CHC", "Gorama Kono MCHP", "Kamara MCHP"],
+            "Kamara": ["Kamara CHC", "Kamara MCHP", "Lei MCHP"],
+            "Lei": ["Lei CHC", "Lei MCHP", "Mafindor MCHP"],
+            "Mafindor": ["Mafindor CHC", "Mafindor MCHP", "Nimikoro MCHP"],
+            "Nimikoro": ["Nimikoro CHC", "Nimikoro MCHP", "Nimiyama MCHP"],
+            "Nimiyama": ["Nimiyama CHC", "Nimiyama MCHP", "Sandor MCHP"],
+            "Sandor": ["Sandor CHC", "Sandor MCHP", "Tankoro MCHP"],
+            "Tankoro": ["Tankoro CHC", "Tankoro MCHP", "Toli MCHP"],
+            "Toli": ["Toli CHC", "Toli MCHP", "Yembeh MCHP"],
+            "Yembeh": ["Yembeh CHC", "Yembeh MCHP"],
+            "Bagruwa": ["Bagruwa CHC", "Bagruwa MCHP"],
+            "Banta": ["Banta CHC", "Banta MCHP", "Banta-Mokele MCHP"],
+            "Banta-Mokele": ["Banta-Mokele CHC", "Banta-Mokele MCHP", "Bumpe MCHP"],
+            "Dasse": ["Dasse CHC", "Dasse MCHP", "Fakunya MCHP"],
+            "Fakunya": ["Fakunya CHC", "Fakunya MCHP", "Kaiyamba MCHP"],
+            "Kaiyamba": ["Kaiyamba CHC", "Kaiyamba MCHP", "Kagboro MCHP"],
+            "Kagboro": ["Kagboro CHC", "Kagboro MCHP", "Kamajei MCHP"],
+            "Kamajei": ["Kamajei CHC", "Kamajei MCHP", "Kongboro MCHP"],
+            "Kongboro": ["Kongboro CHC", "Kongboro MCHP", "Kori MCHP"],
+            "Kori": ["Kori CHC", "Kori MCHP", "Kowa MCHP"],
+            "Kowa": ["Kowa CHC", "Kowa MCHP", "Ribbi MCHP"],
+            "Ribbi": ["Ribbi CHC", "Ribbi MCHP", "Timdel MCHP"],
+            "Timdel": ["Timdel CHC", "Timdel MCHP"],
+            "Bake-Loko": ["Bake-Loko CHC", "Bake-Loko MCHP"],
+            "Bureh": ["Bureh CHC", "Bureh MCHP", "Buya Romende MCHP"],
+            "Buya Romende": ["Buya Romende CHC", "Buya Romende MCHP", "Kaffu Bullom MCHP"],
+            "Kaffu Bullom": ["Kaffu Bullom CHC", "Kaffu Bullom MCHP", "Kamasondo MCHP"],
+            "Kamasondo": ["Kamasondo CHC", "Kamasondo MCHP", "Kasseh MCHP"],
+            "Kasseh": ["Kasseh CHC", "Kasseh MCHP", "Koya MCHP"],
+            "Lokomassama": ["Lokomassama CHC", "Lokomassama MCHP", "Maconteh MCHP"],
+            "Maconteh": ["Maconteh CHC", "Maconteh MCHP", "Maforki MCHP"],
+            "Maforki": ["Maforki CHC", "Maforki MCHP", "Makama MCHP"],
+            "Makama": ["Makama CHC", "Makama MCHP", "Marampa MCHP"],
+            "Marampa": ["Marampa CHC", "Marampa MCHP", "Masimera MCHP"],
+            "Masimera": ["Masimera CHC", "Masimera MCHP", "Thainkatopa MCHP"],
+            "Thainkatopa": ["Thainkatopa CHC", "Thainkatopa MCHP"],
+            "Barri": ["Barri CHC", "Barri MCHP"],
+            "Gallines": ["Gallines CHC", "Gallines MCHP", "Perri MCHP"],
+            "Perri": ["Perri CHC", "Perri MCHP", "Kpaka MCHP"],
+            "Kpaka": ["Kpaka CHC", "Kpaka MCHP", "Makpele MCHP"],
+            "Makpele": ["Makpele CHC", "Makpele MCHP", "Malen MCHP"],
+            "Malen": ["Malen CHC", "Malen MCHP", "Mano Sakrim MCHP"],
+            "Mano Sakrim": ["Mano Sakrim CHC", "Mano Sakrim MCHP", "Kpanga MCHP"],
+            "Kabonde": ["Kabonde CHC", "Kabonde MCHP", "Kpanga-Krim MCHP"],
+            "Kpanga-Krim": ["Kpanga-Krim CHC", "Kpanga-Krim MCHP", "Peje MCHP"],
+            "Peje": ["Peje CHC", "Peje MCHP", "Soro Gbema MCHP"],
+            "Soro Gbema": ["Soro Gbema CHC", "Soro Gbema MCHP", "Sowa MCHP"],
+            "Sowa": ["Sowa CHC", "Sowa MCHP", "Yekemo-Kpukumu-Krim MCHP"],
+            "Yekemo-Kpukumu-Krim": ["Yekemo-Kpukumu-Krim CHC", "Yekemo-Kpukumu-Krim MCHP"],
+            "Dansogoia": ["Dansogoia CHC", "Dansogoia MCHP"],
+            "Kalantuba": ["Kalantuba CHC", "Kalantuba MCHP", "Kafe MCHP"],
+            "Kafe": ["Kafe CHC", "Kafe MCHP", "Simiria MCHP"],
+            "Simiria": ["Simiria CHC", "Simiria MCHP", "Kholifa Rowala MCHP"],
+            "Kholifa Rowala": ["Kholifa Rowala CHC", "Kholifa Rowala MCHP", "Tane MCHP"],
+            "Tane": ["Tane CHC", "Tane MCHP", "Kunike Gbarnga MCHP"],
+            "Kunike Gbarnga": ["Kunike Gbarnga CHC", "Kunike Gbarnga MCHP", "Kholifa Mayosso-Mamuntha MCHP"],
+            "Kholifa Mayosso-Mamuntha": ["Kholifa Mayosso-Mamuntha CHC", "Kholifa Mayosso-Mamuntha MCHP"],
+            "Kunike Sanda": ["Kunike Sanda CHC", "Kunike Sanda MCHP", "Kunike Folawusu MCHP"],
+            "Kunike Folawusu": ["Kunike Folawusu CHC", "Kunike Folawusu MCHP", "Yele MCHP"],
+            "Yele": ["Yele CHC", "Yele MCHP", "Mayeppoh MCHP"],
+            "Mayeppoh": ["Mayeppoh CHC", "Mayeppoh MCHP", "Poli MCHP"],
+            "Poli": ["Poli CHC", "Poli MCHP", "Masakong MCHP"],
+            "Masakong": ["Masakong CHC", "Masakong MCHP", "Yoni Mabanta MCHP"],
+            "Yoni Mabanta": ["Yoni Mabanta CHC", "Yoni Mabanta MCHP", "Yoni Mamailla MCHP"],
+            "Yoni Mamailla": ["Yoni Mamailla CHC", "Yoni Mamailla MCHP", "Kholifa Mabang MCHP"],
+            "Kholifa Mabang": ["Kholifa Mabang CHC", "Kholifa Mabang MCHP", "Malal MCHP"],
+            "Malal": ["Malal CHC", "Malal MCHP", "Sambaia MCHP"],
+            "Sambaia": ["Sambaia CHC", "Sambaia MCHP"],
+            "Western Area Rural (No Chiefdoms)": ["Waterloo CHC", "Kossoh Town CHC", "Goderich MCHP", "Jui MCHP"],
+            "Western Area Urban (No Chiefdoms)": ["Connaught Hospital", "Princess Christian Maternity Hospital", "Rokupa CHC", "Wilberforce MCHP"]
+        };
+
+        const communityData = {};
+        function generateCommunities(phuName) {
+            const base = phuName.replace(/\s+(CHC|MCHP|Hospital)$/, '');
+            return [
+                base + " Town",
+                base + " Village",
+                base + " Junction",
+                base + " Hills",
+                base + " Central",
+                base + " East",
+                base + " West",
+                base + " North",
+                base + " South"
+            ];
+        }
+        for (const chiefdom in phuData) {
+            phuData[chiefdom].forEach(function(phu) {
+                communityData[phu] = generateCommunities(phu);
+            });
+        }
+
+        function updateChiefdoms() {
+            const district = document.getElementById('district').value;
+            const chiefdomSelect = document.getElementById('chiefdom');
+            const phuSelect = document.getElementById('phu');
+            const communitySelect = document.getElementById('community');
+            chiefdomSelect.innerHTML = '<option value="">-- Select Chiefdom --</option>';
+            phuSelect.innerHTML = '<option value="">-- Select Chiefdom First --</option>';
+            communitySelect.innerHTML = '<option value="">-- Select PHU First --</option>';
+            phuSelect.disabled = true;
+            communitySelect.disabled = true;
+            if (district && chiefdomsData[district]) {
+                chiefdomsData[district].forEach(function(chiefdom) {
+                    const option = document.createElement('option');
+                    option.value = chiefdom;
+                    option.textContent = chiefdom;
+                    chiefdomSelect.appendChild(option);
+                });
+                chiefdomSelect.disabled = false;
+            } else {
+                chiefdomSelect.disabled = true;
+                chiefdomSelect.innerHTML = '<option value="">-- Select District First --</option>';
+            }
+        }
+
+        function updatePHUs() {
+            const chiefdom = document.getElementById('chiefdom').value;
+            const phuSelect = document.getElementById('phu');
+            const communitySelect = document.getElementById('community');
+            phuSelect.innerHTML = '<option value="">-- Select PHU --</option>';
+            communitySelect.innerHTML = '<option value="">-- Select PHU First --</option>';
+            communitySelect.disabled = true;
+            if (chiefdom && phuData[chiefdom]) {
+                phuData[chiefdom].forEach(function(phu) {
+                    const option = document.createElement('option');
+                    option.value = phu;
+                    option.textContent = phu;
+                    phuSelect.appendChild(option);
+                });
+                phuSelect.disabled = false;
+            } else {
+                phuSelect.disabled = true;
+                phuSelect.innerHTML = '<option value="">-- Select Chiefdom First --</option>';
+            }
+        }
+
+        function updateCommunities() {
+            const phu = document.getElementById('phu').value;
+            const communitySelect = document.getElementById('community');
+            communitySelect.innerHTML = '<option value="">-- Select Community --</option>';
+            if (phu && communityData[phu]) {
+                communityData[phu].forEach(function(community) {
+                    const option = document.createElement('option');
+                    option.value = community;
+                    option.textContent = community;
+                    communitySelect.appendChild(option);
+                });
+                communitySelect.disabled = false;
+            } else {
+                communitySelect.disabled = true;
+                communitySelect.innerHTML = '<option value="">-- Select PHU First --</option>';
+            }
+        }
+
+        let canvas, ctx;
+        let isDrawing = false;
+        let hasSignature = false;
+
+        function initSignatureCanvas() {
+            canvas = document.getElementById('signatureCanvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = Math.round(rect.width);
+            canvas.height = Math.round(rect.height);
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+
+        function getCanvasPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+        }
+
+        function startDrawing(e) {
+            if (!isSignedIn) return;
+            isDrawing = true;
+            const pos = getCanvasPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            ctx.lineTo(pos.x + 0.1, pos.y + 0.1);
+            ctx.stroke();
+            hasSignature = true;
+            document.getElementById('sigStatus').textContent = 'Signature captured';
+            document.getElementById('sigStatus').style.color = '#27ae60';
+        }
+
+        function draw(e) {
+            if (!isDrawing || !isSignedIn) return;
+            const pos = getCanvasPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            if (!isSignedIn) return;
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', { clientX: touch.clientX, clientY: touch.clientY });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!isSignedIn) return;
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', { clientX: touch.clientX, clientY: touch.clientY });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function clearSignature() {
+            if (!canvas || !ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hasSignature = false;
+            document.getElementById('sigStatus').textContent = 'No signature yet';
+            document.getElementById('sigStatus').style.color = '#888';
+        }
+
+        function getSelectedDeviceTypes() {
+            const checkboxes = document.querySelectorAll('#deviceTypeGroup input[type="checkbox"]:checked');
+            const types = [];
+            checkboxes.forEach(function(cb) { types.push(cb.value); });
+            return types;
+        }
+
+        function addToTable(action, user, deviceType, deviceModel, serialNumber, district, chiefdom, phu) {
+            const tbody = document.getElementById('tableBody');
+            const row = document.createElement('tr');
+            row.innerHTML = '<td>' + action + '</td><td>' + user + '</td><td>' + deviceType + '</td><td>' + deviceModel + '</td><td>' + serialNumber + '</td><td>' + district + '</td><td>' + chiefdom + '</td><td>' + phu + '</td>';
+            tbody.appendChild(row);
+        }
+
+        function downloadCSV() {
+            let csv = 'Action,User,Device Type,Device Model,Serial Number,District,Chiefdom,PHU\n';
+            registrations.forEach(function(r) {
+                csv += '"' + r.action + '","' + r.user + '","' + r.deviceType + '","' + r.deviceModel + '","' + r.serialNumber + '","' + r.district + '","' + r.chiefdom + '","' + r.phu + '"\n';
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'device_tracking.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function submitForm() {
+            if (!isSignedIn) {
+                showStatus('Please sign in first.', 'error');
+                return;
+            }
+            const action = document.getElementById('actionSelect').value;
+            const role = document.getElementById('role').value;
+            const fullName = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const district = document.getElementById('district').value;
+            const chiefdom = document.getElementById('chiefdom').value;
+            const phu = document.getElementById('phu').value;
+            const community = document.getElementById('community').value;
+            const deviceTypes = getSelectedDeviceTypes();
+            const deviceModel = document.getElementById('deviceModel').value.trim();
+            const serialNumber = document.getElementById('serialNumber').value.trim();
+
+            if (!role) { showStatus('Please select a role.', 'error'); return; }
+            if (!fullName) { showStatus('Please enter your full name.', 'error'); return; }
+            if (!isPhoneValid(phone)) {
+                showStatus('Phone number must start with 0 and contain exactly 9 digits.', 'error');
+                document.getElementById('phone').classList.add('error');
+                return;
+            }
+            if (!district) { showStatus('Please select a district.', 'error'); return; }
+            if (!chiefdom) { showStatus('Please select a chiefdom.', 'error'); return; }
+            if (!phu) { showStatus('Please select a PHU.', 'error'); return; }
+            if (!community) { showStatus('Please select a community.', 'error'); return; }
+            if (deviceTypes.length === 0) { showStatus('Please select at least one device type.', 'error'); return; }
+            if (!deviceModel) { showStatus('Please enter the device model.', 'error'); return; }
+            if (!serialNumber) { showStatus('Please enter the serial number.', 'error'); return; }
+            if (!hasSignature) { showStatus('Please provide your signature.', 'error'); return; }
+
+            document.getElementById('phone').classList.remove('error');
+            const deviceTypeStr = deviceTypes.join(', ');
+            const userStr = fullName + ' (' + role + ')';
+            registrations.push({
+                action: action,
+                user: userStr,
+                deviceType: deviceTypeStr,
+                deviceModel: deviceModel,
+                serialNumber: serialNumber,
+                district: district,
+                chiefdom: chiefdom,
+                phu: phu
+            });
+            addToTable(action, userStr, deviceTypeStr, deviceModel, serialNumber, district, chiefdom, phu);
+            showStatus('Registration submitted successfully! ✓', 'success');
+
+            setTimeout(function() {
+                clearSignature();
+                document.getElementById('role').value = '';
+                document.getElementById('fullName').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('phone').classList.remove('error');
+                document.getElementById('district').value = '';
+                document.getElementById('chiefdom').value = '';
+                document.getElementById('chiefdom').disabled = true;
+                document.getElementById('chiefdom').innerHTML = '<option value="">-- Select District First --</option>';
+                document.getElementById('phu').value = '';
+                document.getElementById('phu').disabled = true;
+                document.getElementById('phu').innerHTML = '<option value="">-- Select Chiefdom First --</option>';
+                document.getElementById('community').value = '';
+                document.getElementById('community').disabled = true;
+                document.getElementById('community').innerHTML = '<option value="">-- Select PHU First --</option>';
+                document.querySelectorAll('#deviceTypeGroup input[type="checkbox"]').forEach(function(cb) { cb.checked = false; });
+                document.getElementById('deviceModel').value = '';
+                document.getElementById('serialNumber').value = '';
+                showStatus('', '');
+            }, 3000);
+        }
+
+        function showStatus(msg, type) {
+            const el = document.getElementById('statusMsg');
+            el.textContent = msg;
+            el.className = 'status ' + type;
+        }
+
+        window.addEventListener('load', function() {
+            // Canvas init deferred until sign-in
+        });
+    </script>
+</body>
+</html>
