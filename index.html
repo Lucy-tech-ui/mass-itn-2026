@@ -1,110 +1,824 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITN Mass Campaign - Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: #ffffff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
-        
-        .phone-container {
-            width: 375px; height: 812px; background-color: #f7f9f8; border-radius: 44px;
-            box-shadow: 0 20px 45px -10px rgba(0, 32, 16, 0.15); overflow: hidden;
-            display: flex; flex-direction: column; position: relative; border: 8px solid #333;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ITN Mass Campaign</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-        .app-header { background-color: #ffffff; padding: 48px 24px 28px 24px; border-bottom: 1px solid #eaeaea; }
-        .moh-title-container { display: flex; align-items: center; gap: 16px; }
-        .moh-seal-top { width: 52px; height: 52px; background: white; border-radius: 50%; padding: 2px; object-fit: contain; }
-        .moh-text h1 { font-size: 16px; font-weight: 700; color: #11452a; }
-        .moh-text p { font-size: 10px; color: #555555; line-height: 1.4; margin-top: 3px; }
-        
-        .partners-wrapper { margin-top: 24px; }
-        .partners-label { font-size: 10px; font-weight: 800; color: #c78b16; text-transform: uppercase; }
-        .partner-logos { display: flex; gap: 16px; background: #f1f5f2; padding: 12px; border-radius: 14px; margin-top: 8px; }
-        .partner-logo { width: 48px; height: 48px; background: white; border-radius: 8px; padding: 4px; object-fit: contain; }
+<!-- ═══════════════════════════════════════════
+     THEME TOKEN LEGEND  (Login Palette applied everywhere)
+     Primary Dark    : #11452a
+     Primary Medium  : #2b8146
+     Primary Light   : #f0fdf4
+     Tint Background : #f8faf9
+     Gold Accent     : #c78b16  /  #f5bc4e
+     Border          : #e2e8f0
+     Body BG         : #e8ece9
+     Text Dark       : #1a1a1a  /  #333
+     Text Muted      : #64748b  /  #94a3b8
+     White           : #ffffff
+════════════════════════════════════════════ -->
 
-        .app-main { flex-grow: 1; padding: 28px 24px; }
-        .login-card { background: white; width: 100%; border-radius: 20px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
-        .login-card h2 { text-align: center; margin-bottom: 32px; }
-        
-        .input-group { border: 1px solid #ddd; border-radius: 10px; padding: 0 18px; margin-bottom: 20px; display: flex; align-items: center; }
-        .input-group input { width: 100%; padding: 18px 14px; border: none; outline: none; font-size: 15px; }
-        
-        .btn { width: 100%; padding: 18px; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; margin-top: 10px; }
-        .login-btn { background-color: #2b8146; color: white; }
-        .scan-btn { background-color: transparent; border: 1px solid #1a1a1a; }
-        
-        .app-footer { background-color: #11452a; color: white; text-align: center; padding: 20px; font-size: 12px; }
-    </style>
+<style>
+/* ── RESET ── */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:#e8ece9;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+
+/* ── PHONE SHELL ── */
+.phone-container{
+  width:100%;max-width:390px;height:860px;
+  background:#f8faf9;
+  display:flex;flex-direction:column;overflow:hidden;
+  border:6px solid #11452a;border-radius:44px;
+  box-shadow:0 16px 48px rgba(17,69,42,.22);position:relative
+}
+
+/* ── HEADER (shared, stays white always) ── */
+.app-header{
+  background:#fff;padding:24px 20px 16px;
+  display:flex;flex-direction:column;gap:12px;
+  border-bottom:2px solid #e6f4e6;flex-shrink:0
+}
+.moh-title-container{display:flex;align-items:center;gap:12px}
+.moh-seal-top{width:50px;height:50px;object-fit:contain;background:#fff;border-radius:50%;padding:2px;border:2px solid #e6f4e6}
+.moh-text h1{font-size:13px;font-weight:800;color:#11452a}
+.moh-text p{font-size:8px;font-weight:600;color:#64748b;line-height:1.3;margin-top:2px}
+.partners-wrapper{display:flex;flex-direction:column;gap:5px}
+.partners-label{font-size:9px;font-weight:800;color:#c78b16;text-transform:uppercase;letter-spacing:1px}
+.partner-logos{display:flex;align-items:center;justify-content:space-around;background:#f0fdf4;padding:9px 8px;border-radius:14px;border:1px solid #b2d8b3}
+.partner-logo{width:52px;height:52px;object-fit:contain;background:#fff;border-radius:8px;padding:4px;border:1px solid #e2e8f0}
+
+/* ── MAIN VIEWPORT ── */
+.app-main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.view{display:none;flex-direction:column;padding:18px;flex:1}
+.view.active{display:flex}
+
+/* ── SHARED SECTION LABEL ── */
+.sec-label{
+  font-size:10px;font-weight:800;text-transform:uppercase;
+  letter-spacing:.8px;color:#2b8146;
+  padding-bottom:6px;margin:16px 0 10px;
+  border-bottom:2px solid #b2d8b3
+}
+
+/* ── SHARED BACK NAV ── */
+.sub-nav{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sub-back-btn{
+  width:34px;height:34px;border-radius:50%;
+  background:#f0fdf4;border:1.5px solid #b2d8b3;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:14px;color:#11452a;transition:all .2s
+}
+.sub-back-btn:hover{background:#d1fae5;border-color:#2b8146}
+.sub-title{font-size:18px;font-weight:800;color:#11452a}
+
+/* ── SHARED FORM ELEMENTS ── */
+.form-group{margin-bottom:13px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:#475569;margin-bottom:5px}
+.input-ctrl{
+  width:100%;padding:10px 13px;
+  border:1.5px solid #e2e8f0;border-radius:10px;
+  font-size:13px;color:#333;outline:none;
+  background:#fff;transition:border-color .2s
+}
+.input-ctrl:focus{border-color:#2b8146;background:#f9fff9}
+.input-ctrl[readonly]{background:#f0fdf4;color:#64748b;cursor:not-allowed;border-color:#b2d8b3}
+.inline-wrap{display:flex;gap:8px}
+.gps-btn{
+  background:#11452a;color:#fff;border:none;
+  padding:0 13px;border-radius:10px;font-size:12px;
+  cursor:pointer;white-space:nowrap;font-weight:600
+}
+.gps-btn:hover{background:#0f3d24}
+
+/* ── SHARED BUTTONS ── */
+.btn-row-reg{display:flex;gap:10px;margin-top:16px}
+.btn-reg{flex:1;padding:11px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s}
+.btn-reg-back{background:#f0fdf4;color:#11452a;border:1.5px solid #b2d8b3}
+.btn-reg-back:hover{background:#d1fae5}
+.btn-reg-next{background:#2b8146;color:#fff}
+.btn-reg-next:hover{background:#216a38}
+.btn-reg-submit{background:#c78b16;color:#fff}
+.btn-reg-submit:hover{background:#a86c0d}
+
+/* ── LOGIN ── */
+.login-card{
+  background:#fff;border-radius:20px;
+  padding:32px 20px 26px;
+  box-shadow:0 4px 24px rgba(17,69,42,.08);
+  width:100%;border:1px solid #e6f4e6
+}
+.login-card h2{text-align:center;font-size:19px;font-weight:800;color:#11452a;margin-bottom:4px}
+.login-subtitle{text-align:center;font-size:11px;color:#94a3b8;margin-bottom:22px}
+.login-ig{
+  border:1.5px solid #e2e8f0;border-radius:11px;
+  padding:0 14px;margin-bottom:13px;
+  display:flex;align-items:center;gap:10px;transition:border-color .2s
+}
+.login-ig:focus-within{border-color:#2b8146;background:#f9fff9}
+.login-ig i{color:#94a3b8;font-size:14px;width:16px;text-align:center}
+.login-ig input{width:100%;padding:14px 0;border:none;outline:none;font-size:14px;background:transparent;color:#333}
+.login-err{display:none;background:#fce8e6;border:1px solid #ea4335;color:#c5221f;padding:10px 14px;border-radius:9px;font-size:12px;margin-bottom:12px;text-align:center}
+.btn-login{
+  width:100%;padding:15px;border-radius:11px;
+  font-weight:700;font-size:14px;cursor:pointer;border:none;
+  background:#11452a;color:#fff;margin-bottom:10px;
+  display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s
+}
+.btn-login:hover{background:#0f3d24}
+.btn-scan{
+  width:100%;padding:13px;border-radius:11px;
+  font-weight:700;font-size:13px;cursor:pointer;
+  background:#f0fdf4;border:1.5px solid #b2d8b3;color:#11452a;
+  display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s
+}
+.btn-scan:hover{background:#d1fae5;border-color:#2b8146}
+.cred-hint{margin-top:16px;background:#f0fdf4;border:1px solid #b2d8b3;border-radius:12px;padding:12px 14px}
+.cred-hint-title{font-size:10px;font-weight:800;color:#11452a;margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px}
+.cred-hint-row{font-size:10px;color:#4b7a5c;padding:2px 0;display:flex;justify-content:space-between;border-bottom:1px dashed #d1fae5}
+.cred-hint-row:last-child{border-bottom:none}
+.cred-hint-row span:first-child{font-weight:700;color:#11452a}
+.cred-hint-row span:last-child{color:#64748b}
+
+/* ── HOME ── */
+.banner-container{
+  width:100%;height:126px;border-radius:18px;overflow:hidden;
+  margin-bottom:16px;
+  background:linear-gradient(135deg,#11452a 0%,#1e6b3c 60%,#2b8146 100%);
+  display:flex;align-items:center;justify-content:center;
+  color:#f5bc4e;font-size:18px;font-weight:800;letter-spacing:4px;
+  box-shadow:0 4px 16px rgba(17,69,42,.2);border:2px solid #b2d8b3
+}
+.menu-title{
+  color:#11452a;font-size:13px;margin-bottom:12px;
+  font-weight:800;text-transform:uppercase;letter-spacing:.6px;
+  display:flex;align-items:center;gap:6px
+}
+.menu-title::after{content:'';flex:1;height:1.5px;background:#e6f4e6}
+.tabs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tab-btn{
+  background:#fff;border:1.5px solid #b2d8b3;border-radius:14px;
+  padding:14px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;
+  cursor:pointer;color:#11452a;transition:all .2s;font-size:inherit;
+  box-shadow:0 2px 6px rgba(17,69,42,.06)
+}
+.tab-btn:hover,.tab-btn:active{background:#11452a;color:#fff;border-color:#11452a;box-shadow:0 4px 12px rgba(17,69,42,.2)}
+.tab-btn:hover i,.tab-btn:active i{color:#fff}
+.tab-btn i{font-size:20px;color:#2b8146;transition:color .2s}
+.tab-label{font-size:9px;font-weight:700;text-align:center;line-height:1.2;color:#475569}
+.tab-btn:hover .tab-label,.tab-btn:active .tab-label{color:#fff}
+.tab-btn.no-access{opacity:.22;pointer-events:none;filter:grayscale(1)}
+
+/* home user bar */
+.user-bar{
+  margin-top:auto;padding-top:14px;margin-top:14px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1.5px dashed #b2d8b3
+}
+.user-chip{font-size:11px;font-weight:700;color:#2b8146;background:#f0fdf4;padding:6px 12px;border-radius:20px;border:1px solid #b2d8b3}
+.logout-btn{
+  padding:7px 14px;background:#fff;border:1.5px solid #fca5a5;
+  color:#dc2626;border-radius:10px;font-size:11px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s
+}
+.logout-btn:hover{background:#fef2f2}
+
+/* ── PLACEHOLDER CARDS (Distribution / Stock / etc) ── */
+.placeholder-card{
+  background:#fff;border:1.5px solid #b2d8b3;border-radius:16px;
+  padding:32px 20px;text-align:center;flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  box-shadow:0 2px 8px rgba(17,69,42,.06)
+}
+.placeholder-card .ph-icon{
+  width:64px;height:64px;background:#f0fdf4;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;color:#2b8146;border:2px solid #b2d8b3
+}
+.placeholder-card h3{font-size:16px;font-weight:800;color:#11452a}
+.placeholder-card p{font-size:12px;color:#64748b;line-height:1.5;max-width:220px}
+.coming-badge{
+  font-size:10px;font-weight:700;background:#f0fdf4;color:#2b8146;
+  border:1px solid #b2d8b3;border-radius:20px;padding:4px 12px;text-transform:uppercase;letter-spacing:.5px
+}
+
+/* ── REGISTRATION ── */
+.step-wrapper{
+  position:relative;background:#f0fdf4;padding:12px 16px;
+  border-radius:12px;margin-bottom:16px;border:1.5px solid #b2d8b3
+}
+.step-row{display:flex;justify-content:space-between;position:relative;z-index:2}
+.step-line-bg{position:absolute;top:50%;left:24px;right:24px;height:3px;background:#b2d8b3;transform:translateY(-50%);z-index:1}
+.step-line-progress{position:absolute;top:50%;left:24px;height:3px;background:#11452a;transform:translateY(-50%);z-index:1;width:0%;transition:width .3s}
+.step-dot{font-size:11px;font-weight:700;width:26px;height:26px;border-radius:50%;background:#b2d8b3;color:#fff;display:flex;align-items:center;justify-content:center;position:relative;z-index:3;border:2px solid #fff;transition:all .3s}
+.step-dot.active{background:#2b8146;color:#fff;box-shadow:0 0 0 3px rgba(43,129,70,.2)}
+.step-dot.done{background:#11452a;color:#fff}
+
+.reg-panel{display:none;background:#fff;border-radius:14px;padding:18px 14px;box-shadow:0 2px 12px rgba(17,69,42,.06);border:1.5px solid #e2e8f0}
+.reg-panel.active-panel{display:block}
+.panel-header{margin-bottom:14px;border-bottom:2px solid #2b8146;padding-bottom:6px}
+.panel-header span{font-size:10px;text-transform:uppercase;font-weight:800;color:#2b8146;letter-spacing:.5px}
+.panel-header h3{font-size:15px;color:#11452a;font-weight:800;margin-top:2px}
+
+.err-banner{display:none;background:#fce8e6;border:1px solid #ea4335;color:#c5221f;padding:9px 13px;border-radius:9px;font-size:12px;margin-bottom:12px}
+
+/* success */
+.success-icon{width:68px;height:68px;background:#f0fdf4;color:#2b8146;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:14px;box-shadow:0 4px 12px rgba(43,129,70,.12);border:2px solid #b2d8b3}
+.success-title{font-size:17px;font-weight:800;color:#11452a;margin-bottom:4px}
+.success-desc{font-size:12px;color:#64748b;line-height:1.5;margin-bottom:18px}
+.receipt-box{width:100%;background:#f0fdf4;border:1.5px solid #b2d8b3;border-radius:12px;padding:14px;margin-bottom:22px;text-align:left}
+.receipt-row{display:flex;justify-content:space-between;font-size:11px;padding:5px 0;border-bottom:1px dashed #b2d8b3}
+.receipt-row:last-child{border-bottom:none}
+.receipt-label{color:#64748b}
+.receipt-val{color:#11452a;font-weight:700}
+
+/* records */
+.records-search-wrap{position:relative;margin-bottom:12px}
+.records-search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:13px}
+.records-search-wrap input{padding-left:36px}
+.records-list{display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1}
+.record-card{background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;padding:13px}
+.record-card-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0fdf4;padding-bottom:6px;margin-bottom:8px}
+.record-token{font-size:13px;font-weight:800;color:#2b8146}
+.record-date{font-size:10px;color:#64748b}
+.record-row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px}
+.record-row-label{color:#64748b}
+.record-row-val{font-weight:600;color:#1a1a1a}
+.nets-badge{background:#f0fdf4;color:#11452a;padding:2px 8px;border-radius:20px;font-weight:700;font-size:10px;border:1px solid #b2d8b3}
+.no-records{text-align:center;padding:40px 20px;color:#94a3b8;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.no-records i{font-size:28px;color:#b2d8b3}
+
+/* reg module cards */
+.mod-card{
+  background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;
+  padding:16px;display:flex;align-items:center;gap:14px;
+  cursor:pointer;box-shadow:0 2px 6px rgba(17,69,42,.05);
+  transition:all .2s;margin-bottom:12px
+}
+.mod-card:hover{border-color:#2b8146;box-shadow:0 4px 14px rgba(17,69,42,.1)}
+.mod-icon{width:44px;height:44px;background:#f0fdf4;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#2b8146;font-size:18px;flex-shrink:0;border:1px solid #b2d8b3}
+.mod-title{font-size:14px;font-weight:700;color:#11452a;margin-bottom:2px}
+.mod-desc{font-size:11px;color:#64748b}
+
+/* ── DASHBOARD (green theme) ── */
+.dash-kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.dash-kpi-card{background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:14px;box-shadow:0 2px 6px rgba(17,69,42,.05)}
+.dash-kpi-label{font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.dash-kpi-val{font-size:22px;font-weight:800;margin-bottom:2px}
+.dash-kpi-sub{font-size:9px}
+.dash-chart-card{background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:14px;margin-bottom:14px;box-shadow:0 2px 6px rgba(17,69,42,.05)}
+.dash-chart-title{font-size:12px;font-weight:800;color:#11452a;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.dash-chart-sub{font-size:9px;color:#94a3b8}
+.dash-search{
+  display:flex;align-items:center;
+  background:#f0fdf4;border:1.5px solid #b2d8b3;border-radius:10px;
+  padding:0 12px;gap:8px;margin-bottom:14px
+}
+.dash-search i{color:#2b8146;font-size:13px}
+.dash-search input{border:none;background:transparent;color:#333;padding:10px 0;font-size:12px;width:100%;outline:none}
+.dash-sidebar{
+  width:50px;background:#11452a;
+  display:flex;flex-direction:column;align-items:center;
+  padding:14px 0;gap:18px;flex-shrink:0;border-radius:0 0 0 14px
+}
+.dash-sidebar-icon{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;cursor:pointer;color:rgba(255,255,255,.5);transition:all .2s
+}
+.dash-sidebar-icon.active{background:#2b8146;color:#fff}
+.dash-sidebar-icon:hover{color:#fff}
+
+/* district bar */
+.dist-bar-wrap{margin-bottom:9px}
+.dist-bar-label{display:flex;justify-content:space-between;font-size:10px;color:#475569;margin-bottom:3px}
+.dist-bar-pct{font-weight:700;color:#2b8146}
+.dist-bar-bg{background:#e6f4e6;border-radius:4px;height:5px;overflow:hidden}
+.dist-bar-fill{height:100%;background:linear-gradient(90deg,#2b8146,#11452a);border-radius:4px}
+
+/* teams table */
+.teams-head{display:grid;grid-template-columns:2fr 1fr 1fr;font-size:9px;color:#94a3b8;padding:0 4px 7px;border-bottom:1.5px solid #e6f4e6;text-transform:uppercase;letter-spacing:.5px}
+.teams-row{display:grid;grid-template-columns:2fr 1fr 1fr;font-size:11px;padding:8px 4px;border-bottom:1px solid #f0fdf4}
+.teams-row:last-child{border-bottom:none}
+
+/* ── ID CARD (green form) ── */
+.id-form-label{display:block;font-size:10px;font-weight:700;color:#11452a;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
+.id-input{
+  width:100%;padding:10px 12px;
+  border:1.5px solid #e2e8f0;border-radius:10px;
+  font-size:13px;outline:none;color:#333;background:#fff;transition:border-color .2s
+}
+.id-input:focus{border-color:#2b8146;background:#f9fff9}
+.btn-gen{
+  width:100%;padding:13px;background:#11452a;color:#fff;
+  border:none;border-radius:11px;font-size:13px;font-weight:700;
+  cursor:pointer;margin-bottom:8px;
+  display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s
+}
+.btn-gen:hover{background:#0f3d24}
+.btn-dl{
+  width:100%;padding:13px;background:#f0fdf4;color:#11452a;
+  border:1.5px solid #b2d8b3;border-radius:11px;font-size:13px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s
+}
+.btn-dl:hover{background:#d1fae5;border-color:#2b8146}
+.btn-cam{flex:1;padding:10px;border-radius:10px;font-size:10px;font-weight:700;border:none;cursor:pointer;background:#f0fdf4;color:#11452a;border:1.5px solid #b2d8b3}
+.btn-clr{flex:1;padding:10px;border-radius:10px;font-size:10px;font-weight:700;border:none;cursor:pointer;background:#fce8e6;color:#c5221f;border:1.5px solid #fca5a5}
+
+/* ── FOOTER ── */
+.app-footer{
+  background:#11452a;color:#fff;
+  text-align:center;padding:13px;font-size:10px;
+  flex-shrink:0;font-weight:500;letter-spacing:.3px
+}
+</style>
 </head>
 <body>
+<div class="phone-container" id="phoneShell">
 
-    <div class="phone-container">
-        <header class="app-header">
-            <div class="moh-title-container">
-                <img src="moh_logo.png" alt="MoH" class="moh-seal-top">
-                <div class="moh-text">
-                    <h1>MINISTRY OF HEALTH</h1>
-                    <p>NATIONAL MALARIA CONTROL PROGRAMME<br>• SIERRA LEONE</p>
-                </div>
-            </div>
-            <div class="partners-wrapper">
-                <span class="partners-label">Implementing Partners</span>
-                <div class="partner-logos">
-                    <img src="who_logo.png" alt="WHO" class="partner-logo">
-                    <img src="world-vision-logo.png" alt="WV" class="partner-logo">
-                    <img src="global_fund.png" alt="GF" class="partner-logo">
-                    <img src="NMCP.png" alt="NMCP" class="partner-logo">
-                </div>
-            </div>
-        </header>
-
-        <main class="app-main">
-            <div class="login-card">
-                <h2>Login</h2>
-                <div class="input-group">
-                    <input type="text" placeholder="Username" id="username">
-                </div>
-                <div class="input-group">
-                    <input type="password" placeholder="Password" id="password">
-                </div>
-                <button class="btn login-btn" id="loginBtn">LOGIN</button>
-                <button class="btn scan-btn">SCAN USER ID CARD</button>
-            </div>
-        </main>
-
-        <footer class="app-footer">Powered by ICF-SL @ 2026</footer>
+<!-- ═══ HEADER ═══ -->
+<header class="app-header">
+  <div class="moh-title-container">
+    <img src="moh_logo.png" alt="MoH" class="moh-seal-top"
+         onerror="this.style.cssText='width:50px;height:50px;background:#11452a;border-radius:50%;display:inline-block'">
+    <div class="moh-text">
+      <h1>MINISTRY OF HEALTH</h1>
+      <p>NATIONAL MALARIA CONTROL PROGRAMME<br>SIERRA LEONE</p>
     </div>
+  </div>
+  <div class="partners-wrapper">
+    <span class="partners-label">Implementing Partners</span>
+    <div class="partner-logos">
+      <img src="who_logo.png" alt="WHO" class="partner-logo" onerror="this.outerHTML='<div class=\'partner-logo\' style=\'display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#11452a;background:#f0fdf4;border-radius:8px;border:1px solid #b2d8b3\'>WHO</div>'">
+      <img src="world-vision-logo.png" alt="WV" class="partner-logo" onerror="this.outerHTML='<div class=\'partner-logo\' style=\'display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#11452a;background:#f0fdf4;border-radius:8px;border:1px solid #b2d8b3\'>WV</div>'">
+      <img src="global_fund.png" alt="GF" class="partner-logo" onerror="this.outerHTML='<div class=\'partner-logo\' style=\'display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#11452a;background:#f0fdf4;border-radius:8px;border:1px solid #b2d8b3\'>GF</div>'">
+      <img src="NMCP.png" alt="NMCP" class="partner-logo" onerror="this.outerHTML='<div class=\'partner-logo\' style=\'display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#11452a;background:#f0fdf4;border-radius:8px;border:1px solid #b2d8b3\'>NMCP</div>'">
+    </div>
+  </div>
+</header>
 
-    <script>
-        // Credential and Page Mapping
-        const userAccess = {
-            "admin": { pass: "123456", pages: ["tabs.html"] },
-            "hhr2026": { pass: "123", pages: ["RegForm.html", "ID card"] },
-            "vv2026": { pass: "1234", pages: ["Dist.html", "ID card"] },
-            "NatSup": { pass: "12345", pages: ["monitoring.html", "Dashboard.html", "ID card"] },
-            "whm": { pass: "1231", pages: ["Stockmgt.html", "ID card"] },
-            "Chsup": { pass: "1232", pages: ["Stockmgt.html", "devt.html", "Attendance.html","ID card"] },
-            "DataM": { pass: "1233", pages: ["Dashboard.html", "Reconciliation.html", "ID card"] }
-        };
+<div class="app-main">
 
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
+<!-- ═══ LOGIN ═══ -->
+<div class="view active" id="view-login" style="justify-content:center;padding:18px;">
+  <div class="login-card">
+    <h2>🛡️ Secure Login</h2>
+    <div class="login-subtitle">ITN Mass Campaign Management System</div>
+    <div class="login-err" id="login-err">Invalid username or password.</div>
+    <div class="login-ig">
+      <i class="fa-solid fa-user"></i>
+      <input type="text" id="login-username" placeholder="Username" autocomplete="username">
+    </div>
+    <div class="login-ig">
+      <i class="fa-solid fa-lock"></i>
+      <input type="password" id="login-password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" onclick="doLogin()"><i class="fa-solid fa-right-to-bracket"></i> LOGIN</button>
+    <button class="btn-scan" onclick="alert('ID card scan requires HTTPS + device camera.')"><i class="fa-solid fa-qrcode"></i> SCAN USER ID CARD</button>
+    <div class="cred-hint">
+      <div class="cred-hint-title">🔑 Test Credentials</div>
+      <div class="cred-hint-row"><span>admin</span><span>123456 — Full access</span></div>
+      <div class="cred-hint-row"><span>hhr2026</span><span>123 — Registration + ID</span></div>
+      <div class="cred-hint-row"><span>vv2026</span><span>1234 — Distribution + ID</span></div>
+      <div class="cred-hint-row"><span>NatSup</span><span>12345 — Monitor + Dashboard</span></div>
+      <div class="cred-hint-row"><span>whm</span><span>1231 — Stock Mgmt + ID</span></div>
+      <div class="cred-hint-row"><span>Chsup</span><span>1232 — Stock + Tracking + Att.</span></div>
+      <div class="cred-hint-row"><span>DataM</span><span>1233 — Dashboard + Reconciliation</span></div>
+    </div>
+  </div>
+</div>
 
-            if (userAccess[user] && userAccess[user].pass === pass) {
-                // Open pages in new tabs
-                userAccess[user].pages.forEach(page => {
-                    window.open(page, '_blank');
-                });
-            } else {
-                alert("Invalid Username or Password");
-            }
-        });
-    </script>
+<!-- ═══ HOME ═══ -->
+<div class="view" id="view-home">
+  <div class="banner-container">
+    <img src="zero.jpg.jpg" alt="Banner" style="width:100%;height:100%;object-fit:cover"
+         onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:13px;font-weight:800;letter-spacing:4px;color:#f5bc4e\'>🦟 ZERO MALARIA 🦟</span>'">
+  </div>
+  <div class="menu-title">Campaign Modules</div>
+  <div class="tabs-grid">
+    <button class="tab-btn" id="tab-reg"   onclick="goTo('reg')">  <i class="fa-solid fa-user-plus"></i>              <span class="tab-label">Registration</span></button>
+    <button class="tab-btn" id="tab-dist"  onclick="goTo('dist')"> <i class="fa-solid fa-hand-holding-heart"></i>      <span class="tab-label">Distribution</span></button>
+    <button class="tab-btn" id="tab-dash"  onclick="goTo('dash')"> <i class="fa-solid fa-chart-pie"></i>               <span class="tab-label">Dashboard</span></button>
+    <button class="tab-btn" id="tab-stock" onclick="goTo('stock')"><i class="fa-solid fa-boxes-stacked"></i>           <span class="tab-label">Stock Mgmt</span></button>
+    <button class="tab-btn" id="tab-mon"   onclick="goTo('mon')">  <i class="fa-solid fa-square-poll-horizontal"></i>  <span class="tab-label">Monitoring</span></button>
+    <button class="tab-btn" id="tab-track" onclick="goTo('track')"><i class="fa-solid fa-mobile-screen-button"></i>    <span class="tab-label">Tracking</span></button>
+    <button class="tab-btn" id="tab-att"   onclick="goTo('att')">  <i class="fa-solid fa-clipboard-user"></i>          <span class="tab-label">Attendance</span></button>
+    <button class="tab-btn" id="tab-id"    onclick="goTo('id')">   <i class="fa-solid fa-id-card"></i>                 <span class="tab-label">ID Card</span></button>
+    <button class="tab-btn" id="tab-rec"   onclick="goTo('rec')">  <i class="fa-solid fa-code-compare"></i>            <span class="tab-label">Reconciliation</span></button>
+  </div>
+  <div class="user-bar">
+    <span class="user-chip" id="logged-in-user">👤 User</span>
+    <button class="logout-btn" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
+  </div>
+</div>
+
+<!-- ═══ REGISTRATION ═══ -->
+<div class="view" id="view-reg">
+  <div id="reg-menu">
+    <div class="sub-nav">
+      <button class="sub-back-btn" onclick="goTo('home')"><i class="fa-solid fa-arrow-left"></i></button>
+      <span class="sub-title">Registration</span>
+    </div>
+    <div class="mod-card" onclick="showRegStep('form')">
+      <div class="mod-icon"><i class="fa-solid fa-user-plus"></i></div>
+      <div><div class="mod-title">Household Registration</div><div class="mod-desc">Capture geolocation, beneficiary tallies, and indicators.</div></div>
+    </div>
+    <div class="mod-card" onclick="showRegStep('records')">
+      <div class="mod-icon"><i class="fa-solid fa-folder-open"></i></div>
+      <div><div class="mod-title">Records</div><div class="mod-desc">Track historical log data, ledger entries, and metrics.</div></div>
+    </div>
+    <div class="mod-card" onclick="alert('Personnel Attendance module coming soon.')">
+      <div class="mod-icon"><i class="fa-solid fa-clipboard-user"></i></div>
+      <div><div class="mod-title">Personnel Attendance</div><div class="mod-desc">Monitor clock-ins, workspace logs and field assignments.</div></div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:10px;">
+      <button onclick="syncData(this)" style="background:#f0fdf4;border:1.5px solid #b2d8b3;color:#11452a;font-size:12px;font-weight:700;padding:9px 16px;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:6px">
+        <i class="fa-solid fa-rotate"></i> Sync Data
+      </button>
+    </div>
+  </div>
+
+  <div id="reg-form" style="display:none">
+    <div class="sub-nav"><button class="sub-back-btn" onclick="showRegStep('menu')"><i class="fa-solid fa-arrow-left"></i></button><span class="sub-title">Registration</span></div>
+    <div class="step-wrapper"><div class="step-line-bg"></div><div class="step-line-progress" id="stepProgress"></div><div class="step-row"><div class="step-dot active" id="dot-1">A</div><div class="step-dot" id="dot-2">B</div><div class="step-dot" id="dot-3">C</div><div class="step-dot" id="dot-4">D</div><div class="step-dot" id="dot-5">E</div></div></div>
+    <div class="err-banner" id="errBanner"></div>
+    <form onsubmit="submitReg(event)">
+      <div class="reg-panel active-panel" id="panel-1">
+        <div class="panel-header"><span>Section A</span><h3>HHR Information</h3></div>
+        <div class="form-group"><label>Name of HHR Registerer</label><input type="text" id="nameHHR" class="input-ctrl" placeholder="Enter HHR Full Name"></div>
+        <div class="form-group"><label>ID Number of HHR</label><input type="text" id="idHHR" class="input-ctrl" placeholder="Enter ID Document Number"></div>
+        <div class="form-group"><label>Date of Registration</label><input type="date" id="dateReg" class="input-ctrl" readonly></div>
+        <div class="form-group"><label>Registration Time</label><input type="time" id="timeReg" class="input-ctrl" readonly></div>
+        <div class="btn-row-reg"><button type="button" class="btn-reg btn-reg-next" onclick="stepForward(1,2)">Next <i class="fa-solid fa-arrow-right"></i></button></div>
+      </div>
+      <div class="reg-panel" id="panel-2">
+        <div class="panel-header"><span>Section B</span><h3>Cascading Information</h3></div>
+        <div class="form-group"><label>District</label><select id="district" class="input-ctrl" onchange="fillRegion()"><option value="">Select District</option><option>Bombali</option><option>Koinadugu</option><option>Port Loko</option><option>Kenema</option><option>Bo</option><option>Kambia</option><option>Moyamba</option><option>Tonkolili</option><option>Kailahun</option><option>Western Area Rural</option><option>Bonthe</option><option>Pujehun</option><option>Karene</option><option>Kono</option><option>Western Area Urban</option><option>Falaba</option></select></div>
+        <div class="form-group"><label>Region</label><input type="text" id="region" class="input-ctrl" placeholder="Auto-populated" readonly></div>
+        <div class="form-group"><label>GPS Coordinates</label><div class="inline-wrap"><input type="text" id="gps" class="input-ctrl" placeholder="Click FIX…" readonly><button type="button" class="gps-btn" onclick="fixGPS()"><i class="fa-solid fa-location-crosshairs"></i> FIX</button></div></div>
+        <div class="btn-row-reg"><button type="button" class="btn-reg btn-reg-back" onclick="stepBack(2,1)"><i class="fa-solid fa-arrow-left"></i> Back</button><button type="button" class="btn-reg btn-reg-next" onclick="stepForward(2,3)">Next <i class="fa-solid fa-arrow-right"></i></button></div>
+      </div>
+      <div class="reg-panel" id="panel-3">
+        <div class="panel-header"><span>Section C</span><h3>Household Details</h3></div>
+        <div class="form-group"><label>Name of Household Head</label><input type="text" id="headName" class="input-ctrl" placeholder="Enter Head Name"></div>
+        <div class="form-group"><label>Sex of Household Head</label><select id="gender" class="input-ctrl"><option value="">Select Gender</option><option>Male</option><option>Female</option></select></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" class="input-ctrl" placeholder="e.g. 077123456"></div>
+        <div class="btn-row-reg"><button type="button" class="btn-reg btn-reg-back" onclick="stepBack(3,2)"><i class="fa-solid fa-arrow-left"></i> Back</button><button type="button" class="btn-reg btn-reg-next" onclick="stepForward(3,4)">Next <i class="fa-solid fa-arrow-right"></i></button></div>
+      </div>
+      <div class="reg-panel" id="panel-4">
+        <div class="panel-header"><span>Section D</span><h3>Household Composition</h3></div>
+        <div class="form-group"><label>Children below age 5</label><input type="number" id="under5" class="input-ctrl" min="0" value="0" oninput="calcMembers()"></div>
+        <div class="form-group"><label>Pregnant Women</label><input type="number" id="pregnant" class="input-ctrl" min="0" value="0" oninput="calcMembers()"></div>
+        <div class="form-group"><label>Other Household Members</label><input type="number" id="otherMem" class="input-ctrl" min="0" value="0" oninput="calcMembers()"></div>
+        <div class="form-group" style="margin-top:12px;padding-top:10px;border-top:1.5px dashed #b2d8b3"><label style="font-weight:800;color:#11452a">Total Household Members</label><input type="number" id="totalMem" class="input-ctrl" value="0" readonly></div>
+        <div class="btn-row-reg"><button type="button" class="btn-reg btn-reg-back" onclick="stepBack(4,3)"><i class="fa-solid fa-arrow-left"></i> Back</button><button type="button" class="btn-reg btn-reg-next" onclick="stepForward(4,5)">Next <i class="fa-solid fa-arrow-right"></i></button></div>
+      </div>
+      <div class="reg-panel" id="panel-5">
+        <div class="panel-header"><span>Section E</span><h3>Net Allocation</h3></div>
+        <div class="form-group"><label>Household Size</label><input type="text" id="sizeDisplay" class="input-ctrl" value="0 Members" readonly></div>
+        <div class="form-group"><label>Distribution Point</label><select id="distPoint" class="input-ctrl"><option>Aberdeen PHU Hub</option><option>Lumley Community Clinic</option><option>Murray Town Health Center</option><option>Kroo Bay Health Post</option></select></div>
+        <div class="form-group" style="margin-top:12px;padding-top:10px;border-top:1.5px dashed #b2d8b3"><label style="font-weight:800;color:#c78b16">Total ITN Nets Allocated</label><input type="number" id="netsAlloc" class="input-ctrl" value="0" readonly style="background:#fffbeb;border-color:#fde68a;color:#c78b16;font-weight:800"></div>
+        <div class="btn-row-reg"><button type="button" class="btn-reg btn-reg-back" onclick="stepBack(5,4)"><i class="fa-solid fa-arrow-left"></i> Back</button><button type="submit" class="btn-reg btn-reg-submit"><i class="fa-solid fa-check-double"></i> Submit &amp; Print</button></div>
+      </div>
+    </form>
+  </div>
+
+  <div id="reg-success" style="display:none;flex-direction:column;align-items:center;text-align:center;padding:20px 10px">
+    <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <div class="success-title">Submission Successful</div>
+    <div class="success-desc">Household record saved to the local workspace ledger database.</div>
+    <div class="receipt-box">
+      <div class="receipt-row"><span class="receipt-label">Voucher Token</span><span class="receipt-val" id="r-token"></span></div>
+      <div class="receipt-row"><span class="receipt-label">Household Head</span><span class="receipt-val" id="r-head"></span></div>
+      <div class="receipt-row"><span class="receipt-label">Total Size</span><span class="receipt-val" id="r-size"></span></div>
+      <div class="receipt-row"><span class="receipt-label">ITN Nets</span><span class="receipt-val" id="r-nets"></span></div>
+      <div class="receipt-row"><span class="receipt-label">Distribution Point</span><span class="receipt-val" id="r-point"></span></div>
+      <div class="receipt-row"><span class="receipt-label">Timestamp</span><span class="receipt-val" id="r-time"></span></div>
+    </div>
+    <button onclick="showRegStep('menu')" style="width:100%;padding:13px;background:#11452a;color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><i class="fa-solid fa-house-user"></i> Return to Hub</button>
+  </div>
+
+  <div id="reg-records" style="display:none;flex-direction:column;gap:10px;flex:1">
+    <div class="sub-nav"><button class="sub-back-btn" onclick="showRegStep('menu')"><i class="fa-solid fa-arrow-left"></i></button><span class="sub-title">Campaign Logs</span></div>
+    <div class="records-search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="recSearch" class="input-ctrl" placeholder="Search token or head name…" oninput="renderRecords()"></div>
+    <div class="records-list" id="recordsList"></div>
+  </div>
+</div>
+
+<!-- ═══ DISTRIBUTION ═══ -->
+<div class="view" id="view-dist">
+  <div class="sub-nav"><button class="sub-back-btn" onclick="goTo('home')"><i class="fa-solid fa-arrow-left"></i></button><span class="sub-title">Distribution</span></div>
+  <div class="placeholder-card"><div class="ph-icon"><i class="fa-solid fa-hand-holding-heart"></i></div><h3>Distribution Module</h3><p>ITN net distribution tracking, voucher verification and allocation management.</p><span class="coming-badge">Coming Soon</span></div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="view" id="view-dash" style="padding:0;overflow:hidden;background:#0f1115;flex-direction:column;">
+
+  <!-- Top nav bar (matches Dashboard.html header style but inside phone) -->
+  <div style="background:#1a1d23;border-bottom:1px solid #2d3139;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button onclick="goTo('home')" style="width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.08);border:none;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-arrow-left"></i></button>
+      <span style="font-size:14px;font-weight:800;color:#fff;letter-spacing:.3px;">ITN Campaign Dashboard</span>
+    </div>
+    <div style="display:flex;align-items:center;background:#0f1115;border:1px solid #2d3139;border-radius:8px;padding:0 10px;gap:7px;width:130px;">
+      <i class="fa-solid fa-magnifying-glass" style="color:#555;font-size:11px;"></i>
+      <input type="text" id="dash-search" placeholder="Search…" oninput="dashSearch(this.value)"
+             style="border:none;background:transparent;color:#fff;padding:7px 0;font-size:11px;width:100%;outline:none;">
+    </div>
+  </div>
+
+  <!-- Body: sidebar + main content (matches Dashboard.html flex layout) -->
+  <div style="display:flex;flex:1;overflow:hidden;">
+
+    <!-- Sidebar (w-20 equivalent = 52px) -->
+    <nav style="width:52px;background:#1a1d23;border-right:1px solid #2d3139;display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:20px;flex-shrink:0;">
+      <!-- active icon -->
+      <div style="width:36px;height:36px;background:#2563eb;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;" title="Dashboard"><i class="fa-solid fa-chart-pie"></i></div>
+      <!-- muted icons -->
+      <div style="opacity:.45;display:flex;flex-direction:column;gap:18px;align-items:center;">
+        <div onclick="goTo('home')" style="cursor:pointer;font-size:17px;" title="Home">🏠</div>
+        <div onclick="goTo('reg')"  style="cursor:pointer;font-size:17px;" title="Records">📋</div>
+        <div style="font-size:17px;" title="Settings">⚙️</div>
+      </div>
+    </nav>
+
+    <!-- Main scrollable content -->
+    <main style="flex:1;overflow-y:auto;padding:14px 12px 20px;display:flex;flex-direction:column;gap:12px;">
+
+      <!-- KPI Cards: 2×2 grid (mirrors 4-col at small width) -->
+      <section style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:#1a1d23;border:1px solid #2d3139;border-radius:12px;padding:14px;">
+          <p style="font-size:9px;color:rgba(255,255,255,.5);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;">Total Nets Distributed</p>
+          <h3 style="font-size:20px;font-weight:800;color:#fff;">1.2M</h3>
+          <p style="font-size:9px;color:#4ade80;margin-top:3px;">↑ 8% this week</p>
+        </div>
+        <div style="background:#1a1d23;border:1px solid #2d3139;border-radius:12px;padding:14px;">
+          <p style="font-size:9px;color:rgba(255,255,255,.5);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;">Households Covered</p>
+          <h3 style="font-size:20px;font-weight:800;color:#fff;">450K</h3>
+          <p style="font-size:9px;color:#60a5fa;margin-top:3px;">↑ 5% this week</p>
+        </div>
+        <div style="background:#1a1d23;border:1px solid #2d3139;border-radius:12px;padding:14px;">
+          <p style="font-size:9px;color:rgba(255,255,255,.5);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;">Campaign Progress</p>
+          <h3 style="font-size:20px;font-weight:800;color:#fff;">78%</h3>
+          <div style="margin-top:6px;background:#2d3139;border-radius:4px;height:4px;overflow:hidden;"><div style="width:78%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px;"></div></div>
+        </div>
+        <div style="background:#1a1d23;border:1px solid #2d3139;border-radius:12px;padding:14px;">
+          <p style="font-size:9px;color:rgba(255,255,255,.5);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;">Active Teams</p>
+          <h3 style="font-size:20px;font-weight:800;color:#fff;">124</h3>
+          <p style="font-size:9px;color:#c084fc;margin-top:3px;">Across 14 districts</p>
+        </div>
+      </section>
+
+      <!-- Charts Grid: Distribution Analytics (col-span-2) + Coverage Donut -->
+      <section style="display:grid;grid-template-columns:3fr 2fr;gap:8px;">
+
+        <!-- Distribution Analytics (larger panel) -->
+        <div style="background:#1a1d23;border:1px solid #2d3139;border-radius:14px;padding:14px;display:flex;flex-direction:column;">
+          <h2 style="font-size:11px;font-weight:700;color:#fff;margin-bottom:4px;">Distribution Analytics</h2>
+          <p style="font-size:8px;color:#555;margin-bottom:10px;">Weekly Nets Distributed</p>
+          <div style="flex:1;border:1px dashed #2d3139;border-radius:8px;display:flex;align-items:center;justify-content:center;min-height:90px;">
+            <canvas id="barChart" style="width:100%!important;height:90px!important;"></canvas>
+          </div>
+        </div>
+
+        <!-- Coverage by District (donut) -->
+        <div style="background:#1a1d23;border:1px solid #2d3139;border-radius:14px;padding:14px;display:flex;flex-direction:column;">
+          <h2 style="font-size:11px;font-weight:700;color:#fff;margin-bottom:10px;">Coverage by District</h2>
+          <div style="border:1px dashed #2d3139;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:8px;margin-bottom:8px;">
+            <canvas id="donutChart" style="width:100%!important;height:80px!important;"></canvas>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:4px;font-size:8px;color:rgba(255,255,255,.6);"><span style="width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;"></span>Covered 78%</div>
+            <div style="display:flex;align-items:center;gap:4px;font-size:8px;color:rgba(255,255,255,.6);"><span style="width:7px;height:7px;border-radius:50%;background:#2d3139;display:inline-block;border:1px solid #555;"></span>Remaining 22%</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- District breakdown bars -->
+      <div style="background:#1a1d23;border:1px solid #2d3139;border-radius:14px;padding:14px;">
+        <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:10px;">District Coverage</div>
+        <div id="district-breakdown"></div>
+      </div>
+
+      <!-- Active Teams table -->
+      <div style="background:#1a1d23;border:1px solid #2d3139;border-radius:14px;padding:14px;">
+        <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:10px;">Active Field Teams</div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;font-size:9px;color:rgba(255,255,255,.35);padding:0 4px 7px;border-bottom:1px solid #2d3139;text-transform:uppercase;letter-spacing:.5px;"><span>District</span><span style="text-align:right">Nets</span><span style="text-align:right">Teams</span></div>
+        <div id="teams-table"></div>
+      </div>
+
+      <!-- inner footer -->
+      <div style="background:#11452a;color:rgba(255,255,255,.8);text-align:center;padding:9px;font-size:9px;border-radius:10px;font-weight:500;">Powered by ICF-SL @ 2026</div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ═══ STOCK ═══ -->
+<div class="view" id="view-stock">
+  <div class="sub-nav"><button class="sub-back-btn" onclick="goTo('home')"><i class="fa-solid fa-arrow-left"></i></button><span class="sub-title">Stock Management</span></div>
+  <div class="placeholder-card"><div class="ph-icon"><i class="fa-solid fa-boxes-stacked"></i></div><h3>Stock Management</h3><p>Warehouse inventory, net stock levels and logistics tracking.</p><span class="coming-badge">Coming Soon</span></div>
+</div>
+
+<!-- ═══ MONITORING ═══ -->
+<div class="view" id="view-mon">
+  <div class="sub-nav"><button class="sub-back-btn" onclick="goTo('home')"><i class="fa-solid fa-arrow-left"></i></button><span class="sub-title">Monitoring</span></div>
+  <div class="placeholder-card"><div class="ph-icon"><i class="fa-solid fa-square-poll-horizontal"></i></div><h3>Monitoring Module</h3><p>Field monitoring reports, supervisor observations and data quality checks.</p><span class="coming-badge">Coming Soon</span></div>
+</div>
+
+<!-- ═══ TRACKING ═══ -->
+<div class="view" id="view-track">
+  <div class="sub-nav"><button class="sub-back-btn" onclick="goTo('home')"><i class="fa-solid fa-arrow-left"></i></button><span class="sub-title">Tracking</span></div>
+  <div class="placeholder-card"><div class="ph-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><h3>Device Tracking</h3><p>Real-time device activity logs and field team location tracking.</p><span class="coming-badge">Coming Soon</span></div>
+</div>
+
+<!-- ═══ ATTENDANCE ═══ -->
+<div class="view" id="view-att">
+  <div class="sub-nav"><button class="sub-back-btn" onclick="goTo('home')"><i class="fa-solid fa-arrow-left"></i></button><span class="sub-title">Attendance</span></div>
+  <div class="placeholder-card"><div class="ph-icon"><i class="fa-solid fa-clipboard-user"></i></div><h3>Personnel Attendance</h3><p>Staff clock-in, daily assignments and workforce productivity tracking.</p><span class="coming-badge">Coming Soon</span></div>
+</div>
+
+<!-- ═══ ID CARD ═══ -->
+<div class="view" id="view-id" style="padding:0;overflow-y:auto;">
+  <div style="padding:16px 16px 24px;">
+    <div class="sub-nav"><button class="sub-back-btn" onclick="goTo('home')"><i class="fa-solid fa-arrow-left"></i></button><span class="sub-title">ID Card Generator</span></div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;">
+      <button class="btn-cam" onclick="alert('Camera requires HTTPS.')"><i class="fa-solid fa-camera"></i> Camera</button>
+      <button class="btn-clr" onclick="clearIDForm()"><i class="fa-solid fa-rotate-left"></i> Clear</button>
+    </div>
+    <form id="id-card-form" onsubmit="generateIDCard(event)">
+      <div style="margin-bottom:11px;"><label class="id-form-label">Photo Upload</label><input type="file" id="id-photo-input" accept="image/*" style="width:100%;padding:8px;border:1.5px dashed #b2d8b3;border-radius:10px;font-size:12px;background:#f0fdf4;" onchange="previewIDPhoto(this)"></div>
+      <div style="margin-bottom:11px;"><label class="id-form-label">Full Name</label><input type="text" id="id-name" required placeholder="Enter full name" class="id-input" onfocus="this.style.borderColor='#2b8146'" onblur="this.style.borderColor='#e2e8f0'"></div>
+      <div style="margin-bottom:11px;"><label class="id-form-label">Telephone (0XXXXXXXX)</label><input type="tel" id="id-tel" required pattern="0\d{8}" maxlength="9" placeholder="0XXXXXXXX" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,9)" class="id-input" onfocus="this.style.borderColor='#2b8146'" onblur="this.style.borderColor='#e2e8f0'"></div>
+      <div style="margin-bottom:11px;"><label class="id-form-label">Role</label><select id="id-role" required class="id-input"><option value="">Select Role</option><option>National Monitor</option><option>Chiefdom Supervisor</option><option>Independent Monitor</option><option>DHMT Staff</option><option>PHU Staff</option><option>Voucher Verifier</option><option>ITN Distributor</option><option>DP Supervisor</option></select></div>
+      <div style="margin-bottom:11px;"><label class="id-form-label">District</label><select id="id-district" required onchange="idUpdateChiefdoms()" class="id-input"></select></div>
+      <div style="margin-bottom:11px;"><label class="id-form-label">Chiefdom</label><select id="id-chiefdom" required onchange="idUpdatePHUs()" class="id-input"><option value="">Select District First</option></select></div>
+      <div style="margin-bottom:11px;"><label class="id-form-label">PHU</label><select id="id-phu" required class="id-input"><option value="">Select Chiefdom First</option></select></div>
+      <div style="margin-bottom:16px;"><label class="id-form-label">Community Name</label><input type="text" id="id-community" required placeholder="Enter community" class="id-input" onfocus="this.style.borderColor='#2b8146'" onblur="this.style.borderColor='#e2e8f0'"></div>
+      <button type="submit" class="btn-gen"><i class="fa-solid fa-id-card"></i> GENERATE ID CARD</button>
+      <button type="button" onclick="downloadIDCard()" class="btn-dl"><i class="fa-solid fa-download"></i> DOWNLOAD ID CARD (PNG)</button>
+    </form>
+    <div id="id-card-output" style="display:none;margin-top:18px;">
+      <div id="id-card-print" style="background:linear-gradient(135deg,#fff 0%,#f0fdf4 100%);padding:18px;border:3px solid #11452a;border-radius:16px;">
+        <div style="display:flex;align-items:center;gap:8px;border-bottom:2px solid #2b8146;padding-bottom:8px;margin-bottom:10px;">
+          <div style="width:30px;height:30px;background:#11452a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">🛡️</div>
+          <div><div style="font-size:9px;font-weight:800;color:#11452a;letter-spacing:.5px;">MINISTRY OF HEALTH — SIERRA LEONE</div><div style="font-size:7px;color:#64748b;font-weight:600;">NATIONAL MALARIA CONTROL PROGRAMME · OFFICIAL ID</div></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:76px;height:90px;border:2px solid #11452a;border-radius:6px;overflow:hidden;flex-shrink:0;background:#f0fdf4;display:flex;align-items:center;justify-content:center;">
+            <img id="id-preview-img" style="width:100%;height:100%;object-fit:cover;" src="" alt="Photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:24px;color:#b2d8b3;">👤</div>
+          </div>
+          <div style="font-size:11px;flex:1;line-height:1.8;"><div><strong style="color:#11452a;">Name:</strong> <span id="id-out-name"></span></div><div><strong style="color:#11452a;">Role:</strong> <span id="id-out-role"></span></div><div><strong style="color:#11452a;">ID:</strong> <span id="id-out-id" style="font-weight:800;color:#2b8146;"></span></div><div><strong style="color:#11452a;">PHU:</strong> <span id="id-out-phu"></span></div><div><strong style="color:#11452a;">Loc:</strong> <span id="id-out-loc"></span></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;"><div id="id-qrcode"></div><div style="font-size:8px;font-weight:800;color:#11452a;">SCAN ME</div></div>
+        </div>
+        <div style="font-size:8px;color:#11452a;margin-top:10px;font-weight:600;border-top:1px dashed #b2d8b3;padding-top:6px;display:flex;justify-content:space-between;"><span>Issued By: NMCP — World Vision</span><span>Valid: 31 Dec 2026</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ RECONCILIATION ═══ -->
+<div class="view" id="view-rec">
+  <div class="sub-nav"><button class="sub-back-btn" onclick="goTo('home')"><i class="fa-solid fa-arrow-left"></i></button><span class="sub-title">Reconciliation</span></div>
+  <div class="placeholder-card"><div class="ph-icon"><i class="fa-solid fa-code-compare"></i></div><h3>Reconciliation</h3><p>Data cross-verification, net count reconciliation and audit trails.</p><span class="coming-badge">Coming Soon</span></div>
+</div>
+
+</div><!-- /app-main -->
+<footer class="app-footer">Powered by ICF-SL @ 2026</footer>
+</div><!-- /phone-container -->
+
+<script>
+/* ══ CREDENTIALS ══ */
+const userAccess={
+  admin:  {pass:'123456',tabs:['reg','dist','dash','stock','mon','track','att','id','rec']},
+  hhr2026:{pass:'123',   tabs:['reg','id']},
+  vv2026: {pass:'1234',  tabs:['dist','id']},
+  NatSup: {pass:'12345', tabs:['mon','dash','id']},
+  whm:    {pass:'1231',  tabs:['stock','id']},
+  Chsup:  {pass:'1232',  tabs:['stock','track','att','id']},
+  DataM:  {pass:'1233',  tabs:['dash','rec','id']}
+};
+const ALL_TABS=['reg','dist','dash','stock','mon','track','att','id','rec'];
+let currentUser=null;
+
+function doLogin(){
+  const u=document.getElementById('login-username').value.trim();
+  const p=document.getElementById('login-password').value;
+  const err=document.getElementById('login-err');
+  if(userAccess[u]&&userAccess[u].pass===p){
+    err.style.display='none';currentUser=u;
+    applyTabAccess(userAccess[u].tabs);
+    document.getElementById('logged-in-user').textContent='👤 '+u;
+    goTo('home');
+  }else{err.style.display='block';}
+}
+function applyTabAccess(allowed){
+  ALL_TABS.forEach(tab=>{
+    const btn=document.getElementById('tab-'+tab);if(!btn)return;
+    allowed.includes(tab)?btn.classList.remove('no-access'):btn.classList.add('no-access');
+  });
+}
+function doLogout(){
+  currentUser=null;
+  document.getElementById('login-username').value='';
+  document.getElementById('login-password').value='';
+  goTo('login');
+}
+
+/* ══ NAVIGATION ══ */
+const viewMap={login:'view-login',home:'view-home',reg:'view-reg',dist:'view-dist',dash:'view-dash',stock:'view-stock',mon:'view-mon',track:'view-track',att:'view-att',id:'view-id',rec:'view-rec'};
+function goTo(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const v=document.getElementById(viewMap[id]);if(v)v.classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='reg')showRegStep('menu');
+  if(id==='dash')setTimeout(initDashboard,80);
+}
+
+/* ══ REGISTRATION ══ */
+const regionMap={Bombali:'Northern Region',Koinadugu:'Northern Region',Tonkolili:'Northern Region','Port Loko':'North West Region',Karene:'North West Region',Kenema:'Eastern Region',Kono:'Eastern Region',Kailahun:'Eastern Region',Falaba:'Northern Region',Bo:'Southern Region',Moyamba:'Southern Region',Pujehun:'Southern Region',Bonthe:'Southern Region','Western Area Rural':'Western Area','Western Area Urban':'Western Area',Kambia:'North West Region'};
+let db=[
+  {token:'ITN-482019',headName:'Alimamy Kamara',totalSize:5,netsAllocated:3,distributionPoint:'Aberdeen PHU Hub',date:'2026-06-08',time:'10:14'},
+  {token:'ITN-883012',headName:'Fatmata Sesay', totalSize:2,netsAllocated:1,distributionPoint:'Kroo Bay Health Post',date:'2026-06-09',time:'14:22'}
+];
+const regSteps=['menu','form','success','records'];
+function showRegStep(step){
+  regSteps.forEach(s=>{const e=document.getElementById('reg-'+s);if(e)e.style.display='none';});
+  const e=document.getElementById('reg-'+step);
+  if(e)e.style.display=(step==='records')?'flex':'block';
+  if(step==='form'){initDateTime();switchPanel(1);}
+  if(step==='records')renderRecords();
+}
+function switchPanel(n){
+  for(let i=1;i<=5;i++){const p=document.getElementById('panel-'+i),d=document.getElementById('dot-'+i);if(!p||!d)continue;p.classList.remove('active-panel');d.classList.remove('active','done');if(i<n)d.classList.add('done');}
+  document.getElementById('panel-'+n)?.classList.add('active-panel');
+  document.getElementById('dot-'+n)?.classList.add('active');
+  document.getElementById('stepProgress').style.width=((n-1)/4*100)+'%';
+  clearErr();document.querySelector('.app-main').scrollTop=0;
+}
+function stepForward(c,n){if(validateStep(c))switchPanel(n);}
+function stepBack(c,p){switchPanel(p);}
+function showErr(m){const b=document.getElementById('errBanner');b.textContent=m;b.style.display='block';document.querySelector('.app-main').scrollTop=0;}
+function clearErr(){const b=document.getElementById('errBanner');b.style.display='none';b.textContent='';}
+function validateStep(step){
+  clearErr();
+  if(step===1){if(!document.getElementById('nameHHR').value.trim()){showErr("'Name of HHR Registerer' is required.");return false;}if(!document.getElementById('idHHR').value.trim()){showErr("'ID Number of HHR' is required.");return false;}}
+  if(step===2){if(!document.getElementById('district').value){showErr("Please select a District.");return false;}if(!document.getElementById('gps').value){showErr("GPS coordinates must be fixed.");return false;}}
+  if(step===3){if(!document.getElementById('headName').value.trim()){showErr("'Name of Household Head' is required.");return false;}if(!document.getElementById('gender').value){showErr("Gender must be selected.");return false;}const ph=document.getElementById('phone').value.trim();if(!ph){showErr("Phone Number is required.");return false;}if(!/^\d{8,12}$/.test(ph.replace(/[\s-]/g,''))){showErr("Enter a valid phone number.");return false;}}
+  if(step===4){if(parseInt(document.getElementById('totalMem').value)<=0){showErr("Household must have at least 1 member.");return false;}}
+  return true;
+}
+function initDateTime(){const n=new Date(),p=x=>String(x).padStart(2,'0');document.getElementById('dateReg').value=`${n.getFullYear()}-${p(n.getMonth()+1)}-${p(n.getDate())}`;document.getElementById('timeReg').value=`${p(n.getHours())}:${p(n.getMinutes())}`;}
+function fillRegion(){document.getElementById('region').value=regionMap[document.getElementById('district').value]||'';}
+function fixGPS(){const f=document.getElementById('gps');f.value='Fetching…';if(navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>{f.value=`${p.coords.latitude.toFixed(5)}, ${p.coords.longitude.toFixed(5)}`;clearErr();},()=>{f.value=`${(8.484+(Math.random()-.5)*.02).toFixed(5)}, ${(-13.234+(Math.random()-.5)*.02).toFixed(5)} (SIM)`;});}else{f.value='8.48444, -13.23444 (SYS-FB)';}}
+function calcMembers(){const u=Math.max(0,parseInt(document.getElementById('under5').value)||0),p=Math.max(0,parseInt(document.getElementById('pregnant').value)||0),o=Math.max(0,parseInt(document.getElementById('otherMem').value)||0),t=u+p+o;document.getElementById('totalMem').value=t;document.getElementById('sizeDisplay').value=`${t} Registered Members`;document.getElementById('netsAlloc').value=Math.ceil(t/2);}
+function submitReg(e){e.preventDefault();if(!validateStep(5))return;const token='ITN-'+Math.floor(100000+Math.random()*900000);const entry={token,headName:document.getElementById('headName').value.trim(),totalSize:parseInt(document.getElementById('totalMem').value),netsAllocated:parseInt(document.getElementById('netsAlloc').value),distributionPoint:document.getElementById('distPoint').value,date:document.getElementById('dateReg').value,time:document.getElementById('timeReg').value};db.unshift(entry);document.getElementById('r-token').textContent=entry.token;document.getElementById('r-head').textContent=entry.headName;document.getElementById('r-size').textContent=entry.totalSize+' Members';document.getElementById('r-nets').textContent=entry.netsAllocated+' Nets';document.getElementById('r-point').textContent=entry.distributionPoint;document.getElementById('r-time').textContent=entry.date+' '+entry.time;showRegStep('success');}
+function renderRecords(){const kw=(document.getElementById('recSearch')?.value||'').toLowerCase(),con=document.getElementById('recordsList');if(!con)return;const list=db.filter(r=>r.token.toLowerCase().includes(kw)||r.headName.toLowerCase().includes(kw));if(!list.length){con.innerHTML='<div class="no-records"><i class="fa-solid fa-folder-open"></i><span>No matching records found.</span></div>';return;}con.innerHTML=list.map(r=>`<div class="record-card"><div class="record-card-top"><span class="record-token">${r.token}</span><span class="record-date">${r.date} @ ${r.time}</span></div><div class="record-row"><span class="record-row-label">Household Head:</span><span class="record-row-val">${r.headName}</span></div><div class="record-row"><span class="record-row-label">Total Residents:</span><span class="record-row-val">${r.totalSize} Members</span></div><div class="record-row"><span class="record-row-label">Distribution Hub:</span><span class="record-row-val">${r.distributionPoint}</span></div><div class="record-row" style="margin-top:4px"><span class="record-row-label">Allocated Supply:</span><span class="nets-badge">${r.netsAllocated} ITN Nets</span></div></div>`).join('');}
+function syncData(btn){const o=btn.innerHTML;btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Syncing…';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-cloud-arrow-up"></i> Done';setTimeout(()=>{btn.disabled=false;btn.innerHTML=o;},2000);alert(`Sync complete: ${db.length} entries uploaded to MoH server.`);},2500);}
+
+/* ══ DASHBOARD ══ */
+const dashDistricts=[
+  {name:'Bo',pct:91,nets:142000,teams:14},{name:'Bombali',pct:85,nets:128000,teams:12},{name:'Kenema',pct:80,nets:119000,teams:11},
+  {name:'Port Loko',pct:76,nets:110000,teams:10},{name:'Tonkolili',pct:74,nets:104000,teams:9},{name:'Western Urban',pct:70,nets:98000,teams:14},
+  {name:'Kono',pct:68,nets:91000,teams:8},{name:'Kailahun',pct:65,nets:87000,teams:7},{name:'Kambia',pct:62,nets:80000,teams:7},
+  {name:'Moyamba',pct:58,nets:74000,teams:6},{name:'Bonthe',pct:55,nets:66000,teams:5},{name:'Pujehun',pct:52,nets:60000,teams:5},
+  {name:'Karene',pct:48,nets:54000,teams:4},{name:'Falaba',pct:44,nets:46000,teams:2}
+];
+let barChartInst=null,donutChartInst=null,dashInitDone=false;
+function initDashboard(){
+  if(dashInitDone)return;dashInitDone=true;
+  renderDistrictBreakdown(dashDistricts);renderTeamsTable(dashDistricts);
+  const bCtx=document.getElementById('barChart')?.getContext('2d');
+  if(bCtx){barChartInst=new Chart(bCtx,{type:'bar',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{label:'Nets',data:[42000,58000,71000,65000,89000,94000,78000],backgroundColor:'rgba(74,222,128,.75)',borderColor:'#4ade80',borderWidth:1.5,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#2d3139'},ticks:{color:'rgba(255,255,255,.45)',font:{size:9}}},y:{grid:{color:'#2d3139'},ticks:{color:'rgba(255,255,255,.45)',font:{size:9},callback:v=>(v/1000)+'K'}}}}});}
+  const dCtx=document.getElementById('donutChart')?.getContext('2d');
+  if(dCtx){donutChartInst=new Chart(dCtx,{type:'doughnut',data:{labels:['Covered','Remaining'],datasets:[{data:[78,22],backgroundColor:['#4ade80','#2d3139'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{display:false}}}});}
+}
+function renderDistrictBreakdown(list){
+  const el=document.getElementById('district-breakdown');if(!el)return;
+  el.innerHTML=list.map(d=>`<div style="margin-bottom:9px;"><div style="display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.7);margin-bottom:3px;"><span>${d.name}</span><span style="color:#4ade80;font-weight:700;">${d.pct}%</span></div><div style="background:#2d3139;border-radius:4px;height:4px;overflow:hidden;"><div style="width:${d.pct}%;height:100%;background:linear-gradient(90deg,#4ade80,#22c55e);border-radius:4px;"></div></div></div>`).join('');
+}
+function renderTeamsTable(list){
+  const el=document.getElementById('teams-table');if(!el)return;
+  el.innerHTML=list.map(d=>`<div style="display:grid;grid-template-columns:2fr 1fr 1fr;font-size:11px;padding:8px 4px;border-bottom:1px solid #1e2128;color:rgba(255,255,255,.8);"><span>${d.name}</span><span style="text-align:right;color:#60a5fa;font-weight:700">${(d.nets/1000).toFixed(0)}K</span><span style="text-align:right;color:#c084fc;font-weight:700">${d.teams}</span></div>`).join('');
+}
+function dashSearch(kw){const q=kw.toLowerCase(),f=q?dashDistricts.filter(d=>d.name.toLowerCase().includes(q)):dashDistricts;renderDistrictBreakdown(f);renderTeamsTable(f);}
+
+/* ══ ID CARD ══ */
+const slData={"Bo":{"Kakua":["Bo Gov Hospital","Kakua PHU"],"Bumpe":["Bumpe Clinic"],"Jimi":["Jimi PHU"]},"Bombali":{"Makari":["Makari PHU"],"Bombali Sebora":["Bombali PHU","Makeni Gov Hospital"]},"Bonthe":{"Imperri":["Imperri PHU"],"Bonthe":["Bonthe Hospital"]},"Falaba":{"Mongo":["Mongo PHU"],"Sulima":["Sulima PHU"]},"Kailahun":{"Luawa":["Luawa PHU"],"Jawei":["Jawei PHU"]},"Kambia":{"Magbema":["Kambia Gov Hospital"],"Mambolo":["Mambolo PHU"]},"Karene":{"Sella Limba":["Kamakwie PHU"],"Sanda Loko":["Sanda Loko PHU"]},"Kenema":{"Nongowa":["Kenema Gov Hospital"],"Gaura":["Joru PHU"]},"Koinadugu":{"Wara Wara":["Kabala Hospital"],"Dembelia":["Dembelia PHU"]},"Kono":{"Kamara":["Koidu Gov Hospital"],"Tankoro":["Tankoro PHU"]},"Moyamba":{"Kaiyamba":["Moyamba Gov Hospital"],"Bagruwa":["Bagruwa PHU"]},"Port Loko":{"Maforki":["Port Loko Gov Hospital"],"Bureh":["Bureh PHU"]},"Pujehun":{"Kpanga":["Pujehun Gov Hospital"],"Galliness":["Galliness PHU"]},"Tonkolili":{"Kholifa":["Magburaka Gov Hospital"],"Kunike":["Kunike PHU"]},"Western Rural":{"Waterloo":["Waterloo PHU"],"Koya":["Koya PHU"]},"Western Urban":{"Freetown City":["Connaught Hospital","Lumley PHU","Ola During Children's Hospital"]}};
+(function initIDDistricts(){const s=document.getElementById('id-district');if(!s)return;Object.keys(slData).forEach(d=>{const o=document.createElement('option');o.value=d;o.textContent=d;s.appendChild(o);});})();
+function idUpdateChiefdoms(){const d=document.getElementById('id-district').value,c=document.getElementById('id-chiefdom'),p=document.getElementById('id-phu');c.innerHTML='<option value="">Select Chiefdom</option>';p.innerHTML='<option value="">Select Chiefdom First</option>';if(d&&slData[d])Object.keys(slData[d]).forEach(ch=>{const o=document.createElement('option');o.value=ch;o.textContent=ch;c.appendChild(o);});}
+function idUpdatePHUs(){const d=document.getElementById('id-district').value,c=document.getElementById('id-chiefdom').value,p=document.getElementById('id-phu');p.innerHTML='<option value="">Select PHU</option>';if(d&&c&&slData[d]&&slData[d][c])slData[d][c].forEach(ph=>{const o=document.createElement('option');o.value=ph;o.textContent=ph;p.appendChild(o);});}
+let idQRInstance=null;
+function generateIDCard(e){e.preventDefault();const name=document.getElementById('id-name').value.trim(),tel=document.getElementById('id-tel').value.trim(),role=document.getElementById('id-role').value,district=document.getElementById('id-district').value,chiefdom=document.getElementById('id-chiefdom').value,phu=document.getElementById('id-phu').value,community=document.getElementById('id-community').value.trim();if(!name||!tel||!role||!district||!chiefdom||!phu||!community){alert('Please fill in all required fields.');return;}if(!/^0\d{8}$/.test(tel)){alert('Phone must start with 0 and be exactly 9 digits.');return;}const idNum=name.substring(0,3).toUpperCase()+tel,loc=`${district}, ${community}`;document.getElementById('id-out-name').textContent=name;document.getElementById('id-out-role').textContent=role;document.getElementById('id-out-id').textContent=idNum;document.getElementById('id-out-phu').textContent=phu;document.getElementById('id-out-loc').textContent=loc;const qrEl=document.getElementById('id-qrcode');qrEl.innerHTML='';idQRInstance=new QRCode(qrEl,{text:`ID:${idNum}|Name:${name}|Role:${role}|PHU:${phu}|Loc:${loc}`,width:56,height:56});document.getElementById('id-card-output').style.display='block';setTimeout(()=>document.getElementById('id-card-output').scrollIntoView({behavior:'smooth',block:'start'}),150);}
+function previewIDPhoto(input){if(input.files&&input.files[0]){const img=document.getElementById('id-preview-img');img.src=URL.createObjectURL(input.files[0]);img.style.display='block';if(img.nextElementSibling)img.nextElementSibling.style.display='none';}}
+function downloadIDCard(){const card=document.getElementById('id-card-print');if(!card||document.getElementById('id-card-output').style.display==='none'){alert('Please generate an ID card first.');return;}html2canvas(card,{scale:2,useCORS:true}).then(canvas=>{const l=document.createElement('a');l.download='ITN_ID_Card.png';l.href=canvas.toDataURL('image/png');l.click();});}
+function clearIDForm(){document.getElementById('id-card-form').reset();document.getElementById('id-card-output').style.display='none';document.getElementById('id-preview-img').src='';document.getElementById('id-qrcode').innerHTML='';document.getElementById('id-chiefdom').innerHTML='<option value="">Select District First</option>';document.getElementById('id-phu').innerHTML='<option value="">Select Chiefdom First</option>';}
+</script>
 </body>
 </html>
