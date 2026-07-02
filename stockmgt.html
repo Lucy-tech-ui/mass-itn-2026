@@ -1,0 +1,2889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITN Mass Campaign Stock Management - Sierra Leone</title>
+    <style>
+        :root {
+            --primary: #1a5f2a;
+            --primary-light: #2d8a3e;
+            --primary-dark: #0d3d18;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --info: #2563eb;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.5;
+        }
+
+        .container { max-width: 1600px; margin: 0 auto; padding: 24px; }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-lg);
+            color: white;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .header-subtitle {
+            font-size: 0.9375rem;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-header {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-header:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--primary-light);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { background: #15803d; }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #b91c1c; }
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+        .btn-secondary:hover { background: var(--gray-200); }
+        .btn-sm { padding: 6px 12px; font-size: 0.875rem; }
+        .btn-icon { padding: 8px; width: 36px; height: 36px; }
+
+        /* Campaign Bar */
+        .campaign-bar {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .campaign-bar label { font-weight: 600; font-size: 0.875rem; }
+
+        .campaign-bar select {
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 0.9375rem;
+            min-width: 280px;
+            cursor: pointer;
+        }
+
+        .campaign-bar select option { color: var(--gray-800); }
+        .campaign-bar select:focus { outline: none; border-color: rgba(255,255,255,0.6); }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-info { background: #dbeafe; color: #1e40af; }
+        .badge-dark { background: rgba(0,0,0,0.2); color: white; }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border-top: 3px solid var(--primary);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .stat-card.warning { border-top-color: var(--warning); }
+        .stat-card.danger { border-top-color: var(--danger); }
+        .stat-card.info { border-top-color: var(--info); }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .stat-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-top: 4px;
+        }
+
+        /* Panels */
+        .panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .panel-title {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-body { padding: 20px 24px; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 2px;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 0 24px;
+            background: var(--gray-50);
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            white-space: nowrap;
+        }
+
+        .tab:hover { color: var(--gray-700); }
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: white;
+            margin-bottom: -1px;
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Form Elements */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group.full-width { grid-column: 1 / -1; }
+
+        label {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        input, select, textarea {
+            padding: 9px 14px;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            color: var(--gray-800);
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 95, 42, 0.1);
+        }
+
+        textarea { resize: vertical; min-height: 80px; }
+
+        /* Validation styles */
+        input.valid { border-color: var(--success); background: #f0fdf4; }
+        input.invalid { border-color: var(--danger); background: #fef2f2; }
+
+        .validation-msg {
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 2px;
+            min-height: 18px;
+        }
+        .validation-msg.valid { color: var(--success); }
+        .validation-msg.invalid { color: var(--danger); }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--gray-200);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        thead { background: var(--gray-50); }
+
+        th {
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--gray-200);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-700);
+            vertical-align: middle;
+        }
+
+        tbody tr { transition: background 0.15s; }
+        tbody tr:hover { background: var(--gray-50); }
+        tbody tr:last-child td { border-bottom: none; }
+
+        .stock-input {
+            width: 70px;
+            padding: 5px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* Progress */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-fill.high { background: var(--success); }
+        .progress-fill.medium { background: var(--warning); }
+        .progress-fill.low { background: var(--danger); }
+
+        /* Alerts */
+        .alert {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.9375rem;
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            border: 1px solid #fde68a;
+            color: #92400e;
+        }
+
+        .alert-danger {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+
+        /* Hierarchy Tree */
+        .hierarchy-tree { font-size: 0.875rem; }
+
+        .district-item {
+            margin-bottom: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+
+        .district-header {
+            background: linear-gradient(90deg, var(--gray-50), white);
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--gray-800);
+            transition: background 0.2s;
+        }
+
+        .district-header:hover { background: var(--gray-100); }
+
+        .district-header .expand-icon {
+            transition: transform 0.2s;
+            font-size: 0.75rem;
+        }
+
+        .district-item.expanded .expand-icon { transform: rotate(90deg); }
+
+        .district-content { display: none; padding: 0 16px 12px; }
+        .district-item.expanded .district-content { display: block; }
+
+        .chiefdom-item {
+            margin: 6px 0;
+            padding: 10px 14px;
+            background: var(--gray-50);
+            border-radius: 6px;
+            border-left: 3px solid var(--primary-light);
+        }
+
+        .chiefdom-name {
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 6px;
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .phu-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .phu-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        .phu-tag .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+
+        .phu-tag .dot.warning { background: var(--warning); }
+        .phu-tag .dot.danger { background: var(--danger); }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 24px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: modalSlideIn 0.2s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 22px 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-400);
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover { background: var(--gray-100); color: var(--gray-600); }
+
+        .modal-body { padding: 20px 24px; }
+        .modal-footer {
+            padding: 16px 24px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding-left: 40px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-400);
+        }
+
+        .empty-state-icon { font-size: 3rem; margin-bottom: 16px; }
+        .empty-state-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+        }
+
+        /* Province Headers */
+        .province-header {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 16px 0 8px;
+        }
+
+        /* Route display */
+        .route-display {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            font-size: 0.875rem;
+        }
+
+        .route-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0;
+        }
+
+        .route-arrow {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .route-label {
+            font-weight: 600;
+            color: var(--gray-700);
+            min-width: 100px;
+        }
+
+        .route-value {
+            color: var(--gray-600);
+        }
+
+        /* Calculation display */
+        .calc-display {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-top: 12px;
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 4px 0;
+            font-size: 0.9375rem;
+        }
+
+        .calc-total {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            border-top: 1px solid #bbf7d0;
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 16px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 1.25rem; }
+            .panel-body { padding: 16px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            .panel { box-shadow: none; border: 1px solid var(--gray-300); }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in { animation: fadeIn 0.3s ease forwards; }
+
+        /* Summary Cards */
+        .summary-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .summary-pill {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 10px 14px;
+            text-align: center;
+        }
+
+        .summary-pill-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .summary-pill-label {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+
+        /* Bales column styling */
+        .bales-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .bales-count {
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        .pieces-per-bale {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header animate-in">
+            <div class="header-top">
+                <div>
+                    <h1>
+                        <div class="header-icon">🦟</div>
+                        ITN Mass Campaign Stock Management
+                    </h1>
+                    <div class="header-subtitle">Sierra Leone | Insecticide-Treated Net Distribution Campaign</div>
+                </div>
+                <div class="header-actions no-print">
+                    <button class="btn btn-header" onclick="exportData('csv')">📥 Export CSV</button>
+                    <button class="btn btn-header" onclick="exportData('json')">💾 Export JSON</button>
+                    <button class="btn btn-header" onclick="window.print()">🖨️ Print</button>
+                    <button class="btn btn-header" style="background:rgba(255,255,255,0.25);" onclick="openModal('campaignModal')">➕ New Campaign</button>
+                </div>
+            </div>
+            <div class="campaign-bar no-print">
+                <label>Campaign:</label>
+                <select id="campaignSelect" onchange="switchCampaign()">
+                    <option value="">-- Select ITN Campaign --</option>
+                </select>
+                <span id="campaignStatus" class="badge badge-dark" style="display:none;">Active</span>
+                <span id="campaignPeriod" style="font-size:0.8125rem; opacity:0.8;"></span>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid animate-in" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-label">Total ITNs Distributed</div>
+                <div class="stat-value" id="statDistributed">0</div>
+                <div class="stat-desc">Across all districts</div>
+            </div>
+            <div class="stat-card info">
+                <div class="stat-label">Districts Covered</div>
+                <div class="stat-value">16</div>
+                <div class="stat-desc">All provinces</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Chiefdoms</div>
+                <div class="stat-value" id="statChiefdoms">0</div>
+                <div class="stat-desc">Active distribution points</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">PHUs</div>
+                <div class="stat-value" id="statPHUs">0</div>
+                <div class="stat-desc">Health units involved</div>
+            </div>
+            <div class="stat-card warning">
+                <div class="stat-label">Low Stock PHUs</div>
+                <div class="stat-value" id="statLowStock">0</div>
+                <div class="stat-desc">Need replenishment</div>
+            </div>
+            <div class="stat-card danger">
+                <div class="stat-label">Stock Outs</div>
+                <div class="stat-value" id="statStockOut">0</div>
+                <div class="stat-desc">Urgent attention needed</div>
+            </div>
+        </div>
+
+        <!-- Main Panel -->
+        <div class="panel animate-in" id="mainPanel" style="display:none;">
+            <div class="tabs no-print">
+                <button class="tab active" onclick="switchTab('distribution')">📊 Distribution by District</button>
+                <button class="tab" onclick="switchTab('phu-stock')">🏥 PHU Stock Levels</button>
+                <button class="tab" onclick="switchTab('movements')">📦 Stock Movements</button>
+                <button class="tab" onclick="switchTab('alerts')">🚨 Alerts</button>
+                <button class="tab" onclick="switchTab('reports')">📈 Reports</button>
+                <button class="tab" onclick="switchTab('settings')">⚙️ Settings</button>
+            </div>
+
+            <!-- Distribution Tab -->
+            <div id="tab-distribution" class="tab-content active">
+                <div class="panel-body">
+                    <div class="toolbar no-print">
+                        <div class="search-box">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="searchDistrict" placeholder="Search district, chiefdom, or PHU..." onkeyup="filterHierarchy()">
+                        </div>
+                        <select id="provinceFilter" onchange="filterHierarchy()">
+                            <option value="">All Provinces</option>
+                            <option value="Western">Western Area</option>
+                            <option value="Northern">Northern Province</option>
+                            <option value="Northwestern">Northwestern Province</option>
+                            <option value="Southern">Southern Province</option>
+                            <option value="Eastern">Eastern Province</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('distributionModal')">➕ Record Distribution</button>
+                    </div>
+                    <div id="hierarchyContainer"></div>
+                </div>
+            </div>
+
+            <!-- PHU Stock Tab -->
+            <div id="tab-phu-stock" class="tab-content">
+                <div class="panel-body">
+                    <div class="toolbar no-print">
+                        <div class="search-box">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="searchPHU" placeholder="Search PHU name..." onkeyup="filterPHUStock()">
+                        </div>
+                        <select id="districtFilter" onchange="filterPHUStock()">
+                            <option value="">All Districts</option>
+                        </select>
+                        <select id="phuStatusFilter" onchange="filterPHUStock()">
+                            <option value="">All Status</option>
+                            <option value="ok">Adequate Stock</option>
+                            <option value="low">Low Stock</option>
+                            <option value="out">Stock Out</option>
+                        </select>
+                        <button class="btn btn-success btn-sm" onclick="openModal('stockInModal')">📥 Stock In</button>
+                        <button class="btn btn-warning btn-sm" onclick="openModal('stockOutModal')">📤 Stock Out</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="selectAllPHU" onchange="toggleSelectAllPHU()"></th>
+                                    <th>PHU Name</th>
+                                    <th>Type</th>
+                                    <th>District</th>
+                                    <th>Chiefdom</th>
+                                    <th>Current Stock (ITNs)</th>
+                                    <th>Bales</th>
+                                    <th>Pcs/Bale</th>
+                                    <th>Min. Level</th>
+                                    <th>Distributed</th>
+                                    <th>Remaining</th>
+                                    <th>Status</th>
+                                    <th>Coverage %</th>
+                                    <th class="no-print">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="phuStockTable"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="phuEmptyState" style="display:none;">
+                        <div class="empty-state-icon">📭</div>
+                        <div class="empty-state-title">No PHUs found</div>
+                        <p>Try adjusting your filters or add new distribution points.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Movements Tab -->
+            <div id="tab-movements" class="tab-content">
+                <div class="panel-body">
+                    <div class="toolbar no-print">
+                        <button class="btn btn-primary btn-sm" onclick="openModal('movementModal')">➕ Record Movement</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Route</th>
+                                    <th>Bales</th>
+                                    <th>Pcs/Bale</th>
+                                    <th>Total ITNs</th>
+                                    <th>ITN Type</th>
+                                    <th>Batch #</th>
+                                    <th>Reference</th>
+                                </tr>
+                            </thead>
+                            <tbody id="movementsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts Tab -->
+            <div id="tab-alerts" class="tab-content">
+                <div class="panel-body">
+                    <div id="alertsContainer"></div>
+                </div>
+            </div>
+
+            <!-- Reports Tab -->
+            <div id="tab-reports" class="tab-content">
+                <div class="panel-body">
+                    <div class="summary-row">
+                        <div class="summary-pill">
+                            <div class="summary-pill-value" id="reportTotalITNs">0</div>
+                            <div class="summary-pill-label">Total ITNs</div>
+                        </div>
+                        <div class="summary-pill">
+                            <div class="summary-pill-value" id="reportTotalBales">0</div>
+                            <div class="summary-pill-label">Total Bales</div>
+                        </div>
+                        <div class="summary-pill">
+                            <div class="summary-pill-value" id="reportDistributed">0</div>
+                            <div class="summary-pill-label">Distributed</div>
+                        </div>
+                        <div class="summary-pill">
+                            <div class="summary-pill-value" id="reportRemaining">0</div>
+                            <div class="summary-pill-label">Remaining</div>
+                        </div>
+                        <div class="summary-pill">
+                            <div class="summary-pill-value" id="reportCoverage">0%</div>
+                            <div class="summary-pill-label">Coverage Rate</div>
+                        </div>
+                        <div class="summary-pill">
+                            <div class="summary-pill-value" id="reportHouseholds">0</div>
+                            <div class="summary-pill-label">Households Reached</div>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>District</th>
+                                    <th>Province</th>
+                                    <th>Chiefdoms</th>
+                                    <th>PHUs</th>
+                                    <th>Bales</th>
+                                    <th>ITNs Allocated</th>
+                                    <th>ITNs Distributed</th>
+                                    <th>Remaining</th>
+                                    <th>Coverage %</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="tab-settings" class="tab-content">
+                <div class="panel-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Campaign Name</label>
+                            <input type="text" id="editCampaignName">
+                        </div>
+                        <div class="form-group">
+                            <label>Campaign Code</label>
+                            <input type="text" id="editCampaignCode">
+                        </div>
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" id="editCampaignStart">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" id="editCampaignEnd">
+                        </div>
+                        <div class="form-group">
+                            <label>Target Households</label>
+                            <input type="number" id="editCampaignTarget" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Default Pieces per Bale</label>
+                            <input type="number" id="editCampaignPcsPerBale" min="1" value="50">
+                        </div>
+                        <div class="form-group">
+                            <label>ITN Type</label>
+                            <select id="editCampaignITNType">
+                                <option value="LLIN">Long-Lasting Insecticidal Net (LLIN)</option>
+                                <option value="PBO">PBO Net</option>
+                                <option value="Standard">Standard ITN</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Program Manager</label>
+                            <input type="text" id="editCampaignManager">
+                        </div>
+                        <div class="form-group">
+                            <label>Partner Organization</label>
+                            <input type="text" id="editCampaignPartner" placeholder="e.g., NMCP, PMI, Global Fund">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Campaign Description</label>
+                            <textarea id="editCampaignDesc" placeholder="Campaign objectives, target population, etc."></textarea>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px;" class="no-print">
+                        <button class="btn btn-primary" onclick="saveCampaignSettings()">💾 Save Settings</button>
+                        <button class="btn btn-danger" onclick="deleteCampaign()">🗑️ Delete Campaign</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="panel animate-in" id="noCampaignPanel">
+            <div class="empty-state">
+                <div class="empty-state-icon">🦟</div>
+                <div class="empty-state-title">No ITN Campaign Selected</div>
+                <p>Select an existing campaign or create a new one to start managing ITN distribution across Sierra Leone's 16 districts.</p>
+                <button class="btn btn-primary" style="margin-top: 16px;" onclick="openModal('campaignModal')">
+                    ➕ Create New ITN Campaign
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Campaign Modal -->
+    <div class="modal-overlay" id="campaignModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">🆕 Create New ITN Campaign</div>
+                <button class="modal-close" onclick="closeModal('campaignModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Campaign Name *</label>
+                        <input type="text" id="newCampaignName" placeholder="e.g., 2026 Universal ITN Campaign">
+                    </div>
+                    <div class="form-group">
+                        <label>Campaign Code</label>
+                        <input type="text" id="newCampaignCode" placeholder="e.g., ITN-SL-2026">
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date *</label>
+                        <input type="date" id="newCampaignStart">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" id="newCampaignEnd">
+                    </div>
+                    <div class="form-group">
+                        <label>Target Households</label>
+                        <input type="number" id="newCampaignTarget" min="0" placeholder="e.g., 1500000">
+                    </div>
+                    <div class="form-group">
+                        <label>Default Pieces per Bale</label>
+                        <input type="number" id="newCampaignPcsPerBale" min="1" value="50">
+                    </div>
+                    <div class="form-group">
+                        <label>ITN Type</label>
+                        <select id="newCampaignITNType">
+                            <option value="LLIN">Long-Lasting Insecticidal Net (LLIN)</option>
+                            <option value="PBO">PBO Net</option>
+                            <option value="Standard">Standard ITN</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Program Manager</label>
+                        <input type="text" id="newCampaignManager" placeholder="Campaign manager name">
+                    </div>
+                    <div class="form-group">
+                        <label>Partner Organization</label>
+                        <input type="text" id="newCampaignPartner" placeholder="e.g., NMCP, PMI">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Description</label>
+                        <textarea id="newCampaignDesc" placeholder="Campaign objectives and notes..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('campaignModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="createCampaign()">Create Campaign</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Record Distribution Modal -->
+    <div class="modal-overlay" id="distributionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">📦 Record ITN Distribution</div>
+                <button class="modal-close" onclick="closeModal('distributionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Distribution Route Display -->
+                <div class="route-display" id="distRouteDisplay" style="display:none;">
+                    <div style="font-weight:700;margin-bottom:8px;color:var(--primary-dark);">📍 Distribution Route</div>
+                    <div class="route-step">
+                        <span class="route-label">Central Warehouse</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-value" id="routeDistrict">Select District</span>
+                    </div>
+                    <div class="route-step">
+                        <span class="route-label">District Store</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-value" id="routeChiefdom">Select Chiefdom</span>
+                    </div>
+                    <div class="route-step">
+                        <span class="route-label">Chiefdom Hub</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-value" id="routePHU">Select PHU</span>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>District *</label>
+                        <select id="distDistrict" onchange="loadChiefdoms(); updateRoute()">
+                            <option value="">-- Select District --</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Chiefdom *</label>
+                        <select id="distChiefdom" onchange="loadPHUs(); updateRoute()">
+                            <option value="">-- Select Chiefdom --</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>PHU / Distribution Point *</label>
+                        <select id="distPHU" onchange="updateRoute()">
+                            <option value="">-- Select PHU --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ITN Type</label>
+                        <select id="distITNType">
+                            <option value="LLIN">LLIN</option>
+                            <option value="PBO">PBO Net</option>
+                            <option value="Standard">Standard ITN</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Bales *</label>
+                        <input type="number" id="distBales" min="1" placeholder="e.g., 10" oninput="validateDistributionCalc()">
+                    </div>
+                    <div class="form-group">
+                        <label>Pieces per Bale *</label>
+                        <input type="number" id="distPcsPerBale" min="1" value="50" placeholder="e.g., 50" oninput="validateDistributionCalc()">
+                    </div>
+                    <div class="form-group">
+                        <label>Total ITNs (Auto-calculated)</label>
+                        <input type="number" id="distTotalITNs" readonly style="background:var(--gray-100);font-weight:700;color:var(--primary-dark);">
+                    </div>
+                    <div class="form-group">
+                        <label>Households Reached</label>
+                        <input type="number" id="distHouseholds" min="1" placeholder="Number of households">
+                    </div>
+                    <div class="form-group">
+                        <label>Distribution Date *</label>
+                        <input type="date" id="distDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Batch Number</label>
+                        <input type="text" id="distBatch" placeholder="e.g., BATCH-2026-A">
+                    </div>
+                    <div class="form-group full-width">
+                        <div id="distValidationMsg" class="validation-msg"></div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Notes</label>
+                        <textarea id="distNotes" placeholder="Any additional information..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('distributionModal')">Cancel</button>
+                <button class="btn btn-primary" id="distSubmitBtn" onclick="recordDistribution()">Record Distribution</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stock In Modal -->
+    <div class="modal-overlay" id="stockInModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">📥 Stock In (Receive ITNs)</div>
+                <button class="modal-close" onclick="closeModal('stockInModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Stock In Route -->
+                <div class="route-display" id="stockInRouteDisplay">
+                    <div style="font-weight:700;margin-bottom:8px;color:var(--primary-dark);">📍 Receiving Route</div>
+                    <div class="route-step">
+                        <span class="route-label">Supplier / Source</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-value" id="stockInRouteSource">Central Warehouse</span>
+                    </div>
+                    <div class="route-step">
+                        <span class="route-label">Destination</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-value" id="stockInRouteDest">Select PHU below</span>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>PHU / Location *</label>
+                        <select id="stockInPHU" onchange="updateStockInRoute()">
+                            <option value="">-- Select PHU --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Bales *</label>
+                        <input type="number" id="stockInBales" min="1" placeholder="e.g., 20" oninput="validateStockInCalc()">
+                    </div>
+                    <div class="form-group">
+                        <label>Pieces per Bale *</label>
+                        <input type="number" id="stockInPcsPerBale" min="1" value="50" placeholder="e.g., 50" oninput="validateStockInCalc()">
+                    </div>
+                    <div class="form-group">
+                        <label>Total ITNs (Auto-calculated)</label>
+                        <input type="number" id="stockInTotalITNs" readonly style="background:var(--gray-100);font-weight:700;color:var(--primary-dark);">
+                    </div>
+                    <div class="form-group">
+                        <label>ITN Type</label>
+                        <select id="stockInType">
+                            <option value="LLIN">LLIN</option>
+                            <option value="PBO">PBO Net</option>
+                            <option value="Standard">Standard ITN</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Batch Number</label>
+                        <input type="text" id="stockInBatch" placeholder="e.g., BATCH-2026-A">
+                    </div>
+                    <div class="form-group">
+                        <label>Date Received *</label>
+                        <input type="date" id="stockInDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Source</label>
+                        <input type="text" id="stockInSource" placeholder="e.g., Central Warehouse, Partner NGO" oninput="updateStockInRoute()">
+                    </div>
+                    <div class="form-group full-width">
+                        <div id="stockInValidationMsg" class="validation-msg"></div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Notes</label>
+                        <textarea id="stockInNotes"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('stockInModal')">Cancel</button>
+                <button class="btn btn-success" id="stockInSubmitBtn" onclick="recordStockIn()">Receive Stock</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stock Out Modal -->
+    <div class="modal-overlay" id="stockOutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">📤 Stock Out (Distribute ITNs)</div>
+                <button class="modal-close" onclick="closeModal('stockOutModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Stock Out Route -->
+                <div class="route-display" id="stockOutRouteDisplay">
+                    <div style="font-weight:700;margin-bottom:8px;color:var(--primary-dark);">📍 Distribution Route</div>
+                    <div class="route-step">
+                        <span class="route-label">Source PHU</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-value" id="stockOutRouteSource">Select PHU below</span>
+                    </div>
+                    <div class="route-step">
+                        <span class="route-label">Final Destination</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-value">Households / Beneficiaries</span>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>PHU / Location *</label>
+                        <select id="stockOutPHU" onchange="updateStockOutRoute()">
+                            <option value="">-- Select PHU --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Bales *</label>
+                        <input type="number" id="stockOutBales" min="1" placeholder="e.g., 5" oninput="validateStockOutCalc()">
+                    </div>
+                    <div class="form-group">
+                        <label>Pieces per Bale *</label>
+                        <input type="number" id="stockOutPcsPerBale" min="1" value="50" placeholder="e.g., 50" oninput="validateStockOutCalc()">
+                    </div>
+                    <div class="form-group">
+                        <label>Total ITNs (Auto-calculated)</label>
+                        <input type="number" id="stockOutTotalITNs" readonly style="background:var(--gray-100);font-weight:700;color:var(--primary-dark);">
+                    </div>
+                    <div class="form-group">
+                        <label>Households Reached</label>
+                        <input type="number" id="stockOutHH" min="1" placeholder="Number of households">
+                    </div>
+                    <div class="form-group">
+                        <label>Date *</label>
+                        <input type="date" id="stockOutDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Distribution Method</label>
+                        <select id="stockOutMethod">
+                            <option value="household">Household-to-Household</option>
+                            <option value="fixed">Fixed Point Distribution</option>
+                            <option value="school">School-Based</option>
+                            <option value="anc">ANC/Clinic-Based</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <div id="stockOutValidationMsg" class="validation-msg"></div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Notes</label>
+                        <textarea id="stockOutNotes"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('stockOutModal')">Cancel</button>
+                <button class="btn btn-warning" id="stockOutSubmitBtn" onclick="recordStockOut()">Distribute Stock</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Movement Modal -->
+    <div class="modal-overlay" id="movementModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">🚚 Record Stock Movement</div>
+                <button class="modal-close" onclick="closeModal('movementModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Movement Route -->
+                <div class="route-display" id="movementRouteDisplay">
+                    <div style="font-weight:700;margin-bottom:8px;color:var(--primary-dark);">📍 Movement Route</div>
+                    <div class="route-step">
+                        <span class="route-label">From (Source)</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-value" id="movRouteFrom">Select source PHU</span>
+                    </div>
+                    <div class="route-step">
+                        <span class="route-label">To (Destination)</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-value" id="movRouteTo">Select destination PHU</span>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Movement Type *</label>
+                        <select id="movType">
+                            <option value="transfer">Transfer Between PHUs</option>
+                            <option value="return">Return to Warehouse</option>
+                            <option value="adjustment">Stock Adjustment</option>
+                            <option value="damage">Damaged/Lost</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Bales *</label>
+                        <input type="number" id="movBales" min="1" placeholder="e.g., 10" oninput="validateMovementCalc()">
+                    </div>
+                    <div class="form-group">
+                        <label>Pieces per Bale *</label>
+                        <input type="number" id="movPcsPerBale" min="1" value="50" placeholder="e.g., 50" oninput="validateMovementCalc()">
+                    </div>
+                    <div class="form-group">
+                        <label>Total ITNs (Auto-calculated)</label>
+                        <input type="number" id="movTotalITNs" readonly style="background:var(--gray-100);font-weight:700;color:var(--primary-dark);">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>From PHU</label>
+                        <select id="movFrom" onchange="updateMovementRoute()">
+                            <option value="">-- Select Source --</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>To PHU</label>
+                        <select id="movTo" onchange="updateMovementRoute()">
+                            <option value="">-- Select Destination --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date *</label>
+                        <input type="date" id="movDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Reference #</label>
+                        <input type="text" id="movRef" placeholder="Waybill / Transfer note">
+                    </div>
+                    <div class="form-group full-width">
+                        <div id="movValidationMsg" class="validation-msg"></div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Reason / Notes</label>
+                        <textarea id="movNotes"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('movementModal')">Cancel</button>
+                <button class="btn btn-primary" id="movSubmitBtn" onclick="recordMovement()">Record Movement</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        // ==================== SIERRA LEONE DATA ====================
+        const sierraLeoneData = {
+            "Western": {
+                "Western Area Rural": {
+                    chiefdoms: ["Waterloo", "Koya", "Mountain"],
+                    phus: [
+                        "Adonkia MCHP", "Bathurst MCHP", "Charlotte MCHP", "Goderich CHP", "Hamilton CHC",
+                        "Hastings MCHP", "Jui CHC", "Kossoh Town MCHP", "Lakka MCHP", "Leicester MCHP",
+                        "Madina MCHP", "Malambay MCHP", "Mountain Cut MCHP", "Newton MCHP", "Regent MCHP",
+                        "Rokel MCHP", "Samuel Town MCHP", "Sattia MCHP", "Sussex MCHP", "Tissana MCHP",
+                        "Tombo CHP", "Waterloo CHC", "York MCHP"
+                    ]
+                },
+                "Western Area Urban": {
+                    chiefdoms: ["Central", "East", "West"],
+                    phus: [
+                        "Aberdeen MCHP", "Adama MCHP", "Ascension MCHP", "Brookfields CHC", "Cline Town MCHP",
+                        "Cockle Bay MCHP", "Connaught Hospital", "Cottage Hospital", "Dworzak Farm MCHP",
+                        "George Brook MCHP", "Ginger Hall MCHP", "Hill Station MCHP", "Jalloh Terrace MCHP",
+                        "Kaningo MCHP", "Kissy Bye Pass CHC", "Kissy Mental Hospital", "Kissy Town MCHP",
+                        "Kroo Bay CHP", "Lumley MCHP", "Malama MCHP", "Mannah MCHP", "Marie Stopes Clinic",
+                        "Murray Town MCHP", "New England MCHP", "Ola During Children's Hospital", "Pamoronko MCHP",
+                        "PCMH", "Pentecostal MCHP", "Rokupa CHC", "Ross Road MCHP", "Russel MCHP",
+                        "Sander MCHP", "Sawpit MCHP", "Shell MCHP", "Sierra Leone Church MCHP",
+                        "Spur Loop MCHP", "St. John MCHP", "St. Mary's MCHP", "Susan's Bay MCHP",
+                        "Tengbeh Town MCHP", "Tower Hill MCHP", "Wellington CHC", "Wilberforce CHC"
+                    ]
+                }
+            },
+            "Northern": {
+                "Bombali": {
+                    chiefdoms: ["Bombali Sebora", "Bombali Siaray", "Makari", "Gbanti", "Paki Masabong", "Safroko Limba", "Biriwa Limba", "Gbendembu", "Ngowahun", "Magbaiamba-Ndowahun", "Kamaranka", "Mara"],
+                    phus: [
+                        "Makeni CHC", "Makeni Government Hospital", "Magburaka CHC", "Kamaranka CHC",
+                        "Binkolo CHP", "Kamabai CHP", "Mapaki CHP", "Hunduwa MCHP", "Mara CHP",
+                        "Makari CHP", "Gbanti CHP", "Paki Masabong CHP", "Safroko Limba CHP",
+                        "Biriwa Limba CHP", "Gbendembu CHP", "Ngowahun CHP", "Magbaiamba CHP",
+                        "Kamaranka MCHP", "Mara MCHP", "Makari MCHP", "Gbanti MCHP",
+                        "Bombali Sebora MCHP", "Bombali Siaray MCHP", "Paki Masabong MCHP",
+                        "Safroko Limba MCHP", "Biriwa Limba MCHP", "Gbendembu MCHP",
+                        "Ngowahun MCHP", "Magbaiamba-Ndowahun MCHP"
+                    ]
+                },
+                "Falaba": {
+                    chiefdoms: ["Neya", "Nyedu", "Kulor-Seradu", "Mongo", "Seradu", "Morifindugu", "Delemandugu", "Sulima", "Kabelia", "Folasaba-Kamba", "Dembelia Musaia", "Dembelia Sikunia", "Kamadugu-Yiraia"],
+                    phus: [
+                        "Krubola CHC", "Bendugu CHP", "Falaba CHC", "Sikunia CHP",
+                        "Neya MCHP", "Nyedu MCHP", "Kulor-Seradu MCHP", "Mongo MCHP",
+                        "Seradu MCHP", "Morifindugu MCHP", "Delemandugu MCHP", "Sulima MCHP",
+                        "Kabelia MCHP", "Folasaba-Kamba MCHP", "Dembelia Musaia MCHP",
+                        "Dembelia Sikunia MCHP", "Kamadugu-Yiraia MCHP"
+                    ]
+                },
+                "Koinadugu": {
+                    chiefdoms: ["Wara-Wara Bafodia", "Kamukeh", "Sengbe", "Wara-Wara Yagalla", "Diang", "Kasunko-Kakellay", "Gbongobor-Kayaka", "Thamiso", "Neini", "Kallian", "Barawa-Wolley"],
+                    phus: [
+                        "Bafodea CHC", "Yogomaia CHP", "Gbawuria CHP", "Kondembaia CHP",
+                        "Yiffin CHP", "Kakellay CHP", "Kayaka CHP", "Thamiso CHP",
+                        "Wara-Wara Bafodia MCHP", "Kamukeh MCHP", "Sengbe MCHP",
+                        "Wara-Wara Yagalla MCHP", "Diang MCHP", "Kasunko-Kakellay MCHP",
+                        "Gbongobor-Kayaka MCHP", "Neini MCHP", "Kallian MCHP", "Barawa-Wolley MCHP"
+                    ]
+                },
+                "Tonkolili": {
+                    chiefdoms: ["Dansogoia", "Kalantuba", "Kafe", "Simiria", "Kholifa Rowala", "Tane", "Kunike Gbarnga", "Kholifa Mayosso-Mamuntha", "Kunike Sanda", "Kunike Folawusu", "Yele", "Mayeppoh", "Poli", "Masakong", "Yoni Mabanta", "Yoni Mamailla", "Kholifa Mabang", "Malal", "Sambaia"],
+                    phus: [
+                        "Magburaka CHC", "Matotoka CHC", "Yele CHP", "Bendugu CHP",
+                        "Kholifa Rowala CHP", "Kunike Gbarnga CHP", "Kunike Sanda CHP",
+                        "Yoni Mabanta CHP", "Yoni Mamailla CHP", "Kholifa Mabang CHP",
+                        "Malal CHP", "Sambaia CHP", "Dansogoia MCHP", "Kalantuba MCHP",
+                        "Kafe MCHP", "Simiria MCHP", "Tane MCHP", "Kholifa Mayosso MCHP",
+                        "Kunike Folawusu MCHP", "Mayeppoh MCHP", "Poli MCHP", "Masakong MCHP"
+                    ]
+                }
+            },
+            "Northwestern": {
+                "Kambia": {
+                    chiefdoms: ["Magbema", "Mambolo", "Samu", "Gbinle", "Dixon", "Tonko Limba", "Bramaia", "Khonimakha", "Masungbala", "Tala-Munu"],
+                    phus: [
+                        "Kambia CHC", "Mambolo CHC", "Kychum CHP", "Madina CHP",
+                        "Kukuna CHP", "Kawulia CHP", "Magbema CHP", "Samu CHP",
+                        "Gbinle CHP", "Dixon CHP", "Tonko Limba CHP", "Bramaia CHP",
+                        "Khonimakha CHP", "Masungbala CHP", "Tala-Munu CHP",
+                        "Kambia MCHP", "Mambolo MCHP", "Samu MCHP", "Gbinle MCHP",
+                        "Dixon MCHP", "Tonko Limba MCHP", "Bramaia MCHP"
+                    ]
+                },
+                "Karene": {
+                    chiefdoms: ["Tambakha Simibungie", "Tambakha Yobangie", "Gbanti", "Libeisaygahun-Gombagu", "Mafonda", "Makerembay", "Sanda Tendaren", "Sanda Magbolontor", "Sella Limba", "Sanda Loko", "Buya", "Romende", "Safroko", "Dibia"],
+                    phus: [
+                        "Kamakwie CHC", "Batkanu CHP", "Mateboi CHP", "Sendugu CHP",
+                        "Kamalo CHP", "Kamakwie CHP", "Tambakha Simibungie CHP",
+                        "Tambakha Yobangie CHP", "Gbanti CHP", "Libeisaygahun CHP",
+                        "Mafonda CHP", "Makerembay CHP", "Sanda Tendaren CHP",
+                        "Sanda Magbolontor CHP", "Sella Limba CHP", "Sanda Loko CHP",
+                        "Buya CHP", "Romende CHP", "Safroko CHP", "Dibia CHP"
+                    ]
+                },
+                "Port Loko": {
+                    chiefdoms: ["Bureh", "Kasseh", "Maconteh", "Bake-Loko", "Maforki", "Lokomassama", "Kamasondo", "Kaffu Bullom", "Marampa", "Koya", "Masimera", "Thainkatopa", "Makama"],
+                    phus: [
+                        "Port Loko CHC", "Lunsar CHC", "Mahera CHC", "Songo CHP",
+                        "Masimera CHP", "Petifu CHP", "Bureh CHP", "Kasseh CHP",
+                        "Maconteh CHP", "Bake-Loko CHP", "Maforki CHP", "Lokomassama CHP",
+                        "Kamasondo CHP", "Kaffu Bullom CHP", "Marampa CHP", "Koya CHP",
+                        "Thainkatopa CHP", "Makama CHP", "Port Loko MCHP", "Lunsar MCHP"
+                    ]
+                }
+            },
+            "Southern": {
+                "Bo": {
+                    chiefdoms: ["Badja", "Bagbe", "Bagbo", "Baoma", "Bumpe", "Gbo", "Jaiama", "Bongor", "Kakua", "Komboya", "Lugbu", "Niawa-Lenga", "Selenga", "Tikonko", "Valunia", "Wonde"],
+                    phus: [
+                        "Bo CHC", "Bo Government Hospital", "Njala CHC", "Sumbuya CHC",
+                        "Tikonko CHC", "Baoma CHP", "Badja CHP", "Bagbe CHP", "Bagbo CHP",
+                        "Bumpe CHP", "Gbo CHP", "Jaiama CHP", "Bongor CHP", "Kakua CHP",
+                        "Komboya CHP", "Lugbu CHP", "Niawa-Lenga CHP", "Selenga CHP",
+                        "Valunia CHP", "Wonde CHP", "Bo MCHP", "Njala MCHP", "Sumbuya MCHP"
+                    ]
+                },
+                "Bonthe": {
+                    chiefdoms: ["Bendu Cha", "Bum", "Dema", "Imperi", "Jong", "Kpanda-Kemo", "Kwamebai Krim", "Nongoba Bullom", "Sittia", "Sogbini", "Yawbeko"],
+                    phus: [
+                        "Bonthe CHC", "Mattru CHC", "Tihun CHC", "Bendu Cha CHP",
+                        "Bum CHP", "Dema CHP", "Imperi CHP", "Jong CHP", "Kpanda-Kemo CHP",
+                        "Kwamebai Krim CHP", "Nongoba Bullom CHP", "Sittia CHP",
+                        "Sogbini CHP", "Yawbeko CHP", "Bonthe MCHP", "Mattru MCHP",
+                        "Tihun MCHP", "Bendu Cha MCHP", "Bum MCHP"
+                    ]
+                },
+                "Moyamba": {
+                    chiefdoms: ["Bagruwa", "Banta", "Banta-Mokele", "Bumpe", "Dasse", "Fakunya", "Kaiyamba", "Kagboro", "Kamajei", "Kongboro", "Kori", "Kowa", "Ribbi", "Timdel"],
+                    phus: [
+                        "Moyamba CHC", "Shenge CHC", "Rotifunk CHC", "Mano CHC",
+                        "Gandohun CHC", "Bauya CHC", "Taiama CHC", "Njama CHC",
+                        "Bradford CHC", "Bomotoke CHC", "Bagruwa CHP", "Banta CHP",
+                        "Banta-Mokele CHP", "Bumpe CHP", "Dasse CHP", "Fakunya CHP",
+                        "Kaiyamba CHP", "Kagboro CHP", "Kamajei CHP", "Kongboro CHP",
+                        "Kori CHP", "Kowa CHP", "Ribbi CHP", "Timdel CHP"
+                    ]
+                },
+                "Pujehun": {
+                    chiefdoms: ["Barri", "Gallines", "Perri", "Kpaka", "Makpele", "Malen", "Mano Sakrim", "Kpanga", "Kabonde", "Kpanga-Krim", "Peje", "Soro Gbema", "Sowa", "Yekemo-Kpukumu-Krim"],
+                    phus: [
+                        "Pujehun CHC", "Zimmi CHC", "Sahn CHC", "Gbonjema CHC",
+                        "Gobaru CHC", "Futta CHC", "Fairo CHC", "Bandajuma CHC",
+                        "Karlu CHC", "Massam CHC", "Barri CHP", "Gallines CHP",
+                        "Perri CHP", "Kpaka CHP", "Makpele CHP", "Malen CHP",
+                        "Mano Sakrim CHP", "Kpanga CHP", "Kabonde CHP",
+                        "Kpanga-Krim CHP", "Peje CHP", "Soro Gbema CHP", "Sowa CHP"
+                    ]
+                }
+            },
+            "Eastern": {
+                "Kailahun": {
+                    chiefdoms: ["Dea", "Njaluahun", "Kissi Kama", "Kissi Teng", "Kissi Tongi", "Jawei", "Luawa", "Malema", "Mandu", "Peje West", "Penguia", "Upper Bambara", "Kpeje Bongre", "Yawei"],
+                    phus: [
+                        "Kailahun CHC", "Segbwema CHC", "Daru CHC", "Pendembu CHC",
+                        "Baiwala CHP", "Manowa CHP", "Sandaru CHP", "Buedu CHP",
+                        "Kangama CHP", "Dea CHP", "Njaluahun CHP", "Kissi Kama CHP",
+                        "Kissi Teng CHP", "Kissi Tongi CHP", "Jawei CHP", "Luawa CHP",
+                        "Malema CHP", "Mandu CHP", "Peje West CHP", "Penguia CHP",
+                        "Upper Bambara CHP", "Kpeje Bongre CHP", "Yawei CHP"
+                    ]
+                },
+                "Kenema": {
+                    chiefdoms: ["Dama", "Dodo", "Gaura", "Gorama Mende", "Kandu Leppiama", "Koya", "Langrama", "Lower Bambara", "Malegohun", "Niawa", "Nomo", "Nongowa", "Simbaru", "Small Bo", "Tunkia", "Wando"],
+                    phus: [
+                        "Kenema CHC", "Kenema Government Hospital", "Boajibu CHC", "Blama CHC",
+                        "Gorahun CHC", "Faala CHC", "Giema CHP", "Dodo CHP", "Joru CHP",
+                        "Tungie CHP", "Gbado CHP", "Baoma CHP", "Ya Baima CHP", "Panguma CHP",
+                        "Sembehun CHP", "Sundumei CHP", "Faama CHP", "Nongowa CHP",
+                        "Simbaru CHP", "Small Bo CHP", "Tunkia CHP", "Wando CHP",
+                        "Dama CHP", "Gaura CHP", "Kandu Leppiama CHP", "Koya CHP",
+                        "Langrama CHP", "Lower Bambara CHP", "Malegohun CHP", "Niawa CHP", "Nomo CHP"
+                    ]
+                },
+                "Kono": {
+                    chiefdoms: ["Tankoro", "Gbense", "Kama'a", "Nimikoro", "Nimiyama", "Sandor", "Toli", "Gbane", "Lei", "Soa", "Fiama", "Gorama Kono", "Mafindor", "Gbane Kandor"],
+                    phus: [
+                        "Koidu CHC", "Kono Government Hospital", "New Sembehun CHC", "Yardu CHP",
+                        "Tombodu CHP", "Njaiama CHP", "Sewafe CHP", "Kayima CHP",
+                        "Kondewakor CHP", "Ngandorhun CHP", "Siama CHP", "Kainkordu CHP",
+                        "Njagbwema CHP", "Kangama CHP", "Kamiendor CHP", "Koardu CHP",
+                        "Tankoro CHP", "Gbense CHP", "Kama'a CHP", "Nimikoro CHP",
+                        "Nimiyama CHP", "Sandor CHP", "Toli CHP", "Gbane CHP",
+                        "Lei CHP", "Soa CHP", "Fiama CHP", "Gorama Kono CHP",
+                        "Mafindor CHP", "Gbane Kandor CHP"
+                    ]
+                }
+            }
+        };
+
+        // Data Store
+        let campaigns = JSON.parse(localStorage.getItem('itnCampaigns')) || [];
+        let currentCampaignId = null;
+        let selectedPHUs = new Set();
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('newCampaignStart').value = today;
+            document.getElementById('distDate').value = today;
+            document.getElementById('stockInDate').value = today;
+            document.getElementById('stockOutDate').value = today;
+            document.getElementById('movDate').value = today;
+
+            populateDistrictSelects();
+            updateCampaignSelect();
+
+            if (campaigns.length > 0) {
+                document.getElementById('campaignSelect').value = campaigns[0].id;
+                switchCampaign();
+            }
+        });
+
+        // ==================== VALIDATION FUNCTIONS ====================
+        function validateBalesCalculation(balesInput, pcsInput, totalInput, msgId, submitBtnId) {
+            const bales = parseInt(document.getElementById(balesInput).value) || 0;
+            const pcsPerBale = parseInt(document.getElementById(pcsInput).value) || 0;
+            const totalField = document.getElementById(totalInput);
+            const msgField = document.getElementById(msgId);
+            const submitBtn = document.getElementById(submitBtnId);
+
+            if (bales > 0 && pcsPerBale > 0) {
+                const total = bales * pcsPerBale;
+                totalField.value = total;
+
+                document.getElementById(balesInput).classList.add('valid');
+                document.getElementById(balesInput).classList.remove('invalid');
+                document.getElementById(pcsInput).classList.add('valid');
+                document.getElementById(pcsInput).classList.remove('invalid');
+                msgField.textContent = '✅ Valid: ' + bales + ' bales × ' + pcsPerBale + ' pcs = ' + total + ' ITNs';
+                msgField.className = 'validation-msg valid';
+                if (submitBtn) submitBtn.disabled = false;
+                return total;
+            } else {
+                totalField.value = '';
+                document.getElementById(balesInput).classList.remove('valid', 'invalid');
+                document.getElementById(pcsInput).classList.remove('valid', 'invalid');
+                msgField.textContent = '';
+                if (submitBtn) submitBtn.disabled = false; // Allow submit, server-side validation will catch issues
+            }
+            return 0;
+        }
+
+        function validateDistributionCalc() {
+            return validateBalesCalculation('distBales', 'distPcsPerBale', 'distTotalITNs', 'distValidationMsg', 'distSubmitBtn');
+        }
+
+        function validateStockInCalc() {
+            return validateBalesCalculation('stockInBales', 'stockInPcsPerBale', 'stockInTotalITNs', 'stockInValidationMsg', 'stockInSubmitBtn');
+        }
+
+        function validateStockOutCalc() {
+            return validateBalesCalculation('stockOutBales', 'stockOutPcsPerBale', 'stockOutTotalITNs', 'stockOutValidationMsg', 'stockOutSubmitBtn');
+        }
+
+        function validateMovementCalc() {
+            return validateBalesCalculation('movBales', 'movPcsPerBale', 'movTotalITNs', 'movValidationMsg', 'movSubmitBtn');
+        }
+
+        // ==================== ROUTE DISPLAY FUNCTIONS ====================
+        function updateRoute() {
+            const district = document.getElementById('distDistrict').value;
+            const chiefdom = document.getElementById('distChiefdom').value;
+            const phu = document.getElementById('distPHU').value;
+
+            const routeDisplay = document.getElementById('distRouteDisplay');
+            if (district || chiefdom || phu) {
+                routeDisplay.style.display = 'block';
+                document.getElementById('routeDistrict').textContent = district || 'Select District';
+                document.getElementById('routeChiefdom').textContent = chiefdom || 'Select Chiefdom';
+                document.getElementById('routePHU').textContent = phu || 'Select PHU';
+            }
+        }
+
+        function updateStockInRoute() {
+            const phu = document.getElementById('stockInPHU').value;
+            const source = document.getElementById('stockInSource').value || 'Central Warehouse';
+            document.getElementById('stockInRouteSource').textContent = source;
+            document.getElementById('stockInRouteDest').textContent = phu || 'Select PHU below';
+        }
+
+        function updateStockOutRoute() {
+            const phu = document.getElementById('stockOutPHU').value;
+            document.getElementById('stockOutRouteSource').textContent = phu || 'Select PHU below';
+        }
+
+        function updateMovementRoute() {
+            const fromPHU = document.getElementById('movFrom').value;
+            const toPHU = document.getElementById('movTo').value;
+            document.getElementById('movRouteFrom').textContent = fromPHU || 'Select source PHU';
+            document.getElementById('movRouteTo').textContent = toPHU || 'Select destination PHU';
+        }
+
+        // ==================== POPULATE DROPDOWNS ====================
+        function populateDistrictSelects() {
+            const districts = [];
+            for (const province in sierraLeoneData) {
+                for (const district in sierraLeoneData[province]) {
+                    districts.push({ province, district });
+                }
+            }
+            districts.sort((a, b) => a.district.localeCompare(b.district));
+
+            const distSelect = document.getElementById('distDistrict');
+            const districtFilter = document.getElementById('districtFilter');
+
+            districts.forEach(({ province, district }) => {
+                const option1 = document.createElement('option');
+                option1.value = district;
+                option1.textContent = district + ' (' + province + ')';
+                distSelect.appendChild(option1);
+
+                const option2 = document.createElement('option');
+                option2.value = district;
+                option2.textContent = district;
+                districtFilter.appendChild(option2);
+            });
+        }
+
+        function loadChiefdoms() {
+            const district = document.getElementById('distDistrict').value;
+            const chiefdomSelect = document.getElementById('distChiefdom');
+            chiefdomSelect.innerHTML = '<option value="">-- Select Chiefdom --</option>';
+            document.getElementById('distPHU').innerHTML = '<option value="">-- Select PHU --</option>';
+
+            if (!district) return;
+
+            for (const province in sierraLeoneData) {
+                if (sierraLeoneData[province][district]) {
+                    sierraLeoneData[province][district].chiefdoms.forEach(ch => {
+                        const opt = document.createElement('option');
+                        opt.value = ch;
+                        opt.textContent = ch;
+                        chiefdomSelect.appendChild(opt);
+                    });
+                    break;
+                }
+            }
+        }
+
+        function loadPHUs() {
+            const district = document.getElementById('distDistrict').value;
+            const phuSelect = document.getElementById('distPHU');
+            phuSelect.innerHTML = '<option value="">-- Select PHU --</option>';
+
+            if (!district) return;
+
+            for (const province in sierraLeoneData) {
+                if (sierraLeoneData[province][district]) {
+                    sierraLeoneData[province][district].phus.forEach(phu => {
+                        const opt = document.createElement('option');
+                        opt.value = phu;
+                        opt.textContent = phu;
+                        phuSelect.appendChild(opt);
+                    });
+                    break;
+                }
+            }
+        }
+
+        // ==================== CAMPAIGN MANAGEMENT ====================
+        function createCampaign() {
+            const name = document.getElementById('newCampaignName').value.trim();
+            const code = document.getElementById('newCampaignCode').value.trim();
+            const start = document.getElementById('newCampaignStart').value;
+            const end = document.getElementById('newCampaignEnd').value;
+            const target = parseInt(document.getElementById('newCampaignTarget').value) || 0;
+            const pcsPerBale = parseInt(document.getElementById('newCampaignPcsPerBale').value) || 50;
+            const itnType = document.getElementById('newCampaignITNType').value;
+            const manager = document.getElementById('newCampaignManager').value.trim();
+            const partner = document.getElementById('newCampaignPartner').value.trim();
+            const desc = document.getElementById('newCampaignDesc').value.trim();
+
+            if (!name || !start) {
+                alert('Please fill in required fields (Name and Start Date)');
+                return;
+            }
+
+            // Initialize PHU stock data for all 16 districts with bales tracking
+            const phuStock = {};
+            for (const province in sierraLeoneData) {
+                for (const district in sierraLeoneData[province]) {
+                    phuStock[district] = {};
+                    sierraLeoneData[province][district].phus.forEach(phu => {
+                        phuStock[district][phu] = {
+                            currentStock: 0,
+                            currentBales: 0,
+                            pcsPerBale: pcsPerBale,
+                            minLevel: 50,
+                            distributed: 0,
+                            distributedBales: 0,
+                            householdsReached: 0,
+                            itnType: itnType,
+                            lastUpdated: new Date().toISOString()
+                        };
+                    });
+                }
+            }
+
+            const campaign = {
+                id: 'itn_' + Date.now(),
+                name,
+                code: code || 'ITN-SL-' + new Date().getFullYear(),
+                start,
+                end,
+                targetHouseholds: target,
+                defaultPcsPerBale: pcsPerBale,
+                itnType,
+                manager,
+                partner,
+                description: desc,
+                created: new Date().toISOString(),
+                phuStock,
+                movements: [],
+                distributions: []
+            };
+
+            campaigns.push(campaign);
+            saveData();
+            updateCampaignSelect();
+            document.getElementById('campaignSelect').value = campaign.id;
+            switchCampaign();
+            closeModal('campaignModal');
+
+            // Reset form
+            document.getElementById('newCampaignName').value = '';
+            document.getElementById('newCampaignCode').value = '';
+            document.getElementById('newCampaignTarget').value = '';
+            document.getElementById('newCampaignPcsPerBale').value = '50';
+            document.getElementById('newCampaignManager').value = '';
+            document.getElementById('newCampaignPartner').value = '';
+            document.getElementById('newCampaignDesc').value = '';
+        }
+
+        function deleteCampaign() {
+            if (!currentCampaignId) return;
+            if (!confirm('Are you sure you want to delete this ITN campaign? This action cannot be undone.')) return;
+
+            campaigns = campaigns.filter(c => c.id !== currentCampaignId);
+            saveData();
+            currentCampaignId = null;
+            updateCampaignSelect();
+            document.getElementById('campaignSelect').value = '';
+            switchCampaign();
+        }
+
+        function switchCampaign() {
+            const select = document.getElementById('campaignSelect');
+            currentCampaignId = select.value;
+
+            const mainPanel = document.getElementById('mainPanel');
+            const noCampaignPanel = document.getElementById('noCampaignPanel');
+            const statusBadge = document.getElementById('campaignStatus');
+            const periodSpan = document.getElementById('campaignPeriod');
+
+            if (!currentCampaignId) {
+                mainPanel.style.display = 'none';
+                noCampaignPanel.style.display = 'block';
+                statusBadge.style.display = 'none';
+                periodSpan.textContent = '';
+                return;
+            }
+
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            mainPanel.style.display = 'block';
+            noCampaignPanel.style.display = 'none';
+            statusBadge.style.display = 'inline-flex';
+            periodSpan.textContent = campaign.start + (campaign.end ? ' to ' + campaign.end : '');
+
+            // Update settings tab
+            document.getElementById('editCampaignName').value = campaign.name;
+            document.getElementById('editCampaignCode').value = campaign.code;
+            document.getElementById('editCampaignStart').value = campaign.start;
+            document.getElementById('editCampaignEnd').value = campaign.end || '';
+            document.getElementById('editCampaignTarget').value = campaign.targetHouseholds || '';
+            document.getElementById('editCampaignPcsPerBale').value = campaign.defaultPcsPerBale || 50;
+            document.getElementById('editCampaignITNType').value = campaign.itnType || 'LLIN';
+            document.getElementById('editCampaignManager').value = campaign.manager || '';
+            document.getElementById('editCampaignPartner').value = campaign.partner || '';
+            document.getElementById('editCampaignDesc').value = campaign.description || '';
+
+            updateStats();
+            renderHierarchy();
+            renderPHUStock();
+            renderMovements();
+            renderAlerts();
+            renderReports();
+            updatePHUSelects();
+        }
+
+        function saveCampaignSettings() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            campaign.name = document.getElementById('editCampaignName').value;
+            campaign.code = document.getElementById('editCampaignCode').value;
+            campaign.start = document.getElementById('editCampaignStart').value;
+            campaign.end = document.getElementById('editCampaignEnd').value;
+            campaign.targetHouseholds = parseInt(document.getElementById('editCampaignTarget').value) || 0;
+            campaign.defaultPcsPerBale = parseInt(document.getElementById('editCampaignPcsPerBale').value) || 50;
+            campaign.itnType = document.getElementById('editCampaignITNType').value;
+            campaign.manager = document.getElementById('editCampaignManager').value;
+            campaign.partner = document.getElementById('editCampaignPartner').value;
+            campaign.description = document.getElementById('editCampaignDesc').value;
+
+            saveData();
+            updateCampaignSelect();
+            alert('Campaign settings saved successfully!');
+        }
+
+        // ==================== STOCK OPERATIONS ====================
+        function recordDistribution() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            const district = document.getElementById('distDistrict').value;
+            const chiefdom = document.getElementById('distChiefdom').value;
+            const phu = document.getElementById('distPHU').value;
+            const itnType = document.getElementById('distITNType').value;
+            const bales = parseInt(document.getElementById('distBales').value) || 0;
+            const pcsPerBale = parseInt(document.getElementById('distPcsPerBale').value) || 0;
+            const totalITNs = bales * pcsPerBale;
+            const households = parseInt(document.getElementById('distHouseholds').value) || 0;
+            const date = document.getElementById('distDate').value;
+            const batch = document.getElementById('distBatch').value.trim();
+            const notes = document.getElementById('distNotes').value.trim();
+
+            if (!district || !chiefdom || !phu || !bales || !pcsPerBale || !date) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Validate: Bales * Pieces per Bale = Total ITNs
+            if (bales * pcsPerBale !== totalITNs) {
+                alert('Validation failed: Number of Bales × Pieces per Bale must equal Total ITNs');
+                return;
+            }
+
+            if (!campaign.phuStock[district] || !campaign.phuStock[district][phu]) {
+                alert('PHU not found in campaign data');
+                return;
+            }
+
+            const phuData = campaign.phuStock[district][phu];
+            if (phuData.currentStock < totalITNs) {
+                alert('Insufficient stock at this PHU. Current stock: ' + phuData.currentStock + ' ITNs (' + phuData.currentBales + ' bales)');
+                return;
+            }
+
+            phuData.currentStock -= totalITNs;
+            phuData.currentBales = Math.floor(phuData.currentStock / phuData.pcsPerBale);
+            phuData.distributed += totalITNs;
+            phuData.distributedBales += bales;
+            phuData.householdsReached += households;
+            phuData.lastUpdated = new Date().toISOString();
+
+            campaign.distributions.push({
+                id: 'dist_' + Date.now(),
+                district, chiefdom, phu,
+                itnType, bales, pcsPerBale, totalITNs, households,
+                date, batch, notes,
+                route: 'Central Warehouse → ' + district + ' → ' + chiefdom + ' → ' + phu,
+                recordedAt: new Date().toISOString()
+            });
+
+            campaign.movements.push({
+                id: 'mov_' + Date.now(),
+                type: 'out',
+                district, chiefdom, phu,
+                itnType, bales, pcsPerBale, quantity: totalITNs,
+                date, reference: batch || 'Distribution',
+                route: 'Central Warehouse → ' + district + ' → ' + chiefdom + ' → ' + phu,
+                notes: notes || 'ITN distribution to households',
+                recordedAt: new Date().toISOString()
+            });
+
+            saveData();
+            updateStats();
+            renderHierarchy();
+            renderPHUStock();
+            renderMovements();
+            renderAlerts();
+            renderReports();
+            closeModal('distributionModal');
+
+            // Reset form
+            document.getElementById('distDistrict').value = '';
+            document.getElementById('distChiefdom').innerHTML = '<option value="">-- Select Chiefdom --</option>';
+            document.getElementById('distPHU').innerHTML = '<option value="">-- Select PHU --</option>';
+            document.getElementById('distBales').value = '';
+            document.getElementById('distPcsPerBale').value = campaign.defaultPcsPerBale || 50;
+            document.getElementById('distTotalITNs').value = '';
+            document.getElementById('distHouseholds').value = '';
+            document.getElementById('distBatch').value = '';
+            document.getElementById('distNotes').value = '';
+            document.getElementById('distRouteDisplay').style.display = 'none';
+            document.getElementById('distValidationMsg').textContent = '';
+
+            alert('Distribution recorded successfully! ' + bales + ' bales (' + totalITNs + ' ITNs) distributed.');
+        }
+
+        function recordStockIn() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            const phu = document.getElementById('stockInPHU').value;
+            const bales = parseInt(document.getElementById('stockInBales').value) || 0;
+            const pcsPerBale = parseInt(document.getElementById('stockInPcsPerBale').value) || 0;
+            const totalITNs = bales * pcsPerBale;
+            const itnType = document.getElementById('stockInType').value;
+            const batch = document.getElementById('stockInBatch').value.trim();
+            const date = document.getElementById('stockInDate').value;
+            const source = document.getElementById('stockInSource').value.trim();
+            const notes = document.getElementById('stockInNotes').value.trim();
+
+            if (!phu || !bales || !pcsPerBale || !date) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Validate: Bales * Pieces per Bale = Total ITNs
+            if (bales * pcsPerBale !== totalITNs) {
+                alert('Validation failed: Number of Bales × Pieces per Bale must equal Total ITNs');
+                return;
+            }
+
+            let district = null;
+            for (const prov in sierraLeoneData) {
+                for (const dist in sierraLeoneData[prov]) {
+                    if (sierraLeoneData[prov][dist].phus.includes(phu)) {
+                        district = dist;
+                        break;
+                    }
+                }
+                if (district) break;
+            }
+
+            if (!district || !campaign.phuStock[district] || !campaign.phuStock[district][phu]) {
+                alert('PHU not found');
+                return;
+            }
+
+            campaign.phuStock[district][phu].currentStock += totalITNs;
+            campaign.phuStock[district][phu].currentBales += bales;
+            campaign.phuStock[district][phu].pcsPerBale = pcsPerBale;
+            campaign.phuStock[district][phu].lastUpdated = new Date().toISOString();
+
+            campaign.movements.push({
+                id: 'mov_' + Date.now(),
+                type: 'in',
+                district, phu,
+                itnType, bales, pcsPerBale, quantity: totalITNs,
+                date, reference: batch || 'Stock In',
+                source,
+                route: (source || 'Central Warehouse') + ' → ' + district + ' → ' + phu,
+                notes: notes || 'ITN stock received',
+                recordedAt: new Date().toISOString()
+            });
+
+            saveData();
+            updateStats();
+            renderHierarchy();
+            renderPHUStock();
+            renderMovements();
+            renderAlerts();
+            renderReports();
+            closeModal('stockInModal');
+
+            document.getElementById('stockInPHU').value = '';
+            document.getElementById('stockInBales').value = '';
+            document.getElementById('stockInPcsPerBale').value = campaign.defaultPcsPerBale || 50;
+            document.getElementById('stockInTotalITNs').value = '';
+            document.getElementById('stockInBatch').value = '';
+            document.getElementById('stockInSource').value = '';
+            document.getElementById('stockInNotes').value = '';
+            document.getElementById('stockInValidationMsg').textContent = '';
+
+            alert('Stock received successfully! ' + bales + ' bales (' + totalITNs + ' ITNs) added.');
+        }
+
+        function recordStockOut() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            const phu = document.getElementById('stockOutPHU').value;
+            const bales = parseInt(document.getElementById('stockOutBales').value) || 0;
+            const pcsPerBale = parseInt(document.getElementById('stockOutPcsPerBale').value) || 0;
+            const totalITNs = bales * pcsPerBale;
+            const households = parseInt(document.getElementById('stockOutHH').value) || 0;
+            const date = document.getElementById('stockOutDate').value;
+            const method = document.getElementById('stockOutMethod').value;
+            const notes = document.getElementById('stockOutNotes').value.trim();
+
+            if (!phu || !bales || !pcsPerBale || !date) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Validate: Bales * Pieces per Bale = Total ITNs
+            if (bales * pcsPerBale !== totalITNs) {
+                alert('Validation failed: Number of Bales × Pieces per Bale must equal Total ITNs');
+                return;
+            }
+
+            let district = null;
+            for (const prov in sierraLeoneData) {
+                for (const dist in sierraLeoneData[prov]) {
+                    if (sierraLeoneData[prov][dist].phus.includes(phu)) {
+                        district = dist;
+                        break;
+                    }
+                }
+                if (district) break;
+            }
+
+            if (!district || !campaign.phuStock[district] || !campaign.phuStock[district][phu]) {
+                alert('PHU not found');
+                return;
+            }
+
+            const phuData = campaign.phuStock[district][phu];
+            if (phuData.currentStock < totalITNs) {
+                alert('Insufficient stock. Current: ' + phuData.currentStock + ' ITNs (' + phuData.currentBales + ' bales)');
+                return;
+            }
+
+            phuData.currentStock -= totalITNs;
+            phuData.currentBales = Math.floor(phuData.currentStock / phuData.pcsPerBale);
+            phuData.distributed += totalITNs;
+            phuData.distributedBales += bales;
+            phuData.householdsReached += households;
+            phuData.lastUpdated = new Date().toISOString();
+
+            campaign.movements.push({
+                id: 'mov_' + Date.now(),
+                type: 'out',
+                district, phu,
+                itnType: phuData.itnType, bales, pcsPerBale, quantity: totalITNs,
+                date, reference: method,
+                route: phu + ' → Households / Beneficiaries',
+                notes: notes || 'Stock out - ' + method,
+                recordedAt: new Date().toISOString()
+            });
+
+            saveData();
+            updateStats();
+            renderHierarchy();
+            renderPHUStock();
+            renderMovements();
+            renderAlerts();
+            renderReports();
+            closeModal('stockOutModal');
+
+            document.getElementById('stockOutPHU').value = '';
+            document.getElementById('stockOutBales').value = '';
+            document.getElementById('stockOutPcsPerBale').value = campaign.defaultPcsPerBale || 50;
+            document.getElementById('stockOutTotalITNs').value = '';
+            document.getElementById('stockOutHH').value = '';
+            document.getElementById('stockOutNotes').value = '';
+            document.getElementById('stockOutValidationMsg').textContent = '';
+
+            alert('Stock out recorded successfully! ' + bales + ' bales (' + totalITNs + ' ITNs) distributed.');
+        }
+
+        function recordMovement() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            const type = document.getElementById('movType').value;
+            const bales = parseInt(document.getElementById('movBales').value) || 0;
+            const pcsPerBale = parseInt(document.getElementById('movPcsPerBale').value) || 0;
+            const totalITNs = bales * pcsPerBale;
+            const fromPHU = document.getElementById('movFrom').value;
+            const toPHU = document.getElementById('movTo').value;
+            const date = document.getElementById('movDate').value;
+            const ref = document.getElementById('movRef').value.trim();
+            const notes = document.getElementById('movNotes').value.trim();
+
+            if (!bales || !pcsPerBale || !date) {
+                alert('Please fill in required fields');
+                return;
+            }
+
+            // Validate: Bales * Pieces per Bale = Total ITNs
+            if (bales * pcsPerBale !== totalITNs) {
+                alert('Validation failed: Number of Bales × Pieces per Bale must equal Total ITNs');
+                return;
+            }
+
+            let fromDistrict = null, toDistrict = null;
+            for (const prov in sierraLeoneData) {
+                for (const dist in sierraLeoneData[prov]) {
+                    if (fromPHU && sierraLeoneData[prov][dist].phus.includes(fromPHU)) fromDistrict = dist;
+                    if (toPHU && sierraLeoneData[prov][dist].phus.includes(toPHU)) toDistrict = dist;
+                }
+            }
+
+            if (type === 'transfer' && fromPHU && toPHU) {
+                if (fromDistrict && campaign.phuStock[fromDistrict] && campaign.phuStock[fromDistrict][fromPHU]) {
+                    if (campaign.phuStock[fromDistrict][fromPHU].currentStock < totalITNs) {
+                        alert('Insufficient stock at source PHU');
+                        return;
+                    }
+                    campaign.phuStock[fromDistrict][fromPHU].currentStock -= totalITNs;
+                    campaign.phuStock[fromDistrict][fromPHU].currentBales = Math.floor(campaign.phuStock[fromDistrict][fromPHU].currentStock / campaign.phuStock[fromDistrict][fromPHU].pcsPerBale);
+                }
+                if (toDistrict && campaign.phuStock[toDistrict] && campaign.phuStock[toDistrict][toPHU]) {
+                    campaign.phuStock[toDistrict][toPHU].currentStock += totalITNs;
+                    campaign.phuStock[toDistrict][toPHU].currentBales += bales;
+                }
+            } else if (type === 'adjustment' && fromPHU) {
+                if (fromDistrict && campaign.phuStock[fromDistrict] && campaign.phuStock[fromDistrict][fromPHU]) {
+                    campaign.phuStock[fromDistrict][fromPHU].currentStock = totalITNs;
+                    campaign.phuStock[fromDistrict][fromPHU].currentBales = bales;
+                }
+            }
+
+            campaign.movements.push({
+                id: 'mov_' + Date.now(),
+                type,
+                fromPHU, toPHU,
+                district: fromDistrict || toDistrict,
+                bales, pcsPerBale, quantity: totalITNs,
+                date, reference: ref || type,
+                route: (fromPHU || 'Warehouse') + ' → ' + (toPHU || 'Warehouse'),
+                notes: notes || 'Stock movement recorded',
+                recordedAt: new Date().toISOString()
+            });
+
+            saveData();
+            updateStats();
+            renderHierarchy();
+            renderPHUStock();
+            renderMovements();
+            renderAlerts();
+            closeModal('movementModal');
+
+            document.getElementById('movBales').value = '';
+            document.getElementById('movPcsPerBale').value = campaign.defaultPcsPerBale || 50;
+            document.getElementById('movTotalITNs').value = '';
+            document.getElementById('movFrom').value = '';
+            document.getElementById('movTo').value = '';
+            document.getElementById('movRef').value = '';
+            document.getElementById('movNotes').value = '';
+            document.getElementById('movValidationMsg').textContent = '';
+
+            alert('Movement recorded successfully! ' + bales + ' bales (' + totalITNs + ' ITNs) moved.');
+        }
+
+        // ==================== RENDERING FUNCTIONS ====================
+        function renderHierarchy() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            const search = document.getElementById('searchDistrict').value.toLowerCase();
+            const provinceFilter = document.getElementById('provinceFilter').value;
+
+            const container = document.getElementById('hierarchyContainer');
+            let html = '';
+
+            for (const province in sierraLeoneData) {
+                if (provinceFilter && province !== provinceFilter) continue;
+
+                let provinceHasMatch = false;
+                let provinceHTML = '<div class="province-header">' + province + ' Province</div>';
+
+                for (const district in sierraLeoneData[province]) {
+                    const districtData = sierraLeoneData[province][district];
+                    const phuStock = campaign.phuStock[district] || {};
+
+                    let totalStock = 0, totalBales = 0, totalDist = 0, totalPHUs = 0;
+                    districtData.phus.forEach(phu => {
+                        if (phuStock[phu]) {
+                            totalStock += phuStock[phu].currentStock;
+                            totalBales += phuStock[phu].currentBales;
+                            totalDist += phuStock[phu].distributed;
+                            totalPHUs++;
+                        }
+                    });
+
+                    const matchesSearch = !search ||
+                        district.toLowerCase().includes(search) ||
+                        districtData.chiefdoms.some(c => c.toLowerCase().includes(search)) ||
+                        districtData.phus.some(p => p.toLowerCase().includes(search));
+
+                    if (!matchesSearch) continue;
+                    provinceHasMatch = true;
+
+                    let statusBadge = '<span class="badge badge-success">Adequate</span>';
+                    if (totalStock === 0) statusBadge = '<span class="badge badge-danger">Stock Out</span>';
+                    else if (totalStock < totalPHUs * 30) statusBadge = '<span class="badge badge-warning">Low Stock</span>';
+
+                    provinceHTML += '<div class="district-item" id="dist_' + district.replace(/\s+/g, '_') + '">';
+                    provinceHTML += '<div class="district-header" onclick="toggleDistrict(this)">';
+                    provinceHTML += '<div><strong>' + district + '</strong> &nbsp;' + statusBadge + '</div>';
+                    provinceHTML += '<div style="display:flex;gap:16px;align-items:center;">';
+                    provinceHTML += '<span style="font-size:0.8125rem;color:var(--gray-500);">' + totalPHUs + ' PHUs | ' + totalBales + ' bales | ' + totalStock + ' ITNs | Distributed: ' + totalDist + '</span>';
+                    provinceHTML += '<span class="expand-icon">▶</span>';
+                    provinceHTML += '</div></div>';
+
+                    provinceHTML += '<div class="district-content">';
+                    districtData.chiefdoms.forEach(chiefdom => {
+                        provinceHTML += '<div class="chiefdom-item">';
+                        provinceHTML += '<div class="chiefdom-name">' + chiefdom + ' Chiefdom</div>';
+                        provinceHTML += '<div class="phu-tags">';
+
+                        districtData.phus.forEach(phu => {
+                            const phuData = phuStock[phu] || { currentStock: 0, currentBales: 0, distributed: 0, pcsPerBale: 50 };
+                            let dotClass = 'dot';
+                            if (phuData.currentStock === 0) dotClass += ' danger';
+                            else if (phuData.currentStock < phuData.minLevel) dotClass += ' warning';
+
+                            provinceHTML += '<span class="phu-tag">';
+                            provinceHTML += '<span class="' + dotClass + '"></span>';
+                            provinceHTML += phu + ' (' + phuData.currentBales + ' bales, ' + phuData.currentStock + ' ITNs)';
+                            provinceHTML += '</span>';
+                        });
+
+                        provinceHTML += '</div></div>';
+                    });
+                    provinceHTML += '</div></div>';
+                }
+
+                if (provinceHasMatch) html += provinceHTML;
+            }
+
+            container.innerHTML = html || '<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-title">No results found</div></div>';
+        }
+
+        function toggleDistrict(header) {
+            const item = header.parentElement;
+            item.classList.toggle('expanded');
+        }
+
+        function renderPHUStock() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            const search = document.getElementById('searchPHU').value.toLowerCase();
+            const districtFilter = document.getElementById('districtFilter').value;
+            const statusFilter = document.getElementById('phuStatusFilter').value;
+
+            const tbody = document.getElementById('phuStockTable');
+            const emptyState = document.getElementById('phuEmptyState');
+            let rows = [];
+
+            for (const province in sierraLeoneData) {
+                for (const district in sierraLeoneData[province]) {
+                    if (districtFilter && district !== districtFilter) continue;
+
+                    const phuStock = campaign.phuStock[district] || {};
+                    sierraLeoneData[province][district].phus.forEach(phu => {
+                        const data = phuStock[phu] || { currentStock: 0, currentBales: 0, pcsPerBale: 50, minLevel: 50, distributed: 0 };
+
+                        if (search && !phu.toLowerCase().includes(search) && !district.toLowerCase().includes(search)) return;
+
+                        let status = 'ok';
+                        if (data.currentStock === 0) status = 'out';
+                        else if (data.currentStock < data.minLevel) status = 'low';
+
+                        if (statusFilter && status !== statusFilter) return;
+
+                        const remaining = data.currentStock;
+                        const coverage = data.distributed > 0 ? Math.min(100, (data.distributed / (data.distributed + remaining) * 100)) : 0;
+
+                        let statusBadge = '<span class="badge badge-success">Adequate</span>';
+                        if (status === 'out') statusBadge = '<span class="badge badge-danger">Stock Out</span>';
+                        else if (status === 'low') statusBadge = '<span class="badge badge-warning">Low Stock</span>';
+
+                        let progressClass = 'high';
+                        if (remaining < data.minLevel * 0.3) progressClass = 'low';
+                        else if (remaining < data.minLevel) progressClass = 'medium';
+
+                        const phuType = phu.includes('CHC') ? 'CHC' : phu.includes('CHP') ? 'CHP' : 'MCHP';
+
+                        // Find chiefdom (simplified)
+                        let chiefdom = sierraLeoneData[province][district].chiefdoms[0] || '';
+
+                        rows.push({
+                            phu, phuType, district, chiefdom, data, remaining, coverage, statusBadge, progressClass
+                        });
+                    });
+                }
+            }
+
+            if (rows.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            tbody.innerHTML = rows.map(r => `
+                <tr>
+                    <td><input type="checkbox" onchange="togglePHUSelect('${r.phu}')"></td>
+                    <td><strong>${r.phu}</strong></td>
+                    <td><span class="badge badge-info">${r.phuType}</span></td>
+                    <td>${r.district}</td>
+                    <td>${r.chiefdom}</td>
+                    <td><input type="number" class="stock-input" value="${r.data.currentStock}" onchange="updatePHUStock('${r.district}', '${r.phu}', this.value)"></td>
+                    <td><strong>${r.data.currentBales}</strong></td>
+                    <td>${r.data.pcsPerBale}</td>
+                    <td>${r.data.minLevel}</td>
+                    <td>${r.data.distributed}</td>
+                    <td><strong>${r.remaining}</strong></td>
+                    <td>${r.statusBadge}</td>
+                    <td>
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <div class="progress-bar" style="flex:1;"><div class="progress-fill ${r.progressClass}" style="width:${r.coverage}%"></div></div>
+                            <span style="font-size:0.75rem;color:var(--gray-500);min-width:35px;">${Math.round(r.coverage)}%</span>
+                        </div>
+                    </td>
+                    <td class="no-print">
+                        <button class="btn btn-sm btn-success" onclick="quickStockIn('${r.district}', '${r.phu}')">+</button>
+                        <button class="btn btn-sm btn-warning" onclick="quickStockOut('${r.district}', '${r.phu}')">-</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updatePHUStock(district, phu, newValue) {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign || !campaign.phuStock[district] || !campaign.phuStock[district][phu]) return;
+
+            const oldValue = campaign.phuStock[district][phu].currentStock;
+            const pcsPerBale = campaign.phuStock[district][phu].pcsPerBale || 50;
+            campaign.phuStock[district][phu].currentStock = Math.max(0, parseInt(newValue) || 0);
+            campaign.phuStock[district][phu].currentBales = Math.floor(campaign.phuStock[district][phu].currentStock / pcsPerBale);
+            campaign.phuStock[district][phu].lastUpdated = new Date().toISOString();
+
+            if (oldValue !== campaign.phuStock[district][phu].currentStock) {
+                campaign.movements.push({
+                    id: 'mov_' + Date.now(),
+                    type: 'adjustment',
+                    district, phu,
+                    quantity: Math.abs(campaign.phuStock[district][phu].currentStock - oldValue),
+                    date: new Date().toISOString().split('T')[0],
+                    reference: 'Manual Adjustment',
+                    route: 'Direct adjustment at ' + phu,
+                    notes: 'Adjusted from ' + oldValue + ' to ' + campaign.phuStock[district][phu].currentStock,
+                    recordedAt: new Date().toISOString()
+                });
+            }
+
+            saveData();
+            updateStats();
+            renderHierarchy();
+            renderPHUStock();
+            renderAlerts();
+        }
+
+        function quickStockIn(district, phu) {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            const pcsPerBale = campaign.phuStock[district][phu].pcsPerBale || 50;
+            const bales = prompt('Enter number of bales to add to ' + phu + ':');
+            if (!bales || isNaN(bales) || bales <= 0) return;
+            const totalITNs = parseInt(bales) * pcsPerBale;
+            updatePHUStock(district, phu, (campaign.phuStock[district][phu].currentStock + totalITNs));
+        }
+
+        function quickStockOut(district, phu) {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            const pcsPerBale = campaign.phuStock[district][phu].pcsPerBale || 50;
+            const current = campaign.phuStock[district][phu].currentStock;
+            const currentBales = campaign.phuStock[district][phu].currentBales;
+            const bales = prompt('Enter number of bales to distribute from ' + phu + ' (current: ' + currentBales + ' bales / ' + current + ' ITNs):');
+            if (!bales || isNaN(bales) || bales <= 0) return;
+            const totalITNs = parseInt(bales) * pcsPerBale;
+            if (totalITNs > current) {
+                alert('Insufficient stock!');
+                return;
+            }
+            updatePHUStock(district, phu, current - totalITNs);
+            campaign.phuStock[district][phu].distributed += totalITNs;
+            campaign.phuStock[district][phu].distributedBales += parseInt(bales);
+            saveData();
+            renderPHUStock();
+            renderReports();
+        }
+
+        function renderMovements() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            const tbody = document.getElementById('movementsTable');
+            const movements = [...(campaign.movements || [])].sort((a, b) => new Date(b.recordedAt) - new Date(a.recordedAt));
+
+            if (movements.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:var(--gray-400);padding:40px;">No movements recorded yet</td></tr>';
+                return;
+            }
+
+            const typeLabels = {
+                in: { label: 'Stock In', badge: 'badge-success' },
+                out: { label: 'Distribution', badge: 'badge-danger' },
+                transfer: { label: 'Transfer', badge: 'badge-info' },
+                adjustment: { label: 'Adjustment', badge: 'badge-warning' },
+                return: { label: 'Return', badge: 'badge-info' },
+                damage: { label: 'Damaged/Lost', badge: 'badge-danger' }
+            };
+
+            tbody.innerHTML = movements.slice(0, 100).map(mov => {
+                const t = typeLabels[mov.type] || { label: mov.type, badge: 'badge-info' };
+                return `
+                    <tr>
+                        <td>${new Date(mov.date).toLocaleDateString()}</td>
+                        <td><span class="badge ${t.badge}">${t.label}</span></td>
+                        <td>${mov.fromPHU || mov.source || '-'}</td>
+                        <td>${mov.toPHU || mov.phu || '-'}</td>
+                        <td>${mov.route || '-'}</td>
+                        <td>${mov.bales || '-'}</td>
+                        <td>${mov.pcsPerBale || '-'}</td>
+                        <td><strong>${mov.quantity || 0}</strong></td>
+                        <td>${mov.itnType || '-'}</td>
+                        <td>${mov.reference || mov.batch || '-'}</td>
+                        <td>${mov.notes || '-'}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderAlerts() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            const stockOuts = [];
+            const lowStock = [];
+
+            for (const district in campaign.phuStock) {
+                for (const phu in campaign.phuStock[district]) {
+                    const data = campaign.phuStock[district][phu];
+                    if (data.currentStock === 0) {
+                        stockOuts.push({ district, phu, data });
+                    } else if (data.currentStock < data.minLevel) {
+                        lowStock.push({ district, phu, data });
+                    }
+                }
+            }
+
+            const container = document.getElementById('alertsContainer');
+            let html = '';
+
+            if (stockOuts.length > 0) {
+                html += '<div class="alert alert-danger">🚨 <strong>' + stockOuts.length + ' PHUs</strong> are completely out of stock! Immediate replenishment required.</div>';
+            }
+            if (lowStock.length > 0) {
+                html += '<div class="alert alert-warning">⚠️ <strong>' + lowStock.length + ' PHUs</strong> are running low on ITN stock and need replenishment soon.</div>';
+            }
+            if (stockOuts.length === 0 && lowStock.length === 0) {
+                html += '<div class="alert alert-success">✅ All PHUs have adequate ITN stock levels. No alerts at this time.</div>';
+            }
+
+            if (stockOuts.length > 0 || lowStock.length > 0) {
+                html += '<div class="table-container"><table><thead><tr><th>PHU</th><th>District</th><th>Current Stock</th><th>Bales</th><th>Min Level</th><th>Status</th><th>Action Needed</th></tr></thead><tbody>';
+
+                stockOuts.forEach(({ district, phu, data }) => {
+                    html += '<tr style="background:#fef2f2;"><td><strong>' + phu + '</strong></td><td>' + district + '</td><td style="color:var(--danger);font-weight:700;">0</td><td>0</td><td>' + data.minLevel + '</td><td><span class="badge badge-danger">STOCK OUT</span></td><td>Urgent replenishment</td></tr>';
+                });
+
+                lowStock.forEach(({ district, phu, data }) => {
+                    html += '<tr style="background:#fffbeb;"><td><strong>' + phu + '</strong></td><td>' + district + '</td><td style="color:var(--warning);font-weight:700;">' + data.currentStock + '</td><td>' + data.currentBales + '</td><td>' + data.minLevel + '</td><td><span class="badge badge-warning">LOW STOCK</span></td><td>Plan replenishment</td></tr>';
+                });
+
+                html += '</tbody></table></div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        function renderReports() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            let totalITNs = 0, totalBales = 0, totalDist = 0, totalHH = 0, totalPHUs = 0;
+            const districtReport = [];
+
+            for (const province in sierraLeoneData) {
+                for (const district in sierraLeoneData[province]) {
+                    const phuStock = campaign.phuStock[district] || {};
+                    let distStock = 0, distBales = 0, distDist = 0, distHH = 0, distPHUs = 0;
+
+                    sierraLeoneData[province][district].phus.forEach(phu => {
+                        if (phuStock[phu]) {
+                            distStock += phuStock[phu].currentStock;
+                            distBales += phuStock[phu].currentBales;
+                            distDist += phuStock[phu].distributed;
+                            distHH += phuStock[phu].householdsReached;
+                            distPHUs++;
+                        }
+                    });
+
+                    totalITNs += distStock + distDist;
+                    totalBales += distBales;
+                    totalDist += distDist;
+                    totalHH += distHH;
+                    totalPHUs += distPHUs;
+
+                    const coverage = (distStock + distDist) > 0 ? Math.round((distDist / (distStock + distDist)) * 100) : 0;
+
+                    let status = '<span class="badge badge-success">On Track</span>';
+                    if (distStock === 0 && distDist === 0) status = '<span class="badge badge-info">Not Started</span>';
+                    else if (coverage >= 80) status = '<span class="badge badge-success">Complete</span>';
+                    else if (coverage >= 50) status = '<span class="badge badge-warning">In Progress</span>';
+
+                    districtReport.push({
+                        district, province, chiefdoms: sierraLeoneData[province][district].chiefdoms.length,
+                        phus: distPHUs, bales: distBales, allocated: distStock + distDist, distributed: distDist,
+                        remaining: distStock, coverage, status
+                    });
+                }
+            }
+
+            document.getElementById('reportTotalITNs').textContent = totalITNs.toLocaleString();
+            document.getElementById('reportTotalBales').textContent = totalBales.toLocaleString();
+            document.getElementById('reportDistributed').textContent = totalDist.toLocaleString();
+            document.getElementById('reportRemaining').textContent = (totalITNs - totalDist).toLocaleString();
+            document.getElementById('reportCoverage').textContent = totalITNs > 0 ? Math.round((totalDist / totalITNs) * 100) + '%' : '0%';
+            document.getElementById('reportHouseholds').textContent = totalHH.toLocaleString();
+
+            const tbody = document.getElementById('reportsTable');
+            tbody.innerHTML = districtReport.map(r => `
+                <tr>
+                    <td><strong>${r.district}</strong></td>
+                    <td>${r.province}</td>
+                    <td>${r.chiefdoms}</td>
+                    <td>${r.phus}</td>
+                    <td>${r.bales.toLocaleString()}</td>
+                    <td>${r.allocated.toLocaleString()}</td>
+                    <td>${r.distributed.toLocaleString()}</td>
+                    <td>${r.remaining.toLocaleString()}</td>
+                    <td>
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <div class="progress-bar" style="width:60px;"><div class="progress-fill ${r.coverage >= 80 ? 'high' : r.coverage >= 50 ? 'medium' : 'low'}" style="width:${r.coverage}%"></div></div>
+                            <span style="font-size:0.75rem;">${r.coverage}%</span>
+                        </div>
+                    </td>
+                    <td>${r.status}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Stats
+        function updateStats() {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) return;
+
+            let totalDist = 0, totalPHUs = 0, totalChiefdoms = 0, lowStock = 0, stockOut = 0;
+
+            for (const province in sierraLeoneData) {
+                for (const district in sierraLeoneData[province]) {
+                    totalChiefdoms += sierraLeoneData[province][district].chiefdoms.length;
+                    const phuStock = campaign.phuStock[district] || {};
+
+                    sierraLeoneData[province][district].phus.forEach(phu => {
+                        if (phuStock[phu]) {
+                            totalPHUs++;
+                            totalDist += phuStock[phu].distributed;
+                            if (phuStock[phu].currentStock === 0) stockOut++;
+                            else if (phuStock[phu].currentStock < phuStock[phu].minLevel) lowStock++;
+                        }
+                    });
+                }
+            }
+
+            document.getElementById('statDistributed').textContent = totalDist.toLocaleString();
+            document.getElementById('statChiefdoms').textContent = totalChiefdoms;
+            document.getElementById('statPHUs').textContent = totalPHUs;
+            document.getElementById('statLowStock').textContent = lowStock;
+            document.getElementById('statStockOut').textContent = stockOut;
+        }
+
+        // UI Helpers
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+
+            if (tabName === 'alerts') renderAlerts();
+            if (tabName === 'reports') renderReports();
+            if (tabName === 'movements') renderMovements();
+        }
+
+        function filterHierarchy() {
+            renderHierarchy();
+        }
+
+        function filterPHUStock() {
+            renderPHUStock();
+        }
+
+        function toggleSelectAllPHU() {
+            const checkboxes = document.querySelectorAll('#phuStockTable input[type="checkbox"]');
+            const selectAll = document.getElementById('selectAllPHU');
+            checkboxes.forEach(cb => cb.checked = selectAll.checked);
+        }
+
+        function togglePHUSelect(phu) {
+            if (selectedPHUs.has(phu)) selectedPHUs.delete(phu);
+            else selectedPHUs.add(phu);
+        }
+
+        function updatePHUSelects() {
+            const allPHUs = [];
+            for (const province in sierraLeoneData) {
+                for (const district in sierraLeoneData[province]) {
+                    sierraLeoneData[province][district].phus.forEach(phu => {
+                        allPHUs.push(phu);
+                    });
+                }
+            }
+            allPHUs.sort();
+
+            ['stockInPHU', 'stockOutPHU', 'movFrom', 'movTo'].forEach(id => {
+                const select = document.getElementById(id);
+                const currentVal = select.value;
+                select.innerHTML = '<option value="">-- Select PHU --</option>' +
+                    allPHUs.map(p => '<option value="' + p + '">' + p + '</option>').join('');
+                if (allPHUs.includes(currentVal)) select.value = currentVal;
+            });
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+
+            // Initialize validation state - buttons enabled by default
+            if (id === 'distributionModal') {
+                document.getElementById('distSubmitBtn').disabled = false;
+                validateDistributionCalc();
+            }
+            if (id === 'stockInModal') {
+                document.getElementById('stockInSubmitBtn').disabled = false;
+                validateStockInCalc();
+            }
+            if (id === 'stockOutModal') {
+                document.getElementById('stockOutSubmitBtn').disabled = false;
+                validateStockOutCalc();
+            }
+            if (id === 'movementModal') {
+                document.getElementById('movSubmitBtn').disabled = false;
+                validateMovementCalc();
+            }
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function updateCampaignSelect() {
+            const select = document.getElementById('campaignSelect');
+            const currentVal = select.value;
+            select.innerHTML = '<option value="">-- Select ITN Campaign --</option>' +
+                campaigns.map(c => '<option value="' + c.id + '">' + c.name + ' (' + c.code + ')</option>').join('');
+            if (campaigns.find(c => c.id === currentVal)) select.value = currentVal;
+        }
+
+        function saveData() {
+            localStorage.setItem('itnCampaigns', JSON.stringify(campaigns));
+        }
+
+        function exportData(format) {
+            const campaign = campaigns.find(c => c.id === currentCampaignId);
+            if (!campaign) {
+                alert('Please select a campaign first');
+                return;
+            }
+
+            if (format === 'csv') {
+                let csv = 'District,Chiefdom,PHU,Type,Current Stock (ITNs),Current Bales,Pieces per Bale,Min Level,Distributed (ITNs),Distributed Bales,Households Reached,Last Updated\n';
+                for (const district in campaign.phuStock) {
+                    for (const phu in campaign.phuStock[district]) {
+                        const d = campaign.phuStock[district][phu];
+                        const phuType = phu.includes('CHC') ? 'CHC' : phu.includes('CHP') ? 'CHP' : 'MCHP';
+                        csv += '"' + district + '","","' + phu + '","' + phuType + '",' + d.currentStock + ',' + d.currentBales + ',' + d.pcsPerBale + ',' + d.minLevel + ',' + d.distributed + ',' + d.distributedBales + ',' + d.householdsReached + ',"' + (d.lastUpdated ? new Date(d.lastUpdated).toLocaleDateString() : '') + '"\n';
+                    }
+                }
+
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = campaign.code + '_ITN_Stock.csv';
+                a.click();
+                URL.revokeObjectURL(url);
+            } else if (format === 'json') {
+                const data = { campaign, exportedAt: new Date().toISOString() };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = campaign.code + '_ITN_Data.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        // Close modals on outside click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+            }
+        });
+    </script>
+</body>
+</html>
